@@ -1,0 +1,55 @@
+# Auto-CRLF setting.
+* text eol=crlf
+
+# Declare file types.
+# The - is a negation symbol, so  -text it means"not" text
+*.exe binary
+*.msv binary
+*.frx binary
+*.ico binary
+*.png binary
+*.gif binary
+*.jpg binary
+*.gif binary
+*.bmp binary
+*.mcl binary
+*.ind binary
+*.con binary
+*.bin binary
+*.mid binary
+*.mp3 binary
+*.wav binary
+*.ao binary
+*.AO binary
+*.ocx binary
+*.OCX binary
+*.map binary
+*.inf binary
+*.csm binary
+*.res binary
+*.RES binary
+*.frx binary
+*.exe binary
+*.dll binary
+*.DLL binary
+*.ico binary
+*.gif binary
+*.ocx binary
+*.tlb binary
+*.ocx.bin binary
+*.ism binary
+*.bin binary
+*.aps binary
+*.ncb binary
+*.exe.compat binary
+*.ocx.compat binary
+
+# Declare encoding and file type
+.manifest text
+.rc text
+*.bas text working-tree-encoding=windows-1252
+*.cls text working-tree-encoding=windows-1252
+*.vbp text working-tree-encoding=windows-1252
+*.frm text working-tree-encoding=windows-1252
+*.json text working-tree-encoding=windows-1252
+*.dat text working-tree-encoding=windows-1252
