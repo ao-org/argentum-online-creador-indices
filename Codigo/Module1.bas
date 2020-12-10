@@ -191,23 +191,16 @@ Public Sub Delete_File(ByVal file_path As String)
     
     On Error GoTo Error_Handler
     
+    Dim handle As Integer
+    
     'We open the file to delete
     handle = FreeFile
-    Open file_path For Binary Access Write Lock Read As handle
-    
-    'We replace all the bytes in it with 0s
-    ReDim data(LOF(handle) - 1)
-    Put handle, 1, data
-    
-    'We close the file
+    Open OutputFile For Output As handle
     Close handle
-    
-    'Now we delete it, knowing that if they retrieve it (some antivirus may create backup copies of deleted files), it will be useless
-    Kill file_path
-    
+
     Exit Sub
     
 Error_Handler:
-    Kill file_path
+    Close handle
         
 End Sub

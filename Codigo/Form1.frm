@@ -115,9 +115,8 @@ Private Sub Command1_Click()
     Dim Raza    As Integer
     Dim numobjs As Long
 
-    If FileExist(App.Path & "\Recursos\init\localindex.dat", vbNormal) Then
-
-        '    Delete_File App.Path & "\Recursos\init\localindex.dat"
+    If FileExist(OutputFile, vbNormal) Then
+        Clean_File OutputFile
     End If
 
     If FileExist(App.Path & "\Recursos\Dat\obj.dat", vbNormal) Then
