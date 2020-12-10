@@ -1,6 +1,8 @@
 Attribute VB_Name = "Module1"
 Option Explicit
 
+Public OutputFile As String
+
 Public ObjFile       As String
 Public NpcFile       As String
 Public ObjData()     As ObjDatas
@@ -8,6 +10,7 @@ Public NpcData()     As NpcDatas
 Public HechizoData() As HechizoDatas
 Public MapName()     As String
 Public MapDesc()     As String
+
 Public Declare Function writeprivateprofilestring Lib "kernel32" Alias "WritePrivateProfileStringA" (ByVal lpApplicationname As String, ByVal lpKeyname As Any, ByVal lpString As String, ByVal lpFileName As String) As Long
 Public Declare Function getprivateprofilestring Lib "kernel32" Alias "GetPrivateProfileStringA" (ByVal lpApplicationname As String, ByVal lpKeyname As Any, ByVal lpdefault As String, ByVal lpreturnedstring As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
 
@@ -180,15 +183,12 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 
 End Function
 
-Public Sub Delete_File(ByVal file_path As String)
+Public Sub Clean_File(ByVal file_path As String)
     '*****************************************************************
     'Author: Juan Martín Dotuyo Dodero
-    'Last Modify Date: 3/03/2005
-    'Deletes a resource files
+    'Last Modify Date: 10/12/2020 (Jopi)
+    'Wipe out the contents of the file
     '*****************************************************************
-    Dim handle As Integer
-    Dim data() As Byte
-    
     On Error GoTo Error_Handler
     
     Dim handle As Integer

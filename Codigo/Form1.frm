@@ -129,12 +129,11 @@ Private Sub Command1_Click()
         ReDim ObjData(1 To numobjs) As ObjDatas
 
         Dim Leer As New clsIniReader
-
         Call Leer.Initialize(ObjFile)
     
         For Obj = 1 To numobjs
-        
             DoEvents
+            
             ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "grhindex"))
             ObjData(Obj).Name = Leer.GetValue("OBJ" & Obj, "Name")
             ObjData(Obj).MINDEF = Val(Leer.GetValue("OBJ" & Obj, "MinDef"))
@@ -161,31 +160,22 @@ Private Sub Command1_Click()
             ObjData(Obj).SkPociones = Val(Leer.GetValue("OBJ" & Obj, "SkPociones"))
             ObjData(Obj).Sksastreria = Val(Leer.GetValue("OBJ" & Obj, "Sksastreria"))
             ObjData(Obj).Valor = Val(Leer.GetValue("OBJ" & Obj, "Valor"))
+            
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & Obj & "/" & numobjs
         Next Obj
     
         Obj = 1
-        Dim arch As String
-        arch = App.Path & "\Recursos\init\" & "localindex.dat"
-    
-        Dim Manager  As clsIniReader
-        Dim UserFile As String
-        UserFile = arch
 
+        Dim Manager  As clsIniReader
         Set Manager = New clsIniReader
-        
-        Call Manager.Initialize(UserFile)
+        Call Manager.Initialize(OutputFile)
     
         Call Manager.ChangeValue("INIT", "NumOBJs", numobjs)
-        'Call Manager.ChangeValue("FLAGS", "Escondido", CByte(.flags.Escondido))
-    
-        ' Call WriteVar(arch, "INIT", "NumOBJs", numobjs)
+
         For Obj = 1 To numobjs
             DoEvents
-        
-            'Call Escribir.ChangeValue("INIT", "NumOBJs", numobjs)
-
+            
             Call Manager.ChangeValue("OBJ" & Obj, "GrhIndex", ObjData(Obj).grhindex)
             Call Manager.ChangeValue("OBJ" & Obj, "Name", ObjData(Obj).Name)
         
@@ -214,22 +204,22 @@ Private Sub Command1_Click()
 
             End If
                 
-            If ObjData(Obj).texto <> "" Then
+            If Len(ObjData(Obj).texto) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Texto", ObjData(Obj).texto)
 
             End If
         
-            If ObjData(Obj).Info <> "" Then
+            If Len(ObjData(Obj).Info) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Info", ObjData(Obj).Info)
 
             End If
         
-            If ObjData(Obj).CreaLuz <> "" Then
+            If Len(ObjData(Obj).CreaLuz) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "CreaLuz", ObjData(Obj).CreaLuz)
 
             End If
 
-            If ObjData(Obj).CreaGRH <> "" Then
+            If Len(ObjData(Obj).CreaGRH) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "CreaGRH", ObjData(Obj).CreaGRH)
 
             End If
@@ -336,31 +326,30 @@ Private Sub Command1_Click()
         Dim aux As String
 
         For Npc = 1 To numnpcs
-        
             DoEvents
+            
             NpcData(Npc).Name = Leer.GetValue("npc" & Npc, "Name")
-
             NpcData(Npc).desc = Leer.GetValue("npc" & Npc, "desc")
             NpcData(Npc).Body = Val(Leer.GetValue("npc" & Npc, "Body"))
             NpcData(Npc).Exp = Val(Leer.GetValue("npc" & Npc, "GiveEXP"))
             NpcData(Npc).Head = Val(Leer.GetValue("npc" & Npc, "Head"))
             NpcData(Npc).Hp = Val(Leer.GetValue("npc" & Npc, "MaxHP"))
-        
             NpcData(Npc).MaxHit = Val(Leer.GetValue("npc" & Npc, "MaxHit"))
             NpcData(Npc).MinHit = Val(Leer.GetValue("npc" & Npc, "MinHit"))
             NpcData(Npc).Oro = Val(Leer.GetValue("npc" & Npc, "GiveGLD"))
-        
             NpcData(Npc).ExpClan = Val(Leer.GetValue("npc" & Npc, "GiveEXPClan"))
         
             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
 
             If aux = 0 Then
                 NpcData(Npc).NumQuiza = 0
+                
             Else
+            
                 NpcData(Npc).NumQuiza = Val(aux)
                 ReDim NpcData(Npc).QuizaDropea(1 To NpcData(Npc).NumQuiza) As Integer
-                Dim LoopC As Integer
-
+                
+                Dim LoopC As Long
                 For LoopC = 1 To NpcData(Npc).NumQuiza
                     NpcData(Npc).QuizaDropea(LoopC) = Val(Leer.GetValue("npc" & Npc, "QuizaDropea" & LoopC))
                 Next LoopC
@@ -373,17 +362,15 @@ Private Sub Command1_Click()
     
         Npc = 1
     
-        'arch = App.Path & "\Recursos\init\" & "localindex.dat"
-    
         Call Manager.ChangeValue("INIT", "NumNPCs", numnpcs)
     
         For Npc = 1 To numnpcs
             DoEvents
 
-            If NpcData(Npc).Name <> "" Then
+            If Len(NpcData(Npc).Name) <> 0 Then
                 Call Manager.ChangeValue("Npc" & Npc, "Name", NpcData(Npc).Name)
             
-                If NpcData(Npc).desc <> "" Then
+                If Len(NpcData(Npc).desc) <> 0 Then
                     Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).desc)
 
                 End If
@@ -456,7 +443,6 @@ Private Sub Command1_Click()
         numhechizos = Val(GetVar(hechizosFile, "INIT", "NumeroHechizos"))
 
         Dim hechic As New clsIniReader
-
         Call hechic.Initialize(hechizosFile)
 
         Label3.Caption = "0/" & numhechizos
@@ -464,8 +450,8 @@ Private Sub Command1_Click()
         ReDim HechizoData(1 To numhechizos) As HechizoDatas
     
         For hechizo = 1 To numhechizos
-        
             DoEvents
+            
             HechizoData(hechizo).Nombre = hechic.GetValue("Hechizo" & hechizo, "Nombre")
             HechizoData(hechizo).desc = hechic.GetValue("Hechizo" & hechizo, "desc")
             HechizoData(hechizo).PalabrasMagicas = hechic.GetValue("Hechizo" & hechizo, "PalabrasMagicas")
@@ -485,6 +471,7 @@ Private Sub Command1_Click()
     
         For hechizo = 1 To numhechizos
             DoEvents
+            
             Call Manager.ChangeValue("Hechizo" & hechizo, "Nombre", HechizoData(hechizo).Nombre)
             Call Manager.ChangeValue("Hechizo" & hechizo, "Desc", HechizoData(hechizo).desc)
             Call Manager.ChangeValue("Hechizo" & hechizo, "PalabrasMagicas", HechizoData(hechizo).PalabrasMagicas)
@@ -503,23 +490,22 @@ Private Sub Command1_Click()
     End If
     
     If FileExist(App.Path & "\Recursos\init\LocalMsg.ind", vbNormal) Then
+        
         Dim MsgFile As String
-    
-        MsgFile = App.Path & "\Recursos\init\LocalMsg.ind"
+            MsgFile = App.Path & "\Recursos\init\LocalMsg.ind"
 
         Dim Msgsss As New clsIniReader
-
         Call Msgsss.Initialize(MsgFile)
 
-        numnpcs = Msgsss.GetValue("INIT", "NumLocaleMsg")
+        numnpcs = Val(Msgsss.GetValue("INIT", "NumLocaleMsg"))
 
-        Label3.Caption = "0/" & numnpcs
+        Label3.Caption = "0/" & CStr(numnpcs)
 
         ReDim arrLocale_SMG(1 To numnpcs) As String
     
         For Npc = 1 To numnpcs
-        
             DoEvents
+            
             arrLocale_SMG(Npc) = Msgsss.GetValue("msg", "Msg" & Npc)
         
             Label3.ForeColor = vbRed
@@ -545,12 +531,11 @@ Private Sub Command1_Click()
     End If
 
     If FileExist(App.Path & "\Recursos\init\NameMapa.dat", vbNormal) Then
+        
         Dim MapFile As String
-    
-        MapFile = App.Path & "\Recursos\init\NameMapa.dat"
+            MapFile = App.Path & "\Recursos\init\NameMapa.dat"
 
         Dim Mapa As New clsIniReader
-
         Call Mapa.Initialize(MapFile)
 
         Label3.Caption = "0/" & 306
@@ -594,9 +579,9 @@ Private Sub Command1_Click()
         MapFile = App.Path & "\Recursos\Dat\Quests.DAT"
 
         Call Mapa.Initialize(MapFile)
+        
         Dim nunquest As Integer
-
-        nunquest = Mapa.GetValue("INIT", "NumQuests")
+            nunquest = Mapa.GetValue("INIT", "NumQuests")
 
         Label3.Caption = "0/" & nunquest
 
@@ -610,8 +595,8 @@ Private Sub Command1_Click()
         ReDim RequiredLevel(1 To nunquest) As Integer
     
         For Npc = 1 To nunquest
-        
             DoEvents
+            
             QuestName(Npc) = Mapa.GetValue("QUEST" & Npc, "Nombre")
             QuestDesc(Npc) = Mapa.GetValue("QUEST" & Npc, "Desc")
         
@@ -657,17 +642,17 @@ Private Sub Command1_Click()
         MapFile = App.Path & "\Recursos\init\sugerencias.ini"
 
         Call Mapa.Initialize(MapFile)
+        
         Dim NumSug As Integer
+            NumSug = Val(Mapa.GetValue("Sugerencias", "NumSugerencias"))
 
-        NumSug = Mapa.GetValue("Sugerencias", "NumSugerencias")
-
-        Label3.Caption = "0/" & NumSug
+        Label3.Caption = "0/" & CStr(NumSug)
 
         ReDim Sugerencia(1 To NumSug) As String
     
         For Npc = 1 To NumSug
-        
             DoEvents
+            
             Sugerencia(Npc) = Mapa.GetValue("Sugerencias", "Sugerencia" & Npc)
         
             Label3.ForeColor = vbRed
@@ -727,7 +712,8 @@ Private Sub Command1_Click()
     
     Set Leer = Nothing
        
-    Call Manager.DumpFile(arch)
+    Call Manager.DumpFile(OutputFile)
+    
     Set Manager = Nothing
     
     Label3.ForeColor = vbGreen
@@ -738,4 +724,10 @@ End Sub
 Private Sub Command2_Click()
     Form2.Show
 
+End Sub
+
+Private Sub Form_Load()
+    
+    OutputFile = App.Path & "\Recursos\init\localindex.dat"
+    
 End Sub
