@@ -98,7 +98,7 @@ End Type
 Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepASCII As Byte) As String
     '*****************************************************************
     'Gets a field from a delimited string
-    'Author: Juan Martín Sotuyo Dodero (Maraxus)
+    'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
     'Last Modify Date: 11/15/2004
     '*****************************************************************
     Dim i          As Long
@@ -125,7 +125,7 @@ End Function
 Function FieldCount(ByRef Text As String, ByVal SepASCII As Byte) As Long
     '*****************************************************************
     'Gets the number of fields in a delimited string
-    'Author: Juan Martín Sotuyo Dodero (Maraxus)
+    'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
     'Last Modify Date: 07/29/2007
     '*****************************************************************
     Dim count     As Long
@@ -182,7 +182,7 @@ End Function
 
 Public Sub Delete_File(ByVal file_path As String)
     '*****************************************************************
-    'Author: Juan Martín Dotuyo Dodero
+    'Author: Juan MartÃ­n Dotuyo Dodero
     'Last Modify Date: 3/03/2005
     'Deletes a resource files
     '*****************************************************************
