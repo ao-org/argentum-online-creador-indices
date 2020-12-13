@@ -680,7 +680,7 @@ Private Sub Command1_Click()
     Dim ListaRazas(1 To NUMRAZAS) As String
     ListaRazas(1) = "Humano"
     ListaRazas(2) = "Elfo"
-    ListaRazas(3) = "Elfo Drow"
+    ListaRazas(3) = "Elfo Oscuro"
     ListaRazas(4) = "Gnomo"
     ListaRazas(5) = "Enano"
     'ListaRazas(6) = "Orco"
