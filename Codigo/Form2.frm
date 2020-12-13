@@ -106,7 +106,7 @@ Private Sub Command1_Click()
 
     End If
 
-    arrLocale_SMG(ReadField(1, List1.List(List1.ListIndex), "-")) = Text1.Text
+    arrLocale_SMG(Val(ReadField(1, List1.List(List1.ListIndex), 45))) = Text1.Text
     Call Command3_Click
 
 End Sub
