@@ -489,10 +489,10 @@ Private Sub Command1_Click()
 
     End If
     
-    If FileExist(App.Path & "\Recursos\init\LocalMsg.ind", vbNormal) Then
+    If FileExist(App.Path & "\Recursos\init\LocalMsg.dat", vbNormal) Then
         
         Dim MsgFile As String
-            MsgFile = App.Path & "\Recursos\init\LocalMsg.ind"
+            MsgFile = App.Path & "\Recursos\init\LocalMsg.dat"
 
         Dim Msgsss As New clsIniReader
         Call Msgsss.Initialize(MsgFile)
@@ -526,7 +526,7 @@ Private Sub Command1_Click()
         Next Npc
 
     Else
-        MsgBox "Falta el archivo LocalMsg.ind dentro de la carpeta dats."
+        MsgBox "Falta el archivo LocalMsg.dat dentro de la carpeta dats."
 
     End If
 

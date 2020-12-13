@@ -114,7 +114,7 @@ End Sub
 Private Sub Command2_Click()
     Dim arch As String
     Dim msg  As Integer
-    arch = App.Path & "\Recursos\init\" & "LocalMsg.ind"
+    arch = App.Path & "\Recursos\init\" & "LocalMsg.dat"
     
     Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
     
@@ -158,9 +158,9 @@ Private Sub Command4_Click()
     List1.Clear
     Dim i As Integer
 
-    If FileExist(App.Path & "\Recursos\init\LocalMsg.ind", vbNormal) Then
+    If FileExist(App.Path & "\Recursos\init\LocalMsg.dat", vbNormal) Then
 
-        MsgFile = App.Path & "\Recursos\init\LocalMsg.ind"
+        MsgFile = App.Path & "\Recursos\init\LocalMsg.dat"
         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
 
         Filtro.Text = ""
@@ -186,9 +186,9 @@ End Sub
 Private Sub Form_Load()
     Dim i As Integer
 
-    If FileExist(App.Path & "\Recursos\init\LocalMsg.ind", vbNormal) Then
+    If FileExist(App.Path & "\Recursos\init\LocalMsg.dat", vbNormal) Then
 
-        MsgFile = App.Path & "\Recursos\init\LocalMsg.ind"
+        MsgFile = App.Path & "\Recursos\init\LocalMsg.dat"
         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
 
         ReDim arrLocale_SMG(1 To NumMsg) As String

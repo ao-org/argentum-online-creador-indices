@@ -12,7 +12,7 @@ Public Function Load_Locales() As Boolean
     Dim intFile As Integer
     Dim i       As Long
 
-    strFile = App.Path & "\Recursos\init\localmsg.ind"
+    strFile = App.Path & "\Recursos\init\localmsg.dat"
 
     ReDim arrLocale_SMG(1 To General_Get_Line_Count(strFile)) As String
     
