@@ -603,9 +603,9 @@ Private Sub Command1_Click()
             QuestFin(Npc) = Mapa.GetValue("QUEST" & Npc, "DescFinal")
             QuestNext(Npc) = Mapa.GetValue("QUEST" & Npc, "NextQuest")
         
-            QuestPos(Npc) = Mapa.GetValue("QUEST" & Npc, "PosMap")
+            QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
         
-            RequiredLevel(Npc) = Mapa.GetValue("QUEST" & Npc, "RequiredLevel")
+            RequiredLevel(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "RequiredLevel"))
         
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
