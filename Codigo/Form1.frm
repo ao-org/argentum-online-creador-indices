@@ -149,6 +149,7 @@ Private Sub Command1_Click()
             ObjData(Obj).Proyectil = Val(Leer.GetValue("OBJ" & Obj, "Proyectil"))
             ObjData(Obj).Raices = Val(Leer.GetValue("OBJ" & Obj, "Raices"))
             ObjData(Obj).Madera = Val(Leer.GetValue("OBJ" & Obj, "Madera"))
+            ObjData(Obj).MaderaElfica = Val(Leer.GetValue("OBJ" & Obj, "MaderaElfica"))
             ObjData(Obj).PielLobo = Val(Leer.GetValue("OBJ" & Obj, "PielLobo"))
             ObjData(Obj).PielOsoPardo = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPardo"))
             ObjData(Obj).PielOsoPolar = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPolar"))
@@ -229,8 +230,14 @@ Private Sub Command1_Click()
 
             End If
         
+            
             If ObjData(Obj).Madera <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Madera", ObjData(Obj).Madera)
+
+            End If
+            
+            If ObjData(Obj).MaderaElfica <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "MaderaElfica", ObjData(Obj).MaderaElfica)
 
             End If
 

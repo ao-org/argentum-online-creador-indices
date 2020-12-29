@@ -51,6 +51,7 @@ Public Type ObjDatas
     CreaGRH  As String
     Raices As Integer
     Madera As Integer
+    MaderaElfica As Integer
     PielLobo As Integer
     PielOsoPardo As Integer
     PielOsoPolar As Integer
