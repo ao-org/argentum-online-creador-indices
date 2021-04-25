@@ -64,6 +64,7 @@ Public Type ObjDatas
     SkPociones As Byte
     Sksastreria As Byte
     Valor As Long
+    Agarrable As Boolean
 
 End Type
 

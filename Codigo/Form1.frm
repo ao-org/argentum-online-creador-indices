@@ -161,6 +161,7 @@ Private Sub Command1_Click()
             ObjData(Obj).SkPociones = Val(Leer.GetValue("OBJ" & Obj, "SkPociones"))
             ObjData(Obj).Sksastreria = Val(Leer.GetValue("OBJ" & Obj, "Sksastreria"))
             ObjData(Obj).Valor = Val(Leer.GetValue("OBJ" & Obj, "Valor"))
+            ObjData(Obj).Agarrable = Val(Leer.GetValue("OBJ" & Obj, "Agarrable"))
             
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & Obj & "/" & numobjs
@@ -294,6 +295,10 @@ Private Sub Command1_Click()
             If ObjData(Obj).Valor <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Valor", ObjData(Obj).Valor)
 
+            End If
+            
+            If ObjData(Obj).Agarrable Then
+                Call Manager.ChangeValue("OBJ" & Obj, "Agarrable", 1)
             End If
         
             If ObjData(Obj).CreaParticulaPiso > 0 Then
