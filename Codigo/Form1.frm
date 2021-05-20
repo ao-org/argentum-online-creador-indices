@@ -738,8 +738,32 @@ Private Sub Command2_Click()
 
 End Sub
 
-Private Sub Form_Load()
+Public Sub LeerLineaComandos()
+    Dim rdata As String
+    rdata = Command
     
+    Dim FileTypeName As String
+    Dim FileTypeIndex As Integer
+      
+    FileTypeName = ReadField(1, rdata, Asc("*")) ' File Type Name
+
+    If Len(FileTypeName) > 0 Then
+    
+        FileTypeName = UCase(FileTypeName)
+        
+        Select Case FileTypeName
+            Case Is = "CREAR_ARCHIVO"
+                Call Command1_Click
+            End Select
+        End
+    
+    End If
+
+End Sub
+
+Private Sub Form_Load()
     OutputFile = App.Path & "\Recursos\init\localindex.dat"
     
+    ' Leer argumentos
+    Call LeerLineaComandos
 End Sub
