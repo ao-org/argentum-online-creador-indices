@@ -81,6 +81,7 @@ Public Type NpcDatas
     MinHit As Integer
     MaxHit As Integer
     NumQuiza As Byte
+    PuedeInvocar As Byte
     QuizaDropea() As Integer
 
 End Type

@@ -350,6 +350,7 @@ Private Sub Command1_Click()
             NpcData(Npc).MinHit = Val(Leer.GetValue("npc" & Npc, "MinHit"))
             NpcData(Npc).Oro = Val(Leer.GetValue("npc" & Npc, "GiveGLD"))
             NpcData(Npc).ExpClan = Val(Leer.GetValue("npc" & Npc, "GiveEXPClan"))
+            NpcData(Npc).PuedeInvocar = Val(Leer.GetValue("npc" & Npc, "PuedeInvocar"))
         
             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
 
@@ -434,6 +435,10 @@ Private Sub Command1_Click()
                         Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
                     Next LoopC
                 
+                End If
+                
+                If NpcData(Npc).PuedeInvocar <> 0 Then
+                    Call Manager.ChangeValue("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
                 End If
             
             End If
