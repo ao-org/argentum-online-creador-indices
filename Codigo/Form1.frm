@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   4  'Fixed ToolWindow
-   Caption         =   "RevolucionAO"
+   Caption         =   "Creador de indices"
    ClientHeight    =   2355
    ClientLeft      =   165
    ClientTop       =   855
@@ -119,9 +119,9 @@ Private Sub Command1_Click()
         Clean_File OutputFile
     End If
 
-    If FileExist(App.Path & "\Recursos\Dat\obj.dat", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\Dat\obj.dat", vbNormal) Then
 
-        ObjFile = App.Path & "\Recursos\Dat\obj.dat"
+        ObjFile = App.Path & "\..\Recursos\Dat\obj.dat"
         numobjs = Val(GetVar(ObjFile, "INIT", "NumOBJs"))
 
         Label3.Caption = "0/" & numobjs
@@ -322,9 +322,9 @@ Private Sub Command1_Click()
 
     End If
 
-    If FileExist(App.Path & "\Recursos\Dat\npcs.dat", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\Dat\npcs.dat", vbNormal) Then
 
-        NpcFile = App.Path & "\Recursos\Dat\npcs.dat"
+        NpcFile = App.Path & "\..\Recursos\Dat\npcs.dat"
 
         Call Leer.Initialize(NpcFile)
 
@@ -453,10 +453,10 @@ Private Sub Command1_Click()
 
     End If
     
-    If FileExist(App.Path & "\Recursos\Dat\hechizos.dat", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\Dat\hechizos.dat", vbNormal) Then
 
         Dim hechizosFile As String, numhechizos As Long
-        hechizosFile = App.Path & "\Recursos\Dat\hechizos.dat"
+        hechizosFile = App.Path & "\..\Recursos\Dat\hechizos.dat"
         numhechizos = Val(GetVar(hechizosFile, "INIT", "NumeroHechizos"))
 
         Dim hechic As New clsIniReader
@@ -506,10 +506,10 @@ Private Sub Command1_Click()
 
     End If
     
-    If FileExist(App.Path & "\Recursos\init\LocalMsg.dat", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
         
         Dim MsgFile As String
-            MsgFile = App.Path & "\Recursos\init\LocalMsg.dat"
+            MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
 
         Dim Msgsss As New clsIniReader
         Call Msgsss.Initialize(MsgFile)
@@ -547,10 +547,10 @@ Private Sub Command1_Click()
 
     End If
 
-    If FileExist(App.Path & "\Recursos\init\NameMapa.dat", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\init\NameMapa.dat", vbNormal) Then
         
         Dim MapFile As String
-            MapFile = App.Path & "\Recursos\init\NameMapa.dat"
+            MapFile = App.Path & "\..\Recursos\init\NameMapa.dat"
 
         Dim Mapa As New clsIniReader
         Call Mapa.Initialize(MapFile)
@@ -591,9 +591,9 @@ Private Sub Command1_Click()
 
     'quest
 
-    If FileExist(App.Path & "\Recursos\Dat\Quests.DAT", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\Dat\Quests.DAT", vbNormal) Then
 
-        MapFile = App.Path & "\Recursos\Dat\Quests.DAT"
+        MapFile = App.Path & "\..\Recursos\Dat\Quests.DAT"
 
         Call Mapa.Initialize(MapFile)
         
@@ -608,6 +608,7 @@ Private Sub Command1_Click()
         ReDim QuestFin(1 To nunquest) As String
         ReDim QuestNext(1 To nunquest) As String
         ReDim QuestPos(1 To nunquest) As Integer
+        ReDim QuestRepetible(1 To nunquest) As Byte
     
         ReDim RequiredLevel(1 To nunquest) As Integer
     
@@ -619,6 +620,7 @@ Private Sub Command1_Click()
         
             QuestFin(Npc) = Mapa.GetValue("QUEST" & Npc, "DescFinal")
             QuestNext(Npc) = Mapa.GetValue("QUEST" & Npc, "NextQuest")
+            QuestRepetible(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "Repetible"))
         
             QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
         
@@ -640,6 +642,7 @@ Private Sub Command1_Click()
         
             Call Manager.ChangeValue("QUEST" & Npc, "DescFinal", QuestFin(Npc))
             Call Manager.ChangeValue("QUEST" & Npc, "NextQuest", QuestNext(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
         
             Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
         
@@ -654,9 +657,9 @@ Private Sub Command1_Click()
 
     End If
 
-    If FileExist(App.Path & "\Recursos\init\sugerencias.ini", vbNormal) Then
+    If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
 
-        MapFile = App.Path & "\Recursos\init\sugerencias.ini"
+        MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"
 
         Call Mapa.Initialize(MapFile)
         
@@ -702,7 +705,7 @@ Private Sub Command1_Click()
     ListaRazas(5) = "Enano"
     'ListaRazas(6) = "Orco"
     
-    Call Leer.Initialize(App.Path & "\Recursos\Dat\Balance.dat")
+    Call Leer.Initialize(App.Path & "\..\Recursos\Dat\Balance.dat")
     
     Dim SearchVar As String
 
@@ -767,7 +770,7 @@ Public Sub LeerLineaComandos()
 End Sub
 
 Private Sub Form_Load()
-    OutputFile = App.Path & "\Recursos\init\localindex.dat"
+    OutputFile = App.Path & "\..\Recursos\init\localindex.dat"
     
     ' Leer argumentos
     Call LeerLineaComandos

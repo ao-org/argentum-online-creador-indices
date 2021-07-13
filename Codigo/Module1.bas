@@ -32,6 +32,7 @@ Public QuestDesc()            As String
 Public QuestFin()             As String
 Public QuestNext()            As String
 Public QuestPos()             As Integer
+Public QuestRepetible()       As Byte
 
 Public RequiredLevel()        As Integer
 
