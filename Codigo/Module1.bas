@@ -66,6 +66,7 @@ Public Type ObjDatas
     Sksastreria As Byte
     Valor As Long
     Agarrable As Boolean
+    Llave As Integer
 
 End Type
 

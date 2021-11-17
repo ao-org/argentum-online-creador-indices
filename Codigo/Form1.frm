@@ -162,6 +162,7 @@ Private Sub Command1_Click()
             ObjData(Obj).Sksastreria = Val(Leer.GetValue("OBJ" & Obj, "Sksastreria"))
             ObjData(Obj).Valor = Val(Leer.GetValue("OBJ" & Obj, "Valor"))
             ObjData(Obj).Agarrable = Val(Leer.GetValue("OBJ" & Obj, "Agarrable"))
+            ObjData(Obj).Llave = Val(Leer.GetValue("OBJ" & Obj, "Llave"))
             
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & Obj & "/" & numobjs
@@ -308,6 +309,12 @@ Private Sub Command1_Click()
         
             If ObjData(Obj).Proyectil > 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Proyectil", ObjData(Obj).Proyectil)
+
+            End If
+            
+        
+            If ObjData(Obj).Llave > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "Llave", ObjData(Obj).Llave)
 
             End If
 
