@@ -710,7 +710,7 @@ Private Sub Command1_Click()
     ListaRazas(3) = "Elfo Oscuro"
     ListaRazas(4) = "Gnomo"
     ListaRazas(5) = "Enano"
-    'ListaRazas(6) = "Orco"
+    ListaRazas(6) = "Orco"
     
     Call Leer.Initialize(App.Path & "\..\Recursos\Dat\Balance.dat")
     
