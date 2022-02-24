@@ -22,7 +22,7 @@ Public Type ModRaza
     Carisma As Integer
 End Type
 
-Public Const NUMRAZAS = 5
+Public Const NUMRAZAS = 6
 Public ModRaza(1 To NUMRAZAS) As ModRaza
 
 Public Sugerencia()           As String
