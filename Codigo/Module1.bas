@@ -40,13 +40,16 @@ Public Type ObjDatas
 
     grhindex As Long ' Indice del grafico que representa el obj
     Name As String
+    texto As String
+    Info As String
+    en_Name As String
+    en_texto As String
+    en_Info As String
     MINDEF As Integer
     MaxDEF As Integer
     MinHit As Integer
     MaxHit As Integer
     ObjType As Byte
-    texto As String
-    Info As String
     CreaLuz As String
     CreaParticulaPiso As Integer
     CreaGRH  As String
@@ -74,6 +77,8 @@ Public Type NpcDatas
 
     Name As String
     desc As String
+    en_Name As String
+    en_desc As String
     Body As Integer
     Head As Integer
     Hp As Long

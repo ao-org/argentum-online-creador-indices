@@ -136,13 +136,16 @@ Private Sub Command1_Click()
             
             ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "grhindex"))
             ObjData(Obj).Name = Leer.GetValue("OBJ" & Obj, "Name")
+            ObjData(Obj).en_Name = Leer.GetValue("OBJ" & Obj, "en_Name")
+            ObjData(Obj).texto = Leer.GetValue("OBJ" & Obj, "Texto")
+            ObjData(Obj).en_texto = Leer.GetValue("OBJ" & Obj, "en_Texto")
+            ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
+            ObjData(Obj).en_Info = Leer.GetValue("OBJ" & Obj, "en_Info")
             ObjData(Obj).MINDEF = Val(Leer.GetValue("OBJ" & Obj, "MinDef"))
             ObjData(Obj).MaxDEF = Val(Leer.GetValue("OBJ" & Obj, "MaxDef"))
             ObjData(Obj).MinHit = Val(Leer.GetValue("OBJ" & Obj, "MinHit"))
             ObjData(Obj).MaxHit = Val(Leer.GetValue("OBJ" & Obj, "MaxHit"))
             ObjData(Obj).ObjType = Val(Leer.GetValue("OBJ" & Obj, "ObjType"))
-            ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
-            ObjData(Obj).texto = Leer.GetValue("OBJ" & Obj, "Texto")
             ObjData(Obj).CreaGRH = Leer.GetValue("OBJ" & Obj, "CreaGRH")
             ObjData(Obj).CreaLuz = Leer.GetValue("OBJ" & Obj, "CreaLuz")
             ObjData(Obj).CreaParticulaPiso = Val(Leer.GetValue("OBJ" & Obj, "CreaParticulaPiso"))
@@ -180,122 +183,115 @@ Private Sub Command1_Click()
             DoEvents
             
             Call Manager.ChangeValue("OBJ" & Obj, "GrhIndex", ObjData(Obj).grhindex)
-            Call Manager.ChangeValue("OBJ" & Obj, "Name", ObjData(Obj).Name)
-        
-            If ObjData(Obj).MINDEF > 0 Then
-                Call Manager.ChangeValue("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
-
+            
+            If Len(ObjData(Obj).Name) <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "Name", ObjData(Obj).Name)
             End If
-        
-            If ObjData(Obj).MaxDEF > 0 Then
-                Call Manager.ChangeValue("OBJ" & Obj, "MaxDEF", ObjData(Obj).MaxDEF)
-
-            End If
-        
-            If ObjData(Obj).MinHit > 0 Then
-                Call Manager.ChangeValue("OBJ" & Obj, "MinHIt", ObjData(Obj).MinHit)
-
-            End If
-        
-            If ObjData(Obj).MaxHit > 0 Then
-                Call Manager.ChangeValue("OBJ" & Obj, "maxhit", ObjData(Obj).MaxHit)
-
-            End If
-        
-            If ObjData(Obj).ObjType > 0 Then
-                Call Manager.ChangeValue("OBJ" & Obj, "ObjType", ObjData(Obj).ObjType)
-
-            End If
-                
+            
             If Len(ObjData(Obj).texto) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Texto", ObjData(Obj).texto)
-
             End If
         
             If Len(ObjData(Obj).Info) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Info", ObjData(Obj).Info)
-
+            End If
+            
+            'English
+            If Len(ObjData(Obj).en_Name) <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_Name)
+            End If
+            
+            If Len(ObjData(Obj).en_texto) <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "en_Texto", ObjData(Obj).en_texto)
+            End If
+        
+            If Len(ObjData(Obj).en_Info) <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "en_Info", ObjData(Obj).en_Info)
+            End If
+        
+            If ObjData(Obj).MINDEF > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
+            End If
+        
+            If ObjData(Obj).MaxDEF > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "MaxDEF", ObjData(Obj).MaxDEF)
+            End If
+        
+            If ObjData(Obj).MinHit > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "MinHIt", ObjData(Obj).MinHit)
+            End If
+        
+            If ObjData(Obj).MaxHit > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "maxhit", ObjData(Obj).MaxHit)
+            End If
+        
+            If ObjData(Obj).ObjType > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "ObjType", ObjData(Obj).ObjType)
             End If
         
             If Len(ObjData(Obj).CreaLuz) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "CreaLuz", ObjData(Obj).CreaLuz)
-
             End If
 
             If Len(ObjData(Obj).CreaGRH) <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "CreaGRH", ObjData(Obj).CreaGRH)
-
             End If
         
             If ObjData(Obj).Raices <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Raices", ObjData(Obj).Raices)
-
             End If
         
             
             If ObjData(Obj).Madera <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Madera", ObjData(Obj).Madera)
-
             End If
             
             If ObjData(Obj).MaderaElfica <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "MaderaElfica", ObjData(Obj).MaderaElfica)
-
             End If
 
             If ObjData(Obj).PielLobo <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "PielLobo", ObjData(Obj).PielLobo)
-
             End If
 
             If ObjData(Obj).PielOsoPardo <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPardo", ObjData(Obj).PielOsoPardo)
-
             End If
 
             If ObjData(Obj).PielOsoPolar <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPolar", ObjData(Obj).PielOsoPolar)
-
             End If
 
             If ObjData(Obj).LingH <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "LingH", ObjData(Obj).LingH)
-
             End If
 
             If ObjData(Obj).LingP <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "LingP", ObjData(Obj).LingP)
-
             End If
 
             If ObjData(Obj).LingO <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "LingO", ObjData(Obj).LingO)
-
             End If
         
             If ObjData(Obj).Destruye <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Destruye", ObjData(Obj).Destruye)
-
             End If
         
             If ObjData(Obj).SkHerreria <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "SkHerreria", ObjData(Obj).SkHerreria)
-
             End If
         
             If ObjData(Obj).SkPociones <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "SkPociones", ObjData(Obj).SkPociones)
-
             End If
         
             If ObjData(Obj).Sksastreria <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Sksastreria", ObjData(Obj).Sksastreria)
-
             End If
         
             If ObjData(Obj).Valor <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Valor", ObjData(Obj).Valor)
-
             End If
             
             If ObjData(Obj).Agarrable Then
@@ -309,13 +305,10 @@ Private Sub Command1_Click()
         
             If ObjData(Obj).Proyectil > 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Proyectil", ObjData(Obj).Proyectil)
-
             End If
-            
         
             If ObjData(Obj).Llave > 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Llave", ObjData(Obj).Llave)
-
             End If
 
             Label3.Caption = "Grabando: " & Obj & "/" & numobjs
@@ -328,7 +321,7 @@ Private Sub Command1_Click()
         MsgBox "Falta el archivo obj.dat dentro de la carpeta INIT."
 
     End If
-
+    
     If FileExist(App.Path & "\..\Recursos\Dat\npcs.dat", vbNormal) Then
 
         NpcFile = App.Path & "\..\Recursos\Dat\npcs.dat"
@@ -348,7 +341,9 @@ Private Sub Command1_Click()
             DoEvents
             
             NpcData(Npc).Name = Leer.GetValue("npc" & Npc, "Name")
+            NpcData(Npc).en_Name = Leer.GetValue("npc" & Npc, "en_Name")
             NpcData(Npc).desc = Leer.GetValue("npc" & Npc, "desc")
+            NpcData(Npc).en_desc = Leer.GetValue("npc" & Npc, "en_desc")
             NpcData(Npc).Body = Val(Leer.GetValue("npc" & Npc, "Body"))
             NpcData(Npc).Exp = Val(Leer.GetValue("npc" & Npc, "GiveEXP"))
             NpcData(Npc).Head = Val(Leer.GetValue("npc" & Npc, "Head"))
@@ -389,67 +384,66 @@ Private Sub Command1_Click()
 
             If Len(NpcData(Npc).Name) <> 0 Then
                 Call Manager.ChangeValue("Npc" & Npc, "Name", NpcData(Npc).Name)
-            
-                If Len(NpcData(Npc).desc) <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).desc)
-
-                End If
-            
-                If NpcData(Npc).Body <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "Body", NpcData(Npc).Body)
-
-                End If
-
-                If NpcData(Npc).Head <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "Head", NpcData(Npc).Head)
-
-                End If
-            
-                If NpcData(Npc).Exp <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "Exp", NpcData(Npc).Exp)
-
-                End If
-
-                If NpcData(Npc).Hp <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "Hp", NpcData(Npc).Hp)
-
-                End If
-
-                If NpcData(Npc).MaxHit <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "MaxHit", NpcData(Npc).MaxHit)
-
-                End If
-
-                If NpcData(Npc).MinHit <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "MinHit", NpcData(Npc).MinHit)
-
-                End If
-            
-                If NpcData(Npc).Oro <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "Oro", NpcData(Npc).Oro)
-
-                End If
-            
-                If NpcData(Npc).ExpClan <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "GiveEXPClan", NpcData(Npc).ExpClan)
-
-                End If
-            
-                If NpcData(Npc).NumQuiza <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
+            End If
                 
-                    For LoopC = 1 To NpcData(Npc).NumQuiza
-                        Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
-                    Next LoopC
+            If Len(NpcData(Npc).en_Name) <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "en_Name", NpcData(Npc).en_Name)
+            End If
                 
-                End If
-                
-                If NpcData(Npc).PuedeInvocar <> 0 Then
-                    Call Manager.ChangeValue("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
-                End If
-            
+            If Len(NpcData(Npc).en_desc) <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_desc)
+            End If
+        
+            If Len(NpcData(Npc).desc) <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).desc)
+            End If
+        
+            If NpcData(Npc).Body <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "Body", NpcData(Npc).Body)
             End If
 
+            If NpcData(Npc).Head <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "Head", NpcData(Npc).Head)
+            End If
+        
+            If NpcData(Npc).Exp <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "Exp", NpcData(Npc).Exp)
+            End If
+
+            If NpcData(Npc).Hp <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "Hp", NpcData(Npc).Hp)
+            End If
+
+            If NpcData(Npc).MaxHit <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "MaxHit", NpcData(Npc).MaxHit)
+
+            End If
+
+            If NpcData(Npc).MinHit <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "MinHit", NpcData(Npc).MinHit)
+            End If
+        
+            If NpcData(Npc).Oro <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "Oro", NpcData(Npc).Oro)
+            End If
+        
+            If NpcData(Npc).ExpClan <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "GiveEXPClan", NpcData(Npc).ExpClan)
+            End If
+        
+            If NpcData(Npc).NumQuiza <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
+            
+                For LoopC = 1 To NpcData(Npc).NumQuiza
+                    Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
+                Next LoopC
+            
+            End If
+            
+            If NpcData(Npc).PuedeInvocar <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
+            End If
+            
             Label3.Caption = "Grabando: " & Npc & "/" & numnpcs
             Label3.ForeColor = &HC0C0&
         
