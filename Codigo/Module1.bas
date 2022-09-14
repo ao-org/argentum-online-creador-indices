@@ -64,12 +64,14 @@ Public Type ObjDatas
     LingO As Integer
     Destruye As Byte
     Proyectil As Byte
+    Municiones As Byte
     SkHerreria As Byte
     SkPociones As Byte
     Sksastreria As Byte
     Valor As Long
     Agarrable As Boolean
     Llave As Integer
+    Cooldown As Long
 
 End Type
 
