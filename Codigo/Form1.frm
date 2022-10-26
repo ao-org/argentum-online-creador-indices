@@ -168,6 +168,7 @@ Private Sub Command1_Click()
             ObjData(Obj).Llave = Val(Leer.GetValue("OBJ" & Obj, "Llave"))
             ObjData(Obj).Municiones = Val(Leer.GetValue("OBJ" & Obj, "Municiones"))
             ObjData(Obj).Cooldown = Val(Leer.GetValue("OBJ" & Obj, "CD"))
+            ObjData(Obj).CdType = Val(Leer.GetValue("OBJ" & Obj, "CDType"))
             
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & Obj & "/" & numobjs
@@ -318,6 +319,9 @@ Private Sub Command1_Click()
             
             If ObjData(Obj).Cooldown > 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "CD", ObjData(Obj).Cooldown)
+            End If
+            If ObjData(Obj).CdType > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "CDType", ObjData(Obj).CdType)
             End If
 
             Label3.Caption = "Grabando: " & Obj & "/" & numobjs

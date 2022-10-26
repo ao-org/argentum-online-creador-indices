@@ -72,6 +72,7 @@ Public Type ObjDatas
     Agarrable As Boolean
     Llave As Integer
     Cooldown As Long
+    CdType As Integer
 
 End Type
 
