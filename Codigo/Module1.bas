@@ -73,7 +73,7 @@ Public Type ObjDatas
     Llave As Integer
     Cooldown As Long
     CdType As Integer
-
+    SpellIndex As Integer
 End Type
 
 Public Type NpcDatas
@@ -108,7 +108,7 @@ Public Type HechizoDatas
     ManaRequerido As Integer
     MinSkill As Byte
     IconoIndex As Long
-
+    Cooldown As Long
 End Type
 
 Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepASCII As Byte) As String

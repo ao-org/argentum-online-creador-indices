@@ -169,6 +169,7 @@ Private Sub Command1_Click()
             ObjData(Obj).Municiones = Val(Leer.GetValue("OBJ" & Obj, "Municiones"))
             ObjData(Obj).Cooldown = Val(Leer.GetValue("OBJ" & Obj, "CD"))
             ObjData(Obj).CdType = Val(Leer.GetValue("OBJ" & Obj, "CDType"))
+            ObjData(Obj).SpellIndex = Val(Leer.GetValue("OBJ" & Obj, "HechizoIndex"))
             
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & Obj & "/" & numobjs
@@ -322,6 +323,9 @@ Private Sub Command1_Click()
             End If
             If ObjData(Obj).CdType > 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "CDType", ObjData(Obj).CdType)
+            End If
+            If ObjData(Obj).SpellIndex > 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "SpellIndex", ObjData(Obj).SpellIndex)
             End If
 
             Label3.Caption = "Grabando: " & Obj & "/" & numobjs
@@ -494,6 +498,7 @@ Private Sub Command1_Click()
             HechizoData(hechizo).MinSkill = Val(hechic.GetValue("Hechizo" & hechizo, "MinSkill"))
             HechizoData(hechizo).StaRequerido = Val(hechic.GetValue("Hechizo" & hechizo, "StaRequerido"))
             HechizoData(hechizo).IconoIndex = Val(hechic.GetValue("Hechizo" & hechizo, "IconoIndex"))
+            HechizoData(hechizo).Cooldown = Val(hechic.GetValue("Hechizo" & hechizo, "Cooldown"))
             Label3.ForeColor = vbRed
             Label3.Caption = "Leyendo: " & hechizo & "/" & numhechizos
         Next hechizo
@@ -513,6 +518,7 @@ Private Sub Command1_Click()
             Call Manager.ChangeValue("Hechizo" & hechizo, "StaRequerido", HechizoData(hechizo).StaRequerido)
             Call Manager.ChangeValue("Hechizo" & hechizo, "MinSkill", HechizoData(hechizo).MinSkill)
             Call Manager.ChangeValue("Hechizo" & hechizo, "IconoIndex", HechizoData(hechizo).IconoIndex)
+            Call Manager.ChangeValue("Hechizo" & hechizo, "Cooldown", HechizoData(hechizo).Cooldown)
 
             Label3.Caption = "Grabando: " & hechizo & "/" & numhechizos
             Label3.ForeColor = &HC0C0&
