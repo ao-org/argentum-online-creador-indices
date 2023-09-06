@@ -154,6 +154,7 @@ Private Sub Command1_Click()
             ObjData(Obj).Madera = Val(Leer.GetValue("OBJ" & Obj, "Madera"))
             ObjData(Obj).MaderaElfica = Val(Leer.GetValue("OBJ" & Obj, "MaderaElfica"))
             ObjData(Obj).PielLobo = Val(Leer.GetValue("OBJ" & Obj, "PielLobo"))
+            ObjData(Obj).PielLoboNegro = Val(Leer.GetValue("OBJ" & Obj, "PielLoboNegro"))
             ObjData(Obj).PielOsoPardo = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPardo"))
             ObjData(Obj).PielOsoPolar = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPolar"))
             ObjData(Obj).LingH = Val(Leer.GetValue("OBJ" & Obj, "LingH"))
@@ -256,6 +257,10 @@ Private Sub Command1_Click()
 
             If ObjData(Obj).PielLobo <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "PielLobo", ObjData(Obj).PielLobo)
+            End If
+            
+            If ObjData(Obj).PielLoboNegro <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "PielLoboNegro", ObjData(Obj).PielLoboNegro)
             End If
 
             If ObjData(Obj).PielOsoPardo <> 0 Then
