@@ -63,6 +63,7 @@ Public Type ObjDatas
     LingH As Integer
     LingP As Integer
     LingO As Integer
+    Coal As Integer
     Destruye As Byte
     Proyectil As Byte
     Municiones As Byte

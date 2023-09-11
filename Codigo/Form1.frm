@@ -160,6 +160,7 @@ Private Sub Command1_Click()
             ObjData(Obj).LingH = Val(Leer.GetValue("OBJ" & Obj, "LingH"))
             ObjData(Obj).LingP = Val(Leer.GetValue("OBJ" & Obj, "LingP"))
             ObjData(Obj).LingO = Val(Leer.GetValue("OBJ" & Obj, "LingO"))
+            ObjData(Obj).Coal = Val(Leer.GetValue("OBJ" & Obj, "Coal"))
             ObjData(Obj).Destruye = Val(Leer.GetValue("OBJ" & Obj, "Destruye"))
             ObjData(Obj).SkHerreria = Val(Leer.GetValue("OBJ" & Obj, "SkHerreria"))
             ObjData(Obj).SkPociones = Val(Leer.GetValue("OBJ" & Obj, "SkPociones"))
@@ -282,7 +283,11 @@ Private Sub Command1_Click()
             If ObjData(Obj).LingO <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "LingO", ObjData(Obj).LingO)
             End If
-        
+            
+            If ObjData(Obj).Coal <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "Coal", ObjData(Obj).Coal)
+            End If
+            
             If ObjData(Obj).Destruye <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Destruye", ObjData(Obj).Destruye)
             End If
