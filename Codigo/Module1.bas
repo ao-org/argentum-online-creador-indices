@@ -47,8 +47,8 @@ Public Type ObjDatas
     en_Info As String
     MINDEF As Integer
     MaxDEF As Integer
-    MinHit As Integer
-    MaxHit As Integer
+    MinHit As Long
+    MaxHit As Long
     ObjType As Byte
     CreaLuz As String
     CreaParticulaPiso As Integer
@@ -59,11 +59,9 @@ Public Type ObjDatas
     PielLobo As Integer
     PielOsoPardo As Integer
     PielOsoPolar As Integer
-    PielLoboNegro As Integer
     LingH As Integer
     LingP As Integer
     LingO As Integer
-    Coal As Integer
     Destruye As Byte
     Proyectil As Byte
     Municiones As Byte
