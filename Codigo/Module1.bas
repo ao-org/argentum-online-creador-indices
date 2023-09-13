@@ -90,8 +90,8 @@ Public Type NpcDatas
     Exp As Long
     ExpClan As Long
     Oro As Long
-    MinHit As Integer
-    MaxHit As Integer
+    MinHit As Long
+    MaxHit As Long
     NumQuiza As Byte
     PuedeInvocar As Byte
     QuizaDropea() As Integer
