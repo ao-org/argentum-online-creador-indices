@@ -380,17 +380,15 @@ Private Sub Command1_Click()
             NpcData(Npc).Oro = Val(Leer.GetValue("npc" & Npc, "GiveGLD"))
             NpcData(Npc).ExpClan = Val(Leer.GetValue("npc" & Npc, "GiveEXPClan"))
             NpcData(Npc).PuedeInvocar = Val(Leer.GetValue("npc" & Npc, "PuedeInvocar"))
-        
+            NpcData(Npc).QuizaProb = Val(Leer.GetValue("npc" & Npc, "QuizaProb"))
+            
             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
 
             If aux = 0 Then
                 NpcData(Npc).NumQuiza = 0
-                
             Else
-            
                 NpcData(Npc).NumQuiza = Val(aux)
                 ReDim NpcData(Npc).QuizaDropea(1 To NpcData(Npc).NumQuiza) As Integer
-                
                 Dim LoopC As Long
                 For LoopC = 1 To NpcData(Npc).NumQuiza
                     NpcData(Npc).QuizaDropea(LoopC) = Val(Leer.GetValue("npc" & Npc, "QuizaDropea" & LoopC))
@@ -460,11 +458,12 @@ Private Sub Command1_Click()
         
             If NpcData(Npc).NumQuiza <> 0 Then
                 Call Manager.ChangeValue("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
-            
                 For LoopC = 1 To NpcData(Npc).NumQuiza
                     Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
                 Next LoopC
-            
+            End If
+            If NpcData(Npc).QuizaProb <> 0 Then
+                Call Manager.ChangeValue("Npc" & Npc, "QuizaProb", NpcData(Npc).QuizaProb)
             End If
             
             If NpcData(Npc).PuedeInvocar <> 0 Then

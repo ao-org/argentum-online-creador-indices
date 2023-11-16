@@ -93,6 +93,7 @@ Public Type NpcDatas
     MinHit As Long
     MaxHit As Long
     NumQuiza As Byte
+    QuizaProb As Integer
     PuedeInvocar As Byte
     QuizaDropea() As Integer
 
