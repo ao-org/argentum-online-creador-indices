@@ -47,8 +47,8 @@ Public Type ObjDatas
     en_Info As String
     MINDEF As Integer
     MaxDEF As Integer
-    MinHit As Integer
-    MaxHit As Integer
+    MinHit As Long
+    MaxHit As Long
     ObjType As Byte
     CreaLuz As String
     CreaParticulaPiso As Integer
