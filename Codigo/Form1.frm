@@ -66,7 +66,7 @@ Begin VB.Form Form1
       Width           =   1935
    End
    Begin VB.Label Label2 
-      Caption         =   "Programado por Ladder"
+      Caption         =   "Argentum 20"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -780,10 +780,8 @@ Public Sub LeerLineaComandos()
     rdata = Command
     
     Dim FileTypeName As String
-    Dim FileTypeIndex As Integer
-      
     FileTypeName = ReadField(1, rdata, Asc("*")) ' File Type Name
-
+    
     If Len(FileTypeName) > 0 Then
     
         FileTypeName = UCase(FileTypeName)
@@ -799,6 +797,7 @@ Public Sub LeerLineaComandos()
 End Sub
 
 Private Sub Form_Load()
+    Form1.Visible = True
     OutputFile = App.Path & "\..\Recursos\init\localindex.dat"
     
     ' Leer argumentos
