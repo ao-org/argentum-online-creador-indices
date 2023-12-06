@@ -2,15 +2,15 @@ VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Creador de indices"
-   ClientHeight    =   2355
+   ClientHeight    =   2850
    ClientLeft      =   165
    ClientTop       =   855
-   ClientWidth     =   2970
+   ClientWidth     =   4215
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   2355
-   ScaleWidth      =   2970
+   ScaleHeight     =   2850
+   ScaleWidth      =   4215
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command2 
       Caption         =   "Mensajes"
@@ -24,10 +24,10 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   615
-      Left            =   1560
+      Left            =   2400
       TabIndex        =   4
-      Top             =   1080
-      Width           =   1335
+      Top             =   960
+      Width           =   1695
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Crear archivo"
@@ -43,44 +43,45 @@ Begin VB.Form Form1
       Height          =   615
       Left            =   120
       TabIndex        =   0
-      Top             =   1080
-      Width           =   1335
+      Top             =   960
+      Width           =   1935
    End
    Begin VB.Label Label3 
       Alignment       =   2  'Center
       Caption         =   "Preparado"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   12
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   255
-      Left            =   480
+      Left            =   120
       TabIndex        =   3
       Top             =   1800
-      Width           =   1935
+      Width           =   3975
    End
    Begin VB.Label Label2 
+      Alignment       =   2  'Center
       Caption         =   "Argentum 20"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   15.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   255
-      Left            =   360
+      Height          =   375
+      Left            =   240
       TabIndex        =   2
-      Top             =   2040
-      Width           =   2295
+      Top             =   2280
+      Width           =   3735
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -94,11 +95,11 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1095
+      Height          =   855
       Left            =   0
       TabIndex        =   1
       Top             =   0
-      Width           =   2895
+      Width           =   4095
    End
 End
 Attribute VB_Name = "Form1"
@@ -151,6 +152,8 @@ Private Sub Command1_Click()
             ObjData(Obj).CreaParticulaPiso = Val(Leer.GetValue("OBJ" & Obj, "CreaParticulaPiso"))
             ObjData(Obj).Proyectil = Val(Leer.GetValue("OBJ" & Obj, "Proyectil"))
             ObjData(Obj).Raices = Val(Leer.GetValue("OBJ" & Obj, "Raices"))
+            ObjData(Obj).Cuchara = Val(Leer.GetValue("OBJ" & Obj, "Cuchara"))
+            ObjData(Obj).Botella = Val(Leer.GetValue("OBJ" & Obj, "Botella"))
             ObjData(Obj).Madera = Val(Leer.GetValue("OBJ" & Obj, "Madera"))
             ObjData(Obj).MaderaElfica = Val(Leer.GetValue("OBJ" & Obj, "MaderaElfica"))
             ObjData(Obj).PielLobo = Val(Leer.GetValue("OBJ" & Obj, "PielLobo"))
@@ -246,7 +249,14 @@ Private Sub Command1_Click()
             If ObjData(Obj).Raices <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Raices", ObjData(Obj).Raices)
             End If
-        
+                    
+            If ObjData(Obj).Cuchara <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "Cuchara", ObjData(Obj).Cuchara)
+            End If
+            
+            If ObjData(Obj).Botella <> 0 Then
+                Call Manager.ChangeValue("OBJ" & Obj, "Botella", ObjData(Obj).Botella)
+            End If
             
             If ObjData(Obj).Madera <> 0 Then
                 Call Manager.ChangeValue("OBJ" & Obj, "Madera", ObjData(Obj).Madera)

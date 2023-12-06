@@ -54,6 +54,8 @@ Public Type ObjDatas
     CreaParticulaPiso As Integer
     CreaGRH  As String
     Raices As Integer
+    Cuchara As Integer
+    Botella As Integer
     Madera As Integer
     MaderaElfica As Integer
     PielLobo As Integer
