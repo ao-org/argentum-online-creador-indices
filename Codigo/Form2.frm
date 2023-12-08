@@ -96,116 +96,108 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private NumMsg  As Integer
+
 Private MsgFile As String
 
 Private Sub Command1_Click()
 
-    If List1.ListIndex < 0 Then
-        MsgBox "Debes seleccionar un elemento de la lista."
-        Exit Sub
+100     If List1.ListIndex < 0 Then
+102         MsgBox "Debes seleccionar un elemento de la lista."
+            Exit Sub
 
-    End If
+        End If
 
-    arrLocale_SMG(Val(ReadField(1, List1.List(List1.ListIndex), 45))) = Text1.Text
-    Call Command3_Click
+104     arrLocale_SMG(Val(ReadField(1, List1.List(List1.ListIndex), 45))) = Text1.Text
+106     Call Command3_Click
 
 End Sub
 
 Private Sub Command2_Click()
-    Dim arch As String
-    Dim msg  As Integer
-    arch = App.Path & "\..\Recursos\init\" & "LocalMsg.dat"
-    
-    Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
-    
-    For msg = 1 To NumMsg
-        DoEvents
-        Call WriteVar(arch, "Msg", "Msg" & msg, arrLocale_SMG(msg))
-        
-    Next msg
+
+        Dim arch As String
+
+        Dim msg  As Integer
+
+100     arch = App.Path & "\..\Recursos\init\" & "LocalMsg.dat"
+102     Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
+
+104     For msg = 1 To NumMsg
+106         DoEvents
+108         Call WriteVar(arch, "Msg", "Msg" & msg, arrLocale_SMG(msg))
+110     Next msg
 
 End Sub
 
 Private Sub Command3_Click()
-    List1.Clear
-    
-    Dim i As Integer
+100     List1.Clear
 
-    If Filtro.Text = vbNullString Then
-        
-        For i = 1 To NumMsg
-    
-            List1.AddItem i & "-" & arrLocale_SMG(i)
-    
-        Next i
+        Dim i As Integer
 
-    Else
+102     If Filtro.Text = vbNullString Then
 
-        For i = 1 To NumMsg
-    
-            If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(Filtro.Text)) Then
-                List1.AddItem i & "-" & arrLocale_SMG(i)
+104         For i = 1 To NumMsg
+106             List1.AddItem i & "-" & arrLocale_SMG(i)
+108         Next i
 
-            End If
-    
-        Next i
+        Else
 
-    End If
+110         For i = 1 To NumMsg
+
+112             If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(Filtro.Text)) Then
+114                 List1.AddItem i & "-" & arrLocale_SMG(i)
+
+                End If
+
+116         Next i
+
+        End If
 
 End Sub
 
 Private Sub Command4_Click()
-    List1.Clear
-    Dim i As Integer
+100     List1.Clear
 
-    If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
+        Dim i As Integer
 
-        MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
-        NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
+102     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
+104         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
+106         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
+108         Filtro.Text = ""
+110         ReDim arrLocale_SMG(1 To NumMsg) As String
 
-        Filtro.Text = ""
+112         For i = 1 To NumMsg
+114             arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
+116             List1.AddItem i & "-" & arrLocale_SMG(i)
+118         Next i
 
-        ReDim arrLocale_SMG(1 To NumMsg) As String
-    
-        For i = 1 To NumMsg
-        
-            arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
-            List1.AddItem i & "-" & arrLocale_SMG(i)
-
-        Next i
-
-    End If
+        End If
 
 End Sub
 
 Private Sub Filtro_Change()
-    Call Command3_Click
+100     Call Command3_Click
 
 End Sub
 
 Private Sub Form_Load()
-    Dim i As Integer
 
-    If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
+        Dim i As Integer
 
-        MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
-        NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
+100     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
+102         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
+104         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
+106         ReDim arrLocale_SMG(1 To NumMsg) As String
 
-        ReDim arrLocale_SMG(1 To NumMsg) As String
-    
-        For i = 1 To NumMsg
+108         For i = 1 To NumMsg
+110             arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
+112             List1.AddItem i & "-" & arrLocale_SMG(i)
+114         Next i
 
-            arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
-            List1.AddItem i & "-" & arrLocale_SMG(i)
-
-        Next i
-
-    End If
+        End If
 
 End Sub
 
 Private Sub List1_Click()
-    Text1.Text = ReadField(2, List1.Text, Asc("-"))
+100     Text1.Text = ReadField(2, List1.Text, Asc("-"))
 
 End Sub
-
