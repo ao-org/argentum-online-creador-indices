@@ -67,7 +67,7 @@ Begin VB.Form Form1
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
-      Caption         =   "Argentum 20"
+      Caption         =   "Argentum Online"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   15.75
