@@ -102,8 +102,8 @@ Public Type ObjDatas
     HojasRojas As Integer
     SemillasPros As Integer
     Pimiento As Integer
-    Madera As Integer
-    MaderaElfica As Integer
+    Madera As Long
+    MaderaElfica As Long
     PielLobo As Integer
     PielOsoPardo As Integer
     PielOsoPolar As Integer
