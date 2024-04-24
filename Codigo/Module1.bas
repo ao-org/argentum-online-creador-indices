@@ -145,6 +145,7 @@ Public Type NpcDatas
     MaxHit As Long
     NumQuiza As Byte
     QuizaProb As Integer
+    NoMapInfo As Byte
     PuedeInvocar As Byte
     QuizaDropea() As Integer
 

@@ -558,6 +558,7 @@ Private Sub Command1_Click()
 538             NpcData(Npc).Oro = Val(Leer.GetValue("npc" & Npc, "GiveGLD"))
 540             NpcData(Npc).ExpClan = Val(Leer.GetValue("npc" & Npc, "GiveEXPClan"))
 542             NpcData(Npc).PuedeInvocar = Val(Leer.GetValue("npc" & Npc, "PuedeInvocar"))
+                NpcData(Npc).NoMapInfo = Val(Leer.GetValue("npc" & Npc, "NoMapInfo"))
 544             NpcData(Npc).QuizaProb = Val(Leer.GetValue("npc" & Npc, "QuizaProb"))
 546             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
 
@@ -656,7 +657,10 @@ Private Sub Command1_Click()
 
 634             If NpcData(Npc).QuizaProb <> 0 Then
 636                 Call Manager.ChangeValue("Npc" & Npc, "QuizaProb", NpcData(Npc).QuizaProb)
-
+                End If
+                
+                If NpcData(Npc).NoMapInfo <> 0 Then
+                     Call Manager.ChangeValue("Npc" & Npc, "NoMapInfo", NpcData(Npc).NoMapInfo)
                 End If
 
 638             If NpcData(Npc).PuedeInvocar <> 0 Then
