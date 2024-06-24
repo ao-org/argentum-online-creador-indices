@@ -200,7 +200,7 @@ Private Sub Command1_Click()
 234             ObjData(Obj).CdType = Val(Leer.GetValue("OBJ" & Obj, "CDType"))
 236             ObjData(Obj).SpellIndex = Val(Leer.GetValue("OBJ" & Obj, "HechizoIndex"))
 238             Label3.ForeColor = vbRed
-240             Label3.Caption = "Leyendo: " & Obj & "/" & numobjs
+240             Label3.Caption = "Leyendo objetos: " & Obj & "/" & numobjs
 242         Next Obj
 
 244         Obj = 1
@@ -577,7 +577,7 @@ Private Sub Command1_Click()
                 End If
 
 562             Label3.ForeColor = vbRed
-564             Label3.Caption = "Leyendo: " & Npc & "/" & numnpcs
+564             Label3.Caption = "Leyendo NPCs: " & Npc & "/" & numnpcs
 566         Next Npc
 
 568         Npc = 1
@@ -668,7 +668,7 @@ Private Sub Command1_Click()
 
                 End If
 
-642             Label3.Caption = "Grabando: " & Npc & "/" & numnpcs
+642             Label3.Caption = "Grabando NPCs: " & Npc & "/" & numnpcs
 644             Label3.ForeColor = &HC0C0&
 646         Next Npc
 
@@ -687,7 +687,7 @@ Private Sub Command1_Click()
             Dim hechic As New clsIniReader
 
 656         Call hechic.Initialize(hechizosFile)
-658         Label3.Caption = "0/" & numhechizos
+658         Label3.Caption = "Leyendo Hechizos: " & "0/" & numhechizos
 660         ReDim HechizoData(1 To numhechizos) As HechizoDatas
 
 662         For Hechizo = 1 To numhechizos
@@ -723,7 +723,7 @@ Private Sub Command1_Click()
 718             Call Manager.ChangeValue("Hechizo" & Hechizo, "MinSkill", HechizoData(Hechizo).MinSkill)
 720             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
 722             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
-724             Label3.Caption = "Grabando: " & Hechizo & "/" & numhechizos
+724             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
 726             Label3.ForeColor = &HC0C0&
 728         Next Hechizo
 
@@ -746,7 +746,7 @@ Private Sub Command1_Click()
 744             DoEvents
 746             arrLocale_SMG(Npc) = Msgsss.GetValue("msg", "Msg" & Npc)
 748             Label3.ForeColor = vbRed
-750             Label3.Caption = "Leyendo: " & Npc & "/" & numnpcs
+750             Label3.Caption = "Leyendo NPCs: " & Npc & "/" & numnpcs
 752         Next Npc
 
 754         Npc = 1
@@ -755,7 +755,7 @@ Private Sub Command1_Click()
 758         For Npc = 1 To numnpcs
 760             DoEvents
 762             Call Manager.ChangeValue("Msg", "Msg" & Npc, arrLocale_SMG(Npc))
-764             Label3.Caption = "Grabando: " & Npc & "/" & numnpcs
+764             Label3.Caption = "Grabando NPCs: " & Npc & "/" & numnpcs
 766             Label3.ForeColor = &HC0C0&
 768         Next Npc
 
@@ -773,26 +773,26 @@ Private Sub Command1_Click()
             Dim Mapa As New clsIniReader
 
 776         Call Mapa.Initialize(MapFile)
-778         Label3.Caption = "0/" & 306
-780         ReDim MapName(1 To 306) As String
-782         ReDim MapDesc(1 To 306) As String
+778         Label3.Caption = "0/" & 750
+780         ReDim MapName(1 To 750) As String
+782         ReDim MapDesc(1 To 750) As String
 
-784         For Npc = 1 To 306
+784         For Npc = 1 To 750
 786             DoEvents
 788             MapName(Npc) = Mapa.GetValue("NameMapa", "mapa" & Npc)
 790             MapDesc(Npc) = Mapa.GetValue("NameMapa", "mapa" & Npc & "desc")
 792             Label3.ForeColor = vbRed
-794             Label3.Caption = "Leyendo: " & Npc & "/" & 304
+794             Label3.Caption = "Leyendo Mapas: " & Npc & "/" & 750
 796         Next Npc
 
 798         Npc = 1
-800         Call Manager.ChangeValue("INIT", "NumMapas", 306)
+800         Call Manager.ChangeValue("INIT", "NumMapas", 750)
 
-802         For Npc = 1 To 306
+802         For Npc = 1 To 750
 804             DoEvents
 806             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc, MapName(Npc))
 808             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc & "Desc", MapDesc(Npc))
-810             Label3.Caption = "Grabando: " & Npc & "/" & 306
+810             Label3.Caption = "Grabando Mapas: " & Npc & "/" & 750
 812             Label3.ForeColor = &HC0C0&
 814         Next Npc
 
@@ -828,7 +828,7 @@ Private Sub Command1_Click()
 856             QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
 858             RequiredLevel(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "RequiredLevel"))
 860             Label3.ForeColor = vbRed
-862             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
+862             Label3.Caption = "Leyendo Quest: " & Npc & "/" & nunquest
 864         Next Npc
 
 866         Npc = 1
@@ -843,7 +843,7 @@ Private Sub Command1_Click()
 882             Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
 884             Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
 886             Call Manager.ChangeValue("QUEST" & Npc, "PosMap", QuestPos(Npc))
-888             Label3.Caption = "Grabando: " & Npc & "/" & nunquest
+888             Label3.Caption = "Grabando Quest: " & Npc & "/" & nunquest
 890             Label3.ForeColor = &HC0C0&
 892         Next Npc
 
