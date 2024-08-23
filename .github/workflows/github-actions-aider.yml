@@ -1,0 +1,11 @@
+jobs:
+  my_job:
+    steps:
+      - name: Apply changes with Aider
+        uses: mirrajabi/aider-github-action@main
+        timeout-minutes: 10 # So that you won't accidentally burn your OpenAI credits!
+        with:
+          anthropic_api_key: ${{ secrets.anthropic_api_key }}
+          branch: ${{ fromJson(steps.create_branch.outputs.result).ref }}
+          model: ${{ inputs.model }}
+          aider_args: '--yes --message "${{ steps.create_prompt.outputs.result }}"'
