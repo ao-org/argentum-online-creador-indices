@@ -11,7 +11,7 @@ jobs:
     with:
       issue-number: ${{ github.event.issue.number }}
       base-branch: ${{ github.event.repository.default_branch }}
-      model: claude-3.5-sonnet
+      model: openrouter/anthropic/claude-3.5-sonnet
     secrets: 
       anthropic_api_key: ${{ secrets.anthropic_api_key }}
           
