@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form Form2 
+Begin VB.Form Form2
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "Mensages Locales - Optimizacion de protocolo"
    ClientHeight    =   5745
@@ -13,14 +13,14 @@ Begin VB.Form Form2
    ScaleWidth      =   6030
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.TextBox Filtro 
+   Begin VB.TextBox txtFilter
       Height          =   375
       Left            =   3960
       TabIndex        =   7
       Top             =   4080
       Width           =   1335
    End
-   Begin VB.CommandButton Command4 
+   Begin VB.CommandButton cmdReloadFile
       Caption         =   "Recargar file"
       Height          =   375
       Left            =   3240
@@ -28,7 +28,7 @@ Begin VB.Form Form2
       Top             =   5040
       Width           =   2055
    End
-   Begin VB.CommandButton Command3 
+   Begin VB.CommandButton cmdReloadList
       Caption         =   "Recargar lista"
       Height          =   375
       Left            =   3240
@@ -36,7 +36,7 @@ Begin VB.Form Form2
       Top             =   4560
       Width           =   2055
    End
-   Begin VB.CommandButton Command2 
+   Begin VB.CommandButton cmdSaveFile
       Caption         =   "Grabar archivo"
       Height          =   375
       Left            =   600
@@ -44,7 +44,7 @@ Begin VB.Form Form2
       Top             =   5040
       Width           =   2415
    End
-   Begin VB.CommandButton Command1 
+   Begin VB.CommandButton cmdSaveIndex
       Caption         =   "Guardar Index"
       Height          =   375
       Left            =   600
@@ -52,21 +52,21 @@ Begin VB.Form Form2
       Top             =   4560
       Width           =   2415
    End
-   Begin VB.TextBox Text1 
+   Begin VB.TextBox txtMessage
       Height          =   855
       Left            =   240
       TabIndex        =   1
       Top             =   3000
       Width           =   5535
    End
-   Begin VB.ListBox List1 
+   Begin VB.ListBox lstMessages
       Height          =   2790
       Left            =   240
       TabIndex        =   0
       Top             =   120
       Width           =   5535
    End
-   Begin VB.Label Label2 
+   Begin VB.Label lblFilter
       Alignment       =   1  'Right Justify
       Appearance      =   0  'Flat
       BackColor       =   &H80000005&
@@ -79,7 +79,7 @@ Begin VB.Form Form2
       Top             =   4150
       Width           =   495
    End
-   Begin VB.Label Label1 
+   Begin VB.Label lblUserName
       Caption         =   "[%N] = UserName"
       Height          =   255
       Left            =   480
@@ -95,109 +95,142 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private NumMsg  As Integer
+' Module-level constants
+Private Const FILE_PATH As String = App.Path & "\..\Recursos\init\LocalMsg.dat"
 
+' Module-level variables
+Private NumMsg As Integer
 Private MsgFile As String
+Private arrLocale_SMG() As String
 
-Private Sub Command1_Click()
+' Helper functions
+Private Function GetMessageIndex(ByVal listItem As String) As Integer
+    ' Extract the message index from the list item string
+    GetMessageIndex = Val(ReadField(1, listItem, 45))
+End Function
 
-100     If List1.ListIndex < 0 Then
-102         MsgBox "Debes seleccionar un elemento de la lista."
-            Exit Sub
+Private Function GetMessageText(ByVal listItem As String) As String
+    ' Extract the message text from the list item string
+    GetMessageText = ReadField(2, listItem, Asc("-"))
+End Function
 
-        End If
-
-104     arrLocale_SMG(Val(ReadField(1, List1.List(List1.ListIndex), 45))) = Text1.Text
-106     Call Command3_Click
-
-End Sub
-
-Private Sub Command2_Click()
-
-        Dim arch As String
-
-        Dim msg  As Integer
-
-100     arch = App.Path & "\..\Recursos\init\" & "LocalMsg.dat"
-102     Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
-
-104     For msg = 1 To NumMsg
-106         DoEvents
-108         Call WriteVar(arch, "Msg", "Msg" & msg, arrLocale_SMG(msg))
-110     Next msg
-
-End Sub
-
-Private Sub Command3_Click()
-100     List1.Clear
+Private Sub LoadMessages()
+    ' Load messages from file
+    On Error GoTo ErrorHandler
+    
+    If FileExist(FILE_PATH, vbNormal) Then
+        MsgFile = FILE_PATH
+        NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
+        ReDim arrLocale_SMG(1 To NumMsg)
 
         Dim i As Integer
-
-102     If Filtro.Text = vbNullString Then
-
-104         For i = 1 To NumMsg
-106             List1.AddItem i & "-" & arrLocale_SMG(i)
-108         Next i
-
-        Else
-
-110         For i = 1 To NumMsg
-
-112             If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(Filtro.Text)) Then
-114                 List1.AddItem i & "-" & arrLocale_SMG(i)
-
-                End If
-
-116         Next i
-
-        End If
-
+        For i = 1 To NumMsg
+            arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
+            lstMessages.AddItem i & "-" & arrLocale_SMG(i)
+        Next i
+    End If
+    
+    Exit Sub
+    
+ErrorHandler:
+    ' Log the error and display an error message
+    LogError Err.Number, Err.Description, "LoadMessages"
+    MsgBox "Error al cargar los mensajes: " & Err.Description, vbCritical
 End Sub
 
-Private Sub Command4_Click()
-100     List1.Clear
+Private Sub SaveMessages()
+    ' Save messages to file
+    On Error GoTo ErrorHandler
+    
+    Dim arch As String = FILE_PATH
+    Dim msg As Integer
 
-        Dim i As Integer
+    Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
 
-102     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
-104         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
-106         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
-108         Filtro.Text = ""
-110         ReDim arrLocale_SMG(1 To NumMsg) As String
-
-112         For i = 1 To NumMsg
-114             arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
-116             List1.AddItem i & "-" & arrLocale_SMG(i)
-118         Next i
-
-        End If
-
+    For msg = 1 To NumMsg
+        DoEvents
+        Call WriteVar(arch, "Msg", "Msg" & msg, arrLocale_SMG(msg))
+    Next msg
+    
+    Exit Sub
+    
+ErrorHandler:
+    ' Log the error and display an error message
+    LogError Err.Number, Err.Description, "SaveMessages"
+    MsgBox "Error al guardar los mensajes: " & Err.Description, vbCritical
 End Sub
 
-Private Sub Filtro_Change()
-100     Call Command3_Click
+Private Sub FilterMessages()
+    ' Filter messages based on the filter text
+    lstMessages.Clear
 
+    Dim i As Integer
+    Dim filterText As String = txtFilter.Text
+
+    If filterText = vbNullString Then
+        ' No filter, show all messages
+        For i = 1 To NumMsg
+            lstMessages.AddItem i & "-" & arrLocale_SMG(i)
+        Next i
+    Else
+        ' Filter messages based on the filter text
+        For i = 1 To NumMsg
+            If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(filterText)) Then
+                lstMessages.AddItem i & "-" & arrLocale_SMG(i)
+            End If
+        Next i
+    End If
+End Sub
+
+Private Sub cmdSaveIndex_Click()
+    ' Save the selected message index
+    Dim selectedIndex As Integer = lstMessages.ListIndex
+
+    If selectedIndex >= 0 Then
+        Dim messageIndex As Integer = GetMessageIndex(lstMessages.List(selectedIndex))
+        arrLocale_SMG(messageIndex) = txtMessage.Text
+        FilterMessages
+    Else
+        MsgBox "Debes seleccionar un elemento de la lista.", vbInformation
+    End If
+End Sub
+
+Private Sub cmdSaveFile_Click()
+    ' Save messages to file
+    SaveMessages
+End Sub
+
+Private Sub cmdReloadList_Click()
+    ' Reload the message list
+    FilterMessages
+End Sub
+
+Private Sub cmdReloadFile_Click()
+    ' Reload messages from file
+    LoadMessages
+    txtFilter.Text = ""
+End Sub
+
+Private Sub txtFilter_Change()
+    ' Filter messages when the filter text changes
+    FilterMessages
 End Sub
 
 Private Sub Form_Load()
-
-        Dim i As Integer
-
-100     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
-102         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
-104         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
-106         ReDim arrLocale_SMG(1 To NumMsg) As String
-
-108         For i = 1 To NumMsg
-110             arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
-112             List1.AddItem i & "-" & arrLocale_SMG(i)
-114         Next i
-
-        End If
-
+    ' Load messages when the form loads
+    LoadMessages
 End Sub
 
-Private Sub List1_Click()
-100     Text1.Text = ReadField(2, List1.Text, Asc("-"))
+Private Sub lstMessages_Click()
+    ' Display the selected message text
+    Dim selectedIndex As Integer = lstMessages.ListIndex
+    If selectedIndex >= 0 Then
+        txtMessage.Text = GetMessageText(lstMessages.List(selectedIndex))
+    End If
+End Sub
 
+' Error logging function
+Private Sub LogError(ByVal errNumber As Long, ByVal errDescription As String, ByVal functionName As String)
+    ' Log the error to a file or database
+    ' Implementation details omitted for brevity
 End Sub
