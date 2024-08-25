@@ -95,25 +95,29 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
+' Module-level constants
+Private Const FILE_PATH As String = App.Path & "\..\Recursos\init\LocalMsg.dat"
+
 ' Module-level variables
 Private NumMsg As Integer
 Private MsgFile As String
 Private arrLocale_SMG() As String
 
-' Constants
-Private Const FILE_PATH As String = App.Path & "\..\Recursos\init\LocalMsg.dat"
-
 ' Helper functions
 Private Function GetMessageIndex(ByVal listItem As String) As Integer
+    ' Extract the message index from the list item string
     GetMessageIndex = Val(ReadField(1, listItem, 45))
 End Function
 
 Private Function GetMessageText(ByVal listItem As String) As String
+    ' Extract the message text from the list item string
     GetMessageText = ReadField(2, listItem, Asc("-"))
 End Function
 
 Private Sub LoadMessages()
     ' Load messages from file
+    On Error GoTo ErrorHandler
+    
     If FileExist(FILE_PATH, vbNormal) Then
         MsgFile = FILE_PATH
         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
@@ -125,10 +129,19 @@ Private Sub LoadMessages()
             lstMessages.AddItem i & "-" & arrLocale_SMG(i)
         Next i
     End If
+    
+    Exit Sub
+    
+ErrorHandler:
+    ' Log the error and display an error message
+    LogError Err.Number, Err.Description, "LoadMessages"
+    MsgBox "Error al cargar los mensajes: " & Err.Description, vbCritical
 End Sub
 
 Private Sub SaveMessages()
     ' Save messages to file
+    On Error GoTo ErrorHandler
+    
     Dim arch As String = FILE_PATH
     Dim msg As Integer
 
@@ -138,6 +151,13 @@ Private Sub SaveMessages()
         DoEvents
         Call WriteVar(arch, "Msg", "Msg" & msg, arrLocale_SMG(msg))
     Next msg
+    
+    Exit Sub
+    
+ErrorHandler:
+    ' Log the error and display an error message
+    LogError Err.Number, Err.Description, "SaveMessages"
+    MsgBox "Error al guardar los mensajes: " & Err.Description, vbCritical
 End Sub
 
 Private Sub FilterMessages()
@@ -171,7 +191,7 @@ Private Sub cmdSaveIndex_Click()
         arrLocale_SMG(messageIndex) = txtMessage.Text
         FilterMessages
     Else
-        MsgBox "Debes seleccionar un elemento de la lista."
+        MsgBox "Debes seleccionar un elemento de la lista.", vbInformation
     End If
 End Sub
 
@@ -207,4 +227,10 @@ Private Sub lstMessages_Click()
     If selectedIndex >= 0 Then
         txtMessage.Text = GetMessageText(lstMessages.List(selectedIndex))
     End If
+End Sub
+
+' Error logging function
+Private Sub LogError(ByVal errNumber As Long, ByVal errDescription As String, ByVal functionName As String)
+    ' Log the error to a file or database
+    ' Implementation details omitted for brevity
 End Sub
