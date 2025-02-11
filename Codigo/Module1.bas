@@ -154,11 +154,16 @@ End Type
 Public Type HechizoDatas
 
     Nombre As String ' Indice del grafico que representa el obj
+    en_name As String
     desc As String
+    en_Desc As String
     PalabrasMagicas As String
+    en_HechizeroMsg As String
     HechizeroMsg As String
     TargetMsg As String
     PropioMsg As String
+    en_TargetMsg As String
+    en_PropioMsg As String
     StaRequerido As Integer
     ManaRequerido As Integer
     MinSkill As Byte
