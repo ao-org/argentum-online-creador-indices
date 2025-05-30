@@ -6,17 +6,11 @@ Public arrLocale_SMG() As String
 Public CantMsg         As Integer
 
 Public Function Load_Locales() As Boolean
-
         On Error GoTo ErrorHandler
-
         Dim strFile As String
-
         Dim tmpStr  As String
-
         Dim intFile As Integer
-
         Dim i       As Long
-
 100     strFile = App.Path & "\..\Recursos\init\localmsg.dat"
 102     ReDim arrLocale_SMG(1 To General_Get_Line_Count(strFile)) As String
 104     intFile = FreeFile
@@ -37,11 +31,8 @@ End Function
 
 Public Function Locale_Parse_ServerMessage(ByVal bytHeader As Byte, _
                                            Optional ByVal strExtra As String = vbNullString) As String
-
         On Error GoTo ErrorHandler
-
         Dim strLocale As String
-
         Dim lngPos    As Long
 
 100     If LenB(strExtra) = 0 Then
@@ -91,14 +82,12 @@ ErrorHandler:
 End Function
 
 Public Function General_Get_Line_Count(ByVal FileName As String) As Long
-
         '**************************************************************
         'Author: Augusto José Rando
         'Last Modify Date: 6/11/2005
         '
         '**************************************************************
         On Error GoTo ErrorHandler
-
         Dim N As Integer, tmpStr As String
 
 100     If LenB(FileName) Then
@@ -119,14 +108,12 @@ ErrorHandler:
 End Function
 
 Public Function Integer_To_String(ByVal Var As Integer) As String
-
         '**************************************************************
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 3/12/2005
         '
         '**************************************************************
         Dim temp As String
-
         'Convertimos a hexa
 100     temp = Hex$(Var)
 
@@ -143,14 +130,12 @@ ErrorHandler:
 End Function
 
 Public Function String_To_Integer(ByRef str As String, ByVal start As Integer) As Integer
-
         '**************************************************************
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 3/12/2005
         '
         '**************************************************************
         On Error GoTo Error_Handler
-
         Dim temp_str As String
 
         'Asergurarse sea válido
@@ -183,7 +168,6 @@ ErrorHandler:
 End Function
 
 Public Function String_To_Byte(ByRef str As String, ByVal start As Integer) As Byte
-
         '**************************************************************
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 3/12/2005
@@ -207,7 +191,6 @@ Public Function Long_To_String(ByVal Var As Long) As String
         '**************************************************************
         'No aceptamos valores que usen los 4 últimos its
 100     If Var > &HFFFFFFF Then GoTo ErrorHandler
-
         Dim temp As String
 
         'Vemos si el cuarto byte es cero
@@ -237,7 +220,6 @@ ErrorHandler:
 End Function
 
 Public Function String_To_Long(ByRef str As String, ByVal start As Integer) As Long
-
         '**************************************************************
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 3/12/2005
@@ -246,13 +228,9 @@ Public Function String_To_Long(ByRef str As String, ByVal start As Integer) As L
         On Error GoTo ErrorHandler
 
 100     If Len(str) < start - 3 Then Exit Function
-
         Dim temp_str  As String
-
         Dim temp_str2 As String
-
         Dim temp_str3 As String
-
         'Tomamos los últimos 3 bytes y convertimos sus valroes ASCII a hexa
 102     temp_str = Hex$(Asc(mid$(str, start + 1, 1)))
 104     temp_str2 = Hex$(Asc(mid$(str, start + 2, 1)))

@@ -62,7 +62,6 @@ Option Base 0
 ' @see      MainNode
 '
 Private Type ChildNode
-
     Key As String
     Value As String
 
@@ -77,7 +76,6 @@ End Type
 ' @param    values Array of ChildNodes, each containing a value entry along with it's key.
 ' @param    numValues Number of entrys in the main node.
 Private Type MainNode
-
     Name As String
     values() As ChildNode
     numValues As Integer
@@ -87,7 +85,6 @@ End Type
 ''
 'Containts all Main sections of the loaded INI file
 Private fileData() As MainNode
-
 ''
 'Stores the total number of main sections in the loaded INI file
 Private MainNodes  As Long
@@ -107,7 +104,6 @@ End Sub
 'Destroy every array and deallocates al memory.
 '
 Private Sub Class_Terminate()
-
     '**************************************************************
     'Author: Juan Martin Sotuyo Dodero
     'Last Modify Date: 5/01/2006
@@ -136,18 +132,14 @@ End Sub
 ' @param    file Complete path of the INI file to be loaded.
 ' @see      GetValue
 Public Sub Initialize(ByVal File As String)
-
         '**************************************************************
         'Author: Juan Martin Sotuyo Dodero
         'Last Modify Date: 27/07/2006
         'Opens the requested file and loads it's data into memory
         '**************************************************************
         Dim handle As Integer
-
         Dim Text   As String
-
         Dim Pos    As Long
-
         'Prevent memory losses if we are attempting to reload a file....
 100     Call Class_Terminate
         'Get a free handle and start reading line by line until the end
@@ -201,7 +193,6 @@ Public Sub Initialize(ByVal File As String)
 
         Loop
 140     Close handle
-
         Dim i As Long
 
 142     If MainNodes Then
@@ -227,7 +218,6 @@ End Sub
 Private Sub SortChildNodes(ByRef Node As MainNode, _
                            ByVal First As Integer, _
                            ByVal Last As Integer)
-
         '**************************************************************
         'Author: Juan Martin Sotuyo Dodero
         'Last Modify Date: 5/01/2006
@@ -235,13 +225,9 @@ Private Sub SortChildNodes(ByRef Node As MainNode, _
         'this allows the use of Binary Search for faster searches
         '**************************************************************
         Dim min  As Integer      'First item in the list
-
         Dim max  As Integer      'Last item in the list
-
         Dim comp As String      'Item used to compare
-
         Dim temp As ChildNode
-
 100     min = First
 102     max = Last
 
@@ -281,7 +267,6 @@ End Sub
 ' @param    first The first index to consider when sorting.
 ' @param    last The last index to be considered when sorting.
 Private Sub SortMainNodes(ByVal First As Integer, ByVal Last As Integer)
-
         '**************************************************************
         'Author: Juan Martin Sotuyo Dodero
         'Last Modify Date: 5/01/2006
@@ -289,13 +274,9 @@ Private Sub SortMainNodes(ByVal First As Integer, ByVal Last As Integer)
         'this allows the use of Binary Search for faster searches
         '**************************************************************
         Dim min  As Integer      'First item in the list
-
         Dim max  As Integer      'Last item in the list
-
         Dim comp As String      'Item used to compare
-
         Dim temp As MainNode
-
 100     min = First
 102     max = Last
 104     comp = fileData((min + max) \ 2).Name
@@ -332,16 +313,13 @@ End Sub
 ' @param    key The key of the value we are looking for.
 ' @returns  The value asociated with the given key under the requeted main section of the INI file or a null string if it's not found.
 Public Function GetValue(ByVal Main As String, ByVal Key As String) As String
-
         '**************************************************************
         'Author: Juan Martin Sotuyo Dodero
         'Last Modify Date: 5/01/2006
         'Returns a value if the key and main node exist, or a nullstring otherwise
         '**************************************************************
         Dim i As Long
-
         Dim j As Long
-
         'Search for the main node
 100     i = FindMain(UCase$(Main))
 
@@ -363,16 +341,13 @@ End Function
 ' @param    key The key of the value we are looking for.
 ' @returns  The value asociated with the given key under the requeted main section of the INI file or a null string if it's not found.
 Public Sub ChangeValue(ByVal Main As String, ByVal Key As String, ByVal Value As String)
-
         '**************************************************************
         'Author: ZaMa
         'Last Modify Date: 27/05/2009
         'If the key and main node exist, changes the value
         '**************************************************************
         Dim i As Long
-
         Dim j As Long
-
         'Search for the main node
 100     i = FindMain(UCase$(Main))
 
@@ -397,7 +372,6 @@ End Sub
 ' @param    key The key of the value we are looking for.
 ' @returns  The index in which the value with the key we are looking for is stored or the negation of the index in which it should be if not found.
 Private Function FindKey(ByRef Node As MainNode, ByVal Key As String) As Long
-
         '**************************************************************
         'Author: Juan Martin Sotuyo Dodero
         'Last Modify Date: 5/01/2006
@@ -405,11 +379,8 @@ Private Function FindKey(ByRef Node As MainNode, ByVal Key As String) As Long
         'or the negation of the position were it should be if not found
         '**************************************************************
         Dim min As Long
-
         Dim max As Long
-
         Dim mid As Long
-
 100     min = 0
 102     max = Node.numValues - 1
 
@@ -440,7 +411,6 @@ End Function
 ' @param    name The name of the MainNode we are looking for.
 ' @returns  The index in which the main section we are looking for is stored or the negation of the index in which it should be if not found.
 Private Function FindMain(ByVal Name As String) As Long
-
         '**************************************************************
         'Author: Juan Martin Sotuyo Dodero
         'Last Modify Date: 5/01/2006
@@ -448,11 +418,8 @@ Private Function FindMain(ByVal Name As String) As Long
         'or the negation of the position were it should be if not found
         '**************************************************************
         Dim min As Long
-
         Dim max As Long
-
         Dim mid As Long
-
 100     min = 0
 102     max = MainNodes - 1
 
@@ -493,16 +460,13 @@ Public Function KeyExists(ByVal Name As String) As Boolean
 End Function
 
 Private Function AddNode(ByRef Name As String) As Long
-
         '**************************************************************
         'Author: Torres Patricio (Pato)
         'Last Modify Date: 10/10/2010
         '
         '**************************************************************
         Dim i       As Long
-
         Dim MainPos As Long
-
 100     Name = UCase$(Name)
         'Add a main node
 102     ReDim Preserve fileData(MainNodes) As MainNode
@@ -529,18 +493,14 @@ End Function
 Private Function AddKey(ByRef Main As String, _
                         ByRef Key As String, _
                         Optional ByRef Value As String = vbNullString) As Long
-
         '**************************************************************
         'Author: Torres Patricio (Pato)
         'Last Modify Date: 10/10/2010
         '
         '**************************************************************
         Dim MainPos As Long
-
         Dim KeyPos  As Long
-
         Dim i       As Long
-
 100     Main = UCase$(Main)
 102     Key = UCase$(Key)
 104     MainPos = FindMain(Main)
@@ -573,18 +533,14 @@ Private Function AddKey(ByRef Main As String, _
 End Function
 
 Public Sub DumpFile(ByRef File As String)
-
         '**************************************************************
         'Author: Torres Patricio (Pato)
         'Last Modify Date: 10/10/2010
         '
         '**************************************************************
         Dim hFile As Integer
-
         Dim i     As Long
-
         Dim j     As Long
-
 100     hFile = FreeFile()
 102     Open File For Output As hFile
 

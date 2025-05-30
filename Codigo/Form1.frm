@@ -110,15 +110,10 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Command1_Click()
-
         Dim Obj     As Integer
-
         Dim Npc     As Integer
-
         Dim Hechizo As Integer
-
         Dim Raza    As Integer
-
         Dim numobjs As Long
 
 100     If FileExist(OutputFile, vbNormal) Then
@@ -131,846 +126,900 @@ Private Sub Command1_Click()
 108         numobjs = Val(GetVar(ObjFile, "INIT", "NumOBJs"))
 110         Label3.Caption = "0/" & numobjs
 112         ReDim ObjData(1 To numobjs) As ObjDatas
-
             Dim Leer As New clsIniReader
-
 114         Call Leer.Initialize(ObjFile)
 
 116         For Obj = 1 To numobjs
 118             DoEvents
+                ' Gráficos y nombres (multi idioma)
 120             ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "grhindex"))
 122             ObjData(Obj).Name = Leer.GetValue("OBJ" & Obj, "Name")
-124             ObjData(Obj).en_Name = Leer.GetValue("OBJ" & Obj, "en_Name")
-126             ObjData(Obj).texto = Leer.GetValue("OBJ" & Obj, "Texto")
-128             ObjData(Obj).en_texto = Leer.GetValue("OBJ" & Obj, "en_Texto")
-130             ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
-132             ObjData(Obj).en_Info = Leer.GetValue("OBJ" & Obj, "en_Info")
-134             ObjData(Obj).MINDEF = Val(Leer.GetValue("OBJ" & Obj, "MinDef"))
-136             ObjData(Obj).MaxDEF = Val(Leer.GetValue("OBJ" & Obj, "MaxDef"))
-138             ObjData(Obj).MinHit = Val(Leer.GetValue("OBJ" & Obj, "MinHit"))
-140             ObjData(Obj).MaxHit = Val(Leer.GetValue("OBJ" & Obj, "MaxHit"))
-142             ObjData(Obj).ObjType = Val(Leer.GetValue("OBJ" & Obj, "ObjType"))
-144             ObjData(Obj).CreaGRH = Leer.GetValue("OBJ" & Obj, "CreaGRH")
-146             ObjData(Obj).CreaLuz = Leer.GetValue("OBJ" & Obj, "CreaLuz")
-148             ObjData(Obj).CreaParticulaPiso = Val(Leer.GetValue("OBJ" & Obj, "CreaParticulaPiso"))
-150             ObjData(Obj).Proyectil = Val(Leer.GetValue("OBJ" & Obj, "Proyectil"))
-152             ObjData(Obj).Hechizo = Val(Leer.GetValue("OBJ" & Obj, "Hechizo"))
-154             ObjData(Obj).Raices = Val(Leer.GetValue("OBJ" & Obj, "Raices"))
-156             ObjData(Obj).Cuchara = Val(Leer.GetValue("OBJ" & Obj, "Cuchara"))
-158             ObjData(Obj).Botella = Val(Leer.GetValue("OBJ" & Obj, "Botella"))
-160             ObjData(Obj).Mortero = Val(Leer.GetValue("OBJ" & Obj, "Mortero"))
-162             ObjData(Obj).FrascoAlq = Val(Leer.GetValue("OBJ" & Obj, "FrascoAlq"))
-164             ObjData(Obj).FrascoElixir = Val(Leer.GetValue("OBJ" & Obj, "FrascoElixir"))
-166             ObjData(Obj).Dosificador = Val(Leer.GetValue("OBJ" & Obj, "Dosificador"))
-168             ObjData(Obj).Orquidea = Val(Leer.GetValue("OBJ" & Obj, "Orquidea"))
-170             ObjData(Obj).Carmesi = Val(Leer.GetValue("OBJ" & Obj, "Carmesi"))
-172             ObjData(Obj).HongoDeLuz = Val(Leer.GetValue("OBJ" & Obj, "HongoDeLuz"))
-174             ObjData(Obj).Esporas = Val(Leer.GetValue("OBJ" & Obj, "Esporas"))
-176             ObjData(Obj).Tuna = Val(Leer.GetValue("OBJ" & Obj, "Tuna"))
-178             ObjData(Obj).Cala = Val(Leer.GetValue("OBJ" & Obj, "Cala"))
-180             ObjData(Obj).ColaDeZorro = Val(Leer.GetValue("OBJ" & Obj, "ColaDeZorro"))
-182             ObjData(Obj).FlorOceano = Val(Leer.GetValue("OBJ" & Obj, "FlorOceano"))
-184             ObjData(Obj).FlorRoja = Val(Leer.GetValue("OBJ" & Obj, "FlorRoja"))
-186             ObjData(Obj).Hierva = Val(Leer.GetValue("OBJ" & Obj, "Hierva"))
-188             ObjData(Obj).HojasDeRin = Val(Leer.GetValue("OBJ" & Obj, "HojasDeRin"))
-190             ObjData(Obj).HojasRojas = Val(Leer.GetValue("OBJ" & Obj, "HojasRojas"))
-192             ObjData(Obj).SemillasPros = Val(Leer.GetValue("OBJ" & Obj, "SemillasPros"))
-194             ObjData(Obj).Pimiento = Val(Leer.GetValue("OBJ" & Obj, "Pimiento"))
-196             ObjData(Obj).Madera = Val(Leer.GetValue("OBJ" & Obj, "Madera"))
-198             ObjData(Obj).MaderaElfica = Val(Leer.GetValue("OBJ" & Obj, "MaderaElfica"))
-200             ObjData(Obj).PielLobo = Val(Leer.GetValue("OBJ" & Obj, "PielLobo"))
-202             ObjData(Obj).PielLoboNegro = Val(Leer.GetValue("OBJ" & Obj, "PielLoboNegro"))
-203             ObjData(Obj).PielTigre = Val(Leer.GetValue("OBJ" & Obj, "PielTigre"))
-204             ObjData(Obj).PielOsoPardo = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPardo"))
-205             ObjData(Obj).PielTigreBengala = Val(Leer.GetValue("OBJ" & Obj, "PielTigreBengala"))
-206             ObjData(Obj).PielOsoPolar = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPolar"))
-208             ObjData(Obj).LingH = Val(Leer.GetValue("OBJ" & Obj, "LingH"))
-210             ObjData(Obj).LingP = Val(Leer.GetValue("OBJ" & Obj, "LingP"))
-212             ObjData(Obj).LingO = Val(Leer.GetValue("OBJ" & Obj, "LingO"))
-214             ObjData(Obj).Coal = Val(Leer.GetValue("OBJ" & Obj, "Coal"))
-216             ObjData(Obj).Destruye = Val(Leer.GetValue("OBJ" & Obj, "Destruye"))
-218             ObjData(Obj).SkHerreria = Val(Leer.GetValue("OBJ" & Obj, "SkHerreria"))
-220             ObjData(Obj).SkPociones = Val(Leer.GetValue("OBJ" & Obj, "SkPociones"))
-222             ObjData(Obj).Sksastreria = Val(Leer.GetValue("OBJ" & Obj, "Sksastreria"))
-224             ObjData(Obj).Valor = Val(Leer.GetValue("OBJ" & Obj, "Valor"))
-226             ObjData(Obj).Agarrable = Val(Leer.GetValue("OBJ" & Obj, "Agarrable"))
-228             ObjData(Obj).Llave = Val(Leer.GetValue("OBJ" & Obj, "Llave"))
-230             ObjData(Obj).Municiones = Val(Leer.GetValue("OBJ" & Obj, "Municiones"))
-232             ObjData(Obj).Cooldown = Val(Leer.GetValue("OBJ" & Obj, "CD"))
-234             ObjData(Obj).CdType = Val(Leer.GetValue("OBJ" & Obj, "CDType"))
-236             ObjData(Obj).SpellIndex = Val(Leer.GetValue("OBJ" & Obj, "HechizoIndex"))
-238             Label3.ForeColor = vbRed
-240             Label3.Caption = "Leyendo objetos: " & Obj & "/" & numobjs
-242         Next Obj
+124             ObjData(Obj).en_name = Leer.GetValue("OBJ" & Obj, "en_Name")
+126             ObjData(Obj).pt_name = Leer.GetValue("OBJ" & Obj, "pt_name")
+128             ObjData(Obj).fr_name = Leer.GetValue("OBJ" & Obj, "fr_name")
+130             ObjData(Obj).it_name = Leer.GetValue("OBJ" & Obj, "it_name")
+                ' Texto descriptivo (multi idioma)
+132             ObjData(Obj).texto = Leer.GetValue("OBJ" & Obj, "Texto")
+134             ObjData(Obj).en_texto = Leer.GetValue("OBJ" & Obj, "en_Texto")
+136             ObjData(Obj).pt_texto = Leer.GetValue("OBJ" & Obj, "pt_texto")
+138             ObjData(Obj).fr_texto = Leer.GetValue("OBJ" & Obj, "fr_texto")
+140             ObjData(Obj).it_texto = Leer.GetValue("OBJ" & Obj, "it_texto")
+                ' Info extendida (multi idioma)
+142             ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
+144             ObjData(Obj).en_Info = Leer.GetValue("OBJ" & Obj, "en_Info")
+146             ObjData(Obj).pt_Info = Leer.GetValue("OBJ" & Obj, "pt_Info")
+148             ObjData(Obj).fr_Info = Leer.GetValue("OBJ" & Obj, "fr_Info")
+150             ObjData(Obj).it_Info = Leer.GetValue("OBJ" & Obj, "it_Info")
+                ' Estadísticas
+152             ObjData(Obj).MINDEF = Val(Leer.GetValue("OBJ" & Obj, "MinDef"))
+154             ObjData(Obj).MaxDEF = Val(Leer.GetValue("OBJ" & Obj, "MaxDef"))
+156             ObjData(Obj).MinHit = Val(Leer.GetValue("OBJ" & Obj, "MinHit"))
+158             ObjData(Obj).MaxHit = Val(Leer.GetValue("OBJ" & Obj, "MaxHit"))
+160             ObjData(Obj).ObjType = Val(Leer.GetValue("OBJ" & Obj, "ObjType"))
+                ' Efectos visuales
+162             ObjData(Obj).CreaGRH = Leer.GetValue("OBJ" & Obj, "CreaGRH")
+164             ObjData(Obj).CreaLuz = Leer.GetValue("OBJ" & Obj, "CreaLuz")
+166             ObjData(Obj).CreaParticulaPiso = Val(Leer.GetValue("OBJ" & Obj, "CreaParticulaPiso"))
+                ' Otros efectos
+168             ObjData(Obj).Proyectil = Val(Leer.GetValue("OBJ" & Obj, "Proyectil"))
+170             ObjData(Obj).Municiones = Val(Leer.GetValue("OBJ" & Obj, "Municiones"))
+172             ObjData(Obj).Hechizo = Val(Leer.GetValue("OBJ" & Obj, "Hechizo"))
+                ' Componentes alquimia/herbolaria
+174             ObjData(Obj).Raices = Val(Leer.GetValue("OBJ" & Obj, "Raices"))
+176             ObjData(Obj).Cuchara = Val(Leer.GetValue("OBJ" & Obj, "Cuchara"))
+178             ObjData(Obj).Botella = Val(Leer.GetValue("OBJ" & Obj, "Botella"))
+180             ObjData(Obj).Mortero = Val(Leer.GetValue("OBJ" & Obj, "Mortero"))
+182             ObjData(Obj).FrascoAlq = Val(Leer.GetValue("OBJ" & Obj, "FrascoAlq"))
+184             ObjData(Obj).FrascoElixir = Val(Leer.GetValue("OBJ" & Obj, "FrascoElixir"))
+186             ObjData(Obj).Dosificador = Val(Leer.GetValue("OBJ" & Obj, "Dosificador"))
+                ' Ingredientes mágicos y naturales
+188             ObjData(Obj).Orquidea = Val(Leer.GetValue("OBJ" & Obj, "Orquidea"))
+190             ObjData(Obj).Carmesi = Val(Leer.GetValue("OBJ" & Obj, "Carmesi"))
+192             ObjData(Obj).HongoDeLuz = Val(Leer.GetValue("OBJ" & Obj, "HongoDeLuz"))
+194             ObjData(Obj).Esporas = Val(Leer.GetValue("OBJ" & Obj, "Esporas"))
+196             ObjData(Obj).Tuna = Val(Leer.GetValue("OBJ" & Obj, "Tuna"))
+198             ObjData(Obj).Cala = Val(Leer.GetValue("OBJ" & Obj, "Cala"))
+200             ObjData(Obj).ColaDeZorro = Val(Leer.GetValue("OBJ" & Obj, "ColaDeZorro"))
+202             ObjData(Obj).FlorOceano = Val(Leer.GetValue("OBJ" & Obj, "FlorOceano"))
+204             ObjData(Obj).FlorRoja = Val(Leer.GetValue("OBJ" & Obj, "FlorRoja"))
+206             ObjData(Obj).Hierva = Val(Leer.GetValue("OBJ" & Obj, "Hierva"))
+208             ObjData(Obj).HojasDeRin = Val(Leer.GetValue("OBJ" & Obj, "HojasDeRin"))
+210             ObjData(Obj).HojasRojas = Val(Leer.GetValue("OBJ" & Obj, "HojasRojas"))
+212             ObjData(Obj).SemillasPros = Val(Leer.GetValue("OBJ" & Obj, "SemillasPros"))
+214             ObjData(Obj).Pimiento = Val(Leer.GetValue("OBJ" & Obj, "Pimiento"))
+                ' Materiales
+216             ObjData(Obj).Madera = Val(Leer.GetValue("OBJ" & Obj, "Madera"))
+218             ObjData(Obj).MaderaElfica = Val(Leer.GetValue("OBJ" & Obj, "MaderaElfica"))
+220             ObjData(Obj).PielLobo = Val(Leer.GetValue("OBJ" & Obj, "PielLobo"))
+222             ObjData(Obj).PielLoboNegro = Val(Leer.GetValue("OBJ" & Obj, "PielLoboNegro"))
+224             ObjData(Obj).PielTigre = Val(Leer.GetValue("OBJ" & Obj, "PielTigre"))
+226             ObjData(Obj).PielTigreBengala = Val(Leer.GetValue("OBJ" & Obj, "PielTigreBengala"))
+228             ObjData(Obj).PielOsoPardo = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPardo"))
+230             ObjData(Obj).PielOsoPolar = Val(Leer.GetValue("OBJ" & Obj, "PielOsoPolar"))
+232             ObjData(Obj).LingH = Val(Leer.GetValue("OBJ" & Obj, "LingH"))
+234             ObjData(Obj).LingP = Val(Leer.GetValue("OBJ" & Obj, "LingP"))
+236             ObjData(Obj).LingO = Val(Leer.GetValue("OBJ" & Obj, "LingO"))
+238             ObjData(Obj).Coal = Val(Leer.GetValue("OBJ" & Obj, "Coal"))
+                ' Otros
+240             ObjData(Obj).Destruye = Val(Leer.GetValue("OBJ" & Obj, "Destruye"))
+242             ObjData(Obj).SkHerreria = Val(Leer.GetValue("OBJ" & Obj, "SkHerreria"))
+244             ObjData(Obj).SkPociones = Val(Leer.GetValue("OBJ" & Obj, "SkPociones"))
+246             ObjData(Obj).Sksastreria = Val(Leer.GetValue("OBJ" & Obj, "Sksastreria"))
+248             ObjData(Obj).Valor = Val(Leer.GetValue("OBJ" & Obj, "Valor"))
+250             ObjData(Obj).Agarrable = Val(Leer.GetValue("OBJ" & Obj, "Agarrable"))
+252             ObjData(Obj).Llave = Val(Leer.GetValue("OBJ" & Obj, "Llave"))
+254             ObjData(Obj).Cooldown = Val(Leer.GetValue("OBJ" & Obj, "CD"))
+256             ObjData(Obj).CdType = Val(Leer.GetValue("OBJ" & Obj, "CDType"))
+258             ObjData(Obj).SpellIndex = Val(Leer.GetValue("OBJ" & Obj, "HechizoIndex"))
+260             Label3.ForeColor = vbRed
+262             Label3.Caption = "Leyendo objetos: " & Obj & "/" & numobjs
+264         Next Obj
 
-244         Obj = 1
-
+266         Obj = 1
             Dim Manager As clsIniReader
+268         Set Manager = New clsIniReader
+270         Call Manager.Initialize(OutputFile)
+272         Call Manager.ChangeValue("INIT", "NumOBJs", numobjs)
 
-246         Set Manager = New clsIniReader
-248         Call Manager.Initialize(OutputFile)
-250         Call Manager.ChangeValue("INIT", "NumOBJs", numobjs)
+274         For Obj = 1 To numobjs
+276             DoEvents
+278             Call Manager.ChangeValue("OBJ" & Obj, "GrhIndex", ObjData(Obj).grhindex)
 
-252         For Obj = 1 To numobjs
-254             DoEvents
-256             Call Manager.ChangeValue("OBJ" & Obj, "GrhIndex", ObjData(Obj).grhindex)
-
-258             If Len(ObjData(Obj).Name) <> 0 Then
-260                 Call Manager.ChangeValue("OBJ" & Obj, "Name", ObjData(Obj).Name)
-
-                End If
-
-262             If Len(ObjData(Obj).texto) <> 0 Then
-264                 Call Manager.ChangeValue("OBJ" & Obj, "Texto", ObjData(Obj).texto)
+280             If Len(ObjData(Obj).Name) <> 0 Then
+282                 Call Manager.ChangeValue("OBJ" & Obj, "Name", ObjData(Obj).Name)
 
                 End If
 
-266             If Len(ObjData(Obj).Info) <> 0 Then
-268                 Call Manager.ChangeValue("OBJ" & Obj, "Info", ObjData(Obj).Info)
+284             If Len(ObjData(Obj).texto) <> 0 Then
+286                 Call Manager.ChangeValue("OBJ" & Obj, "Texto", ObjData(Obj).texto)
+
+                End If
+
+288             If Len(ObjData(Obj).Info) <> 0 Then
+290                 Call Manager.ChangeValue("OBJ" & Obj, "Info", ObjData(Obj).Info)
 
                 End If
 
                 'English
-270             If Len(ObjData(Obj).en_Name) <> 0 Then
-272                 Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_Name)
+292             If Len(ObjData(Obj).en_name) <> 0 Then
+294                 Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_name)
 
                 End If
 
-274             If Len(ObjData(Obj).en_texto) <> 0 Then
-276                 Call Manager.ChangeValue("OBJ" & Obj, "en_Texto", ObjData(Obj).en_texto)
+296             If Len(ObjData(Obj).en_texto) <> 0 Then
+298                 Call Manager.ChangeValue("OBJ" & Obj, "en_Texto", ObjData(Obj).en_texto)
 
                 End If
 
-278             If Len(ObjData(Obj).en_Info) <> 0 Then
-280                 Call Manager.ChangeValue("OBJ" & Obj, "en_Info", ObjData(Obj).en_Info)
+300             If Len(ObjData(Obj).en_Info) <> 0 Then
+302                 Call Manager.ChangeValue("OBJ" & Obj, "en_Info", ObjData(Obj).en_Info)
 
                 End If
 
-282             If ObjData(Obj).MINDEF > 0 Then
-284                 Call Manager.ChangeValue("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
+304             If ObjData(Obj).MINDEF > 0 Then
+306                 Call Manager.ChangeValue("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
 
                 End If
 
-286             If ObjData(Obj).MaxDEF > 0 Then
-288                 Call Manager.ChangeValue("OBJ" & Obj, "MaxDEF", ObjData(Obj).MaxDEF)
+308             If ObjData(Obj).MaxDEF > 0 Then
+310                 Call Manager.ChangeValue("OBJ" & Obj, "MaxDEF", ObjData(Obj).MaxDEF)
 
                 End If
 
-290             If ObjData(Obj).MinHit > 0 Then
-292                 Call Manager.ChangeValue("OBJ" & Obj, "MinHIt", ObjData(Obj).MinHit)
+312             If ObjData(Obj).MinHit > 0 Then
+314                 Call Manager.ChangeValue("OBJ" & Obj, "MinHIt", ObjData(Obj).MinHit)
 
                 End If
 
-294             If ObjData(Obj).MaxHit > 0 Then
-296                 Call Manager.ChangeValue("OBJ" & Obj, "maxhit", ObjData(Obj).MaxHit)
+316             If ObjData(Obj).MaxHit > 0 Then
+318                 Call Manager.ChangeValue("OBJ" & Obj, "maxhit", ObjData(Obj).MaxHit)
 
                 End If
 
-298             If ObjData(Obj).ObjType > 0 Then
-300                 Call Manager.ChangeValue("OBJ" & Obj, "ObjType", ObjData(Obj).ObjType)
+320             If ObjData(Obj).ObjType > 0 Then
+322                 Call Manager.ChangeValue("OBJ" & Obj, "ObjType", ObjData(Obj).ObjType)
 
                 End If
 
-302             If Len(ObjData(Obj).CreaLuz) <> 0 Then
-304                 Call Manager.ChangeValue("OBJ" & Obj, "CreaLuz", ObjData(Obj).CreaLuz)
+324             If Len(ObjData(Obj).CreaLuz) <> 0 Then
+326                 Call Manager.ChangeValue("OBJ" & Obj, "CreaLuz", ObjData(Obj).CreaLuz)
 
                 End If
 
-306             If Len(ObjData(Obj).CreaGRH) <> 0 Then
-308                 Call Manager.ChangeValue("OBJ" & Obj, "CreaGRH", ObjData(Obj).CreaGRH)
+328             If Len(ObjData(Obj).CreaGRH) <> 0 Then
+330                 Call Manager.ChangeValue("OBJ" & Obj, "CreaGRH", ObjData(Obj).CreaGRH)
 
                 End If
 
-310             If ObjData(Obj).Hechizo <> 0 Then
-312                 Call Manager.ChangeValue("OBJ" & Obj, "Hechizo", ObjData(Obj).Hechizo)
+332             If ObjData(Obj).Hechizo <> 0 Then
+334                 Call Manager.ChangeValue("OBJ" & Obj, "Hechizo", ObjData(Obj).Hechizo)
 
                 End If
 
-314             If ObjData(Obj).Raices <> 0 Then
-316                 Call Manager.ChangeValue("OBJ" & Obj, "Raices", ObjData(Obj).Raices)
+336             If ObjData(Obj).Raices <> 0 Then
+338                 Call Manager.ChangeValue("OBJ" & Obj, "Raices", ObjData(Obj).Raices)
 
                 End If
 
-318             If ObjData(Obj).Cuchara <> 0 Then
-320                 Call Manager.ChangeValue("OBJ" & Obj, "Cuchara", ObjData(Obj).Cuchara)
+340             If ObjData(Obj).Cuchara <> 0 Then
+342                 Call Manager.ChangeValue("OBJ" & Obj, "Cuchara", ObjData(Obj).Cuchara)
 
                 End If
 
-322             If ObjData(Obj).Botella <> 0 Then
-324                 Call Manager.ChangeValue("OBJ" & Obj, "Botella", ObjData(Obj).Botella)
+344             If ObjData(Obj).Botella <> 0 Then
+346                 Call Manager.ChangeValue("OBJ" & Obj, "Botella", ObjData(Obj).Botella)
 
                 End If
 
-326             If ObjData(Obj).Mortero <> 0 Then
-328                 Call Manager.ChangeValue("OBJ" & Obj, "Mortero", ObjData(Obj).Mortero)
+348             If ObjData(Obj).Mortero <> 0 Then
+350                 Call Manager.ChangeValue("OBJ" & Obj, "Mortero", ObjData(Obj).Mortero)
 
                 End If
 
-330             If ObjData(Obj).FrascoAlq <> 0 Then
-332                 Call Manager.ChangeValue("OBJ" & Obj, "FrascoAlq", ObjData(Obj).FrascoAlq)
+352             If ObjData(Obj).FrascoAlq <> 0 Then
+354                 Call Manager.ChangeValue("OBJ" & Obj, "FrascoAlq", ObjData(Obj).FrascoAlq)
 
                 End If
 
-334             If ObjData(Obj).FrascoElixir <> 0 Then
-336                 Call Manager.ChangeValue("OBJ" & Obj, "FrascoElixir", ObjData(Obj).FrascoElixir)
+356             If ObjData(Obj).FrascoElixir <> 0 Then
+358                 Call Manager.ChangeValue("OBJ" & Obj, "FrascoElixir", ObjData(Obj).FrascoElixir)
 
                 End If
 
-338             If ObjData(Obj).Dosificador <> 0 Then
-340                 Call Manager.ChangeValue("OBJ" & Obj, "Dosificador", ObjData(Obj).Dosificador)
+360             If ObjData(Obj).Dosificador <> 0 Then
+362                 Call Manager.ChangeValue("OBJ" & Obj, "Dosificador", ObjData(Obj).Dosificador)
 
                 End If
 
-342             If ObjData(Obj).Orquidea <> 0 Then
-344                 Call Manager.ChangeValue("OBJ" & Obj, "Orquidea", ObjData(Obj).Orquidea)
+364             If ObjData(Obj).Orquidea <> 0 Then
+366                 Call Manager.ChangeValue("OBJ" & Obj, "Orquidea", ObjData(Obj).Orquidea)
 
                 End If
 
-346             If ObjData(Obj).Carmesi <> 0 Then
-348                 Call Manager.ChangeValue("OBJ" & Obj, "Carmesi", ObjData(Obj).Carmesi)
+368             If ObjData(Obj).Carmesi <> 0 Then
+370                 Call Manager.ChangeValue("OBJ" & Obj, "Carmesi", ObjData(Obj).Carmesi)
 
                 End If
 
-350             If ObjData(Obj).HongoDeLuz <> 0 Then
-352                 Call Manager.ChangeValue("OBJ" & Obj, "HongoDeLuz", ObjData(Obj).HongoDeLuz)
+372             If ObjData(Obj).HongoDeLuz <> 0 Then
+374                 Call Manager.ChangeValue("OBJ" & Obj, "HongoDeLuz", ObjData(Obj).HongoDeLuz)
 
                 End If
 
-354             If ObjData(Obj).Esporas <> 0 Then
-356                 Call Manager.ChangeValue("OBJ" & Obj, "Esporas", ObjData(Obj).Esporas)
+376             If ObjData(Obj).Esporas <> 0 Then
+378                 Call Manager.ChangeValue("OBJ" & Obj, "Esporas", ObjData(Obj).Esporas)
 
                 End If
 
-358             If ObjData(Obj).Tuna <> 0 Then
-360                 Call Manager.ChangeValue("OBJ" & Obj, "Tuna", ObjData(Obj).Tuna)
+380             If ObjData(Obj).Tuna <> 0 Then
+382                 Call Manager.ChangeValue("OBJ" & Obj, "Tuna", ObjData(Obj).Tuna)
 
                 End If
 
-362             If ObjData(Obj).Cala <> 0 Then
-364                 Call Manager.ChangeValue("OBJ" & Obj, "Cala", ObjData(Obj).Cala)
+384             If ObjData(Obj).Cala <> 0 Then
+386                 Call Manager.ChangeValue("OBJ" & Obj, "Cala", ObjData(Obj).Cala)
 
                 End If
 
-366             If ObjData(Obj).ColaDeZorro <> 0 Then
-368                 Call Manager.ChangeValue("OBJ" & Obj, "ColaDeZorro", ObjData(Obj).ColaDeZorro)
+388             If ObjData(Obj).ColaDeZorro <> 0 Then
+390                 Call Manager.ChangeValue("OBJ" & Obj, "ColaDeZorro", ObjData(Obj).ColaDeZorro)
 
                 End If
 
-370             If ObjData(Obj).FlorOceano <> 0 Then
-372                 Call Manager.ChangeValue("OBJ" & Obj, "FlorOceano", ObjData(Obj).FlorOceano)
+392             If ObjData(Obj).FlorOceano <> 0 Then
+394                 Call Manager.ChangeValue("OBJ" & Obj, "FlorOceano", ObjData(Obj).FlorOceano)
 
                 End If
 
-374             If ObjData(Obj).FlorRoja <> 0 Then
-376                 Call Manager.ChangeValue("OBJ" & Obj, "FlorRoja", ObjData(Obj).FlorRoja)
+396             If ObjData(Obj).FlorRoja <> 0 Then
+398                 Call Manager.ChangeValue("OBJ" & Obj, "FlorRoja", ObjData(Obj).FlorRoja)
 
                 End If
 
-378             If ObjData(Obj).Hierva <> 0 Then
-380                 Call Manager.ChangeValue("OBJ" & Obj, "Hierva", ObjData(Obj).Hierva)
+400             If ObjData(Obj).Hierva <> 0 Then
+402                 Call Manager.ChangeValue("OBJ" & Obj, "Hierva", ObjData(Obj).Hierva)
 
                 End If
 
-382             If ObjData(Obj).HojasDeRin <> 0 Then
-384                 Call Manager.ChangeValue("OBJ" & Obj, "HojasDeRin", ObjData(Obj).HojasDeRin)
+404             If ObjData(Obj).HojasDeRin <> 0 Then
+406                 Call Manager.ChangeValue("OBJ" & Obj, "HojasDeRin", ObjData(Obj).HojasDeRin)
 
                 End If
 
-386             If ObjData(Obj).HojasRojas <> 0 Then
-388                 Call Manager.ChangeValue("OBJ" & Obj, "HojasRojas", ObjData(Obj).HojasRojas)
+408             If ObjData(Obj).HojasRojas <> 0 Then
+410                 Call Manager.ChangeValue("OBJ" & Obj, "HojasRojas", ObjData(Obj).HojasRojas)
 
                 End If
 
-390             If ObjData(Obj).SemillasPros <> 0 Then
-392                 Call Manager.ChangeValue("OBJ" & Obj, "SemillasPros", ObjData(Obj).SemillasPros)
+412             If ObjData(Obj).SemillasPros <> 0 Then
+414                 Call Manager.ChangeValue("OBJ" & Obj, "SemillasPros", ObjData(Obj).SemillasPros)
 
                 End If
 
-394             If ObjData(Obj).Pimiento <> 0 Then
-396                 Call Manager.ChangeValue("OBJ" & Obj, "Pimiento", ObjData(Obj).Pimiento)
+416             If ObjData(Obj).Pimiento <> 0 Then
+418                 Call Manager.ChangeValue("OBJ" & Obj, "Pimiento", ObjData(Obj).Pimiento)
 
                 End If
 
-398             If ObjData(Obj).Madera <> 0 Then
-400                 Call Manager.ChangeValue("OBJ" & Obj, "Madera", ObjData(Obj).Madera)
+420             If ObjData(Obj).Madera <> 0 Then
+422                 Call Manager.ChangeValue("OBJ" & Obj, "Madera", ObjData(Obj).Madera)
 
                 End If
 
-402             If ObjData(Obj).MaderaElfica <> 0 Then
-404                 Call Manager.ChangeValue("OBJ" & Obj, "MaderaElfica", ObjData(Obj).MaderaElfica)
+424             If ObjData(Obj).MaderaElfica <> 0 Then
+426                 Call Manager.ChangeValue("OBJ" & Obj, "MaderaElfica", ObjData(Obj).MaderaElfica)
 
                 End If
 
-406             If ObjData(Obj).PielLobo <> 0 Then
-408                 Call Manager.ChangeValue("OBJ" & Obj, "PielLobo", ObjData(Obj).PielLobo)
+428             If ObjData(Obj).PielLobo <> 0 Then
+430                 Call Manager.ChangeValue("OBJ" & Obj, "PielLobo", ObjData(Obj).PielLobo)
 
                 End If
 
-410             If ObjData(Obj).PielLoboNegro <> 0 Then
-412                 Call Manager.ChangeValue("OBJ" & Obj, "PielLoboNegro", ObjData(Obj).PielLoboNegro)
+432             If ObjData(Obj).PielLoboNegro <> 0 Then
+434                 Call Manager.ChangeValue("OBJ" & Obj, "PielLoboNegro", ObjData(Obj).PielLoboNegro)
 
                 End If
 
-414             If ObjData(Obj).PielOsoPardo <> 0 Then
-416                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPardo", ObjData(Obj).PielOsoPardo)
-
-                End If
-                
-                
-                If ObjData(Obj).PielTigre <> 0 Then
-                 Call Manager.ChangeValue("OBJ" & Obj, "PielTigre", ObjData(Obj).PielTigre)
-
-                End If
-                
-                
-         
-                If ObjData(Obj).PielTigreBengala <> 0 Then
-                 Call Manager.ChangeValue("OBJ" & Obj, "PielTigreBengala", ObjData(Obj).PielTigreBengala)
-
-                End If
-                
-
-418             If ObjData(Obj).PielOsoPolar <> 0 Then
-420                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPolar", ObjData(Obj).PielOsoPolar)
+436             If ObjData(Obj).PielOsoPardo <> 0 Then
+438                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPardo", ObjData(Obj).PielOsoPardo)
 
                 End If
 
-422             If ObjData(Obj).LingH <> 0 Then
-424                 Call Manager.ChangeValue("OBJ" & Obj, "LingH", ObjData(Obj).LingH)
+440             If ObjData(Obj).PielTigre <> 0 Then
+442                 Call Manager.ChangeValue("OBJ" & Obj, "PielTigre", ObjData(Obj).PielTigre)
 
                 End If
 
-426             If ObjData(Obj).LingP <> 0 Then
-428                 Call Manager.ChangeValue("OBJ" & Obj, "LingP", ObjData(Obj).LingP)
+444             If ObjData(Obj).PielTigreBengala <> 0 Then
+446                 Call Manager.ChangeValue("OBJ" & Obj, "PielTigreBengala", ObjData(Obj).PielTigreBengala)
 
                 End If
 
-430             If ObjData(Obj).LingO <> 0 Then
-432                 Call Manager.ChangeValue("OBJ" & Obj, "LingO", ObjData(Obj).LingO)
+448             If ObjData(Obj).PielOsoPolar <> 0 Then
+450                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPolar", ObjData(Obj).PielOsoPolar)
 
                 End If
 
-434             If ObjData(Obj).Coal <> 0 Then
-436                 Call Manager.ChangeValue("OBJ" & Obj, "Coal", ObjData(Obj).Coal)
+452             If ObjData(Obj).LingH <> 0 Then
+454                 Call Manager.ChangeValue("OBJ" & Obj, "LingH", ObjData(Obj).LingH)
 
                 End If
 
-438             If ObjData(Obj).Destruye <> 0 Then
-440                 Call Manager.ChangeValue("OBJ" & Obj, "Destruye", ObjData(Obj).Destruye)
+456             If ObjData(Obj).LingP <> 0 Then
+458                 Call Manager.ChangeValue("OBJ" & Obj, "LingP", ObjData(Obj).LingP)
 
                 End If
 
-442             If ObjData(Obj).SkHerreria <> 0 Then
-444                 Call Manager.ChangeValue("OBJ" & Obj, "SkHerreria", ObjData(Obj).SkHerreria)
+460             If ObjData(Obj).LingO <> 0 Then
+462                 Call Manager.ChangeValue("OBJ" & Obj, "LingO", ObjData(Obj).LingO)
 
                 End If
 
-446             If ObjData(Obj).SkPociones <> 0 Then
-448                 Call Manager.ChangeValue("OBJ" & Obj, "SkPociones", ObjData(Obj).SkPociones)
+464             If ObjData(Obj).Coal <> 0 Then
+466                 Call Manager.ChangeValue("OBJ" & Obj, "Coal", ObjData(Obj).Coal)
 
                 End If
 
-450             If ObjData(Obj).Sksastreria <> 0 Then
-452                 Call Manager.ChangeValue("OBJ" & Obj, "Sksastreria", ObjData(Obj).Sksastreria)
+468             If ObjData(Obj).Destruye <> 0 Then
+470                 Call Manager.ChangeValue("OBJ" & Obj, "Destruye", ObjData(Obj).Destruye)
 
                 End If
 
-454             If ObjData(Obj).Valor <> 0 Then
-456                 Call Manager.ChangeValue("OBJ" & Obj, "Valor", ObjData(Obj).Valor)
+472             If ObjData(Obj).SkHerreria <> 0 Then
+474                 Call Manager.ChangeValue("OBJ" & Obj, "SkHerreria", ObjData(Obj).SkHerreria)
 
                 End If
 
-458             If ObjData(Obj).Agarrable Then
-460                 Call Manager.ChangeValue("OBJ" & Obj, "Agarrable", 1)
+476             If ObjData(Obj).SkPociones <> 0 Then
+478                 Call Manager.ChangeValue("OBJ" & Obj, "SkPociones", ObjData(Obj).SkPociones)
 
                 End If
 
-462             If ObjData(Obj).CreaParticulaPiso > 0 Then
-464                 Call Manager.ChangeValue("OBJ" & Obj, "CreaParticulaPiso", ObjData(Obj).CreaParticulaPiso)
+480             If ObjData(Obj).Sksastreria <> 0 Then
+482                 Call Manager.ChangeValue("OBJ" & Obj, "Sksastreria", ObjData(Obj).Sksastreria)
 
                 End If
 
-466             If ObjData(Obj).Proyectil > 0 Then
-468                 Call Manager.ChangeValue("OBJ" & Obj, "Proyectil", ObjData(Obj).Proyectil)
+484             If ObjData(Obj).Valor <> 0 Then
+486                 Call Manager.ChangeValue("OBJ" & Obj, "Valor", ObjData(Obj).Valor)
 
                 End If
 
-470             If ObjData(Obj).Municiones > 0 Then
-472                 Call Manager.ChangeValue("OBJ" & Obj, "Municiones", ObjData(Obj).Municiones)
+488             If ObjData(Obj).Agarrable Then
+490                 Call Manager.ChangeValue("OBJ" & Obj, "Agarrable", 1)
 
                 End If
 
-474             If ObjData(Obj).Llave > 0 Then
-476                 Call Manager.ChangeValue("OBJ" & Obj, "Llave", ObjData(Obj).Llave)
+492             If ObjData(Obj).CreaParticulaPiso > 0 Then
+494                 Call Manager.ChangeValue("OBJ" & Obj, "CreaParticulaPiso", ObjData(Obj).CreaParticulaPiso)
 
                 End If
 
-478             If ObjData(Obj).Cooldown > 0 Then
-480                 Call Manager.ChangeValue("OBJ" & Obj, "CD", ObjData(Obj).Cooldown)
+496             If ObjData(Obj).Proyectil > 0 Then
+498                 Call Manager.ChangeValue("OBJ" & Obj, "Proyectil", ObjData(Obj).Proyectil)
 
                 End If
 
-482             If ObjData(Obj).CdType > 0 Then
-484                 Call Manager.ChangeValue("OBJ" & Obj, "CDType", ObjData(Obj).CdType)
+500             If ObjData(Obj).Municiones > 0 Then
+502                 Call Manager.ChangeValue("OBJ" & Obj, "Municiones", ObjData(Obj).Municiones)
 
                 End If
 
-486             If ObjData(Obj).SpellIndex > 0 Then
-488                 Call Manager.ChangeValue("OBJ" & Obj, "SpellIndex", ObjData(Obj).SpellIndex)
+504             If ObjData(Obj).Llave > 0 Then
+506                 Call Manager.ChangeValue("OBJ" & Obj, "Llave", ObjData(Obj).Llave)
 
                 End If
 
-490             Label3.Caption = "Grabando: " & Obj & "/" & numobjs
-492             Label3.ForeColor = &HC0C0&
-494         Next Obj
+508             If ObjData(Obj).Cooldown > 0 Then
+510                 Call Manager.ChangeValue("OBJ" & Obj, "CD", ObjData(Obj).Cooldown)
 
-496         Label3.ForeColor = vbGreen
-498         Label3.Caption = "Creado objindex.dat"
+                End If
+
+512             If ObjData(Obj).CdType > 0 Then
+514                 Call Manager.ChangeValue("OBJ" & Obj, "CDType", ObjData(Obj).CdType)
+
+                End If
+
+516             If ObjData(Obj).SpellIndex > 0 Then
+518                 Call Manager.ChangeValue("OBJ" & Obj, "SpellIndex", ObjData(Obj).SpellIndex)
+
+                End If
+
+520             Label3.Caption = "Grabando: " & Obj & "/" & numobjs
+522             Label3.ForeColor = &HC0C0&
+
+                ' Portugués
+524             If Len(ObjData(Obj).pt_name) <> 0 Then
+526                 Call Manager.ChangeValue("OBJ" & Obj, "pt_name", ObjData(Obj).pt_name)
+
+                End If
+
+528             If Len(ObjData(Obj).pt_texto) <> 0 Then
+530                 Call Manager.ChangeValue("OBJ" & Obj, "pt_texto", ObjData(Obj).pt_texto)
+
+                End If
+
+                ' Francés
+532             If Len(ObjData(Obj).fr_name) <> 0 Then
+534                 Call Manager.ChangeValue("OBJ" & Obj, "fr_name", ObjData(Obj).fr_name)
+
+                End If
+
+536             If Len(ObjData(Obj).fr_texto) <> 0 Then
+538                 Call Manager.ChangeValue("OBJ" & Obj, "fr_texto", ObjData(Obj).fr_texto)
+
+                End If
+
+                ' Italiano
+540             If Len(ObjData(Obj).it_name) <> 0 Then
+542                 Call Manager.ChangeValue("OBJ" & Obj, "it_name", ObjData(Obj).it_name)
+
+                End If
+
+544             If Len(ObjData(Obj).it_texto) <> 0 Then
+546                 Call Manager.ChangeValue("OBJ" & Obj, "it_texto", ObjData(Obj).it_texto)
+
+                End If
+
+548         Next Obj
+
+550         Label3.ForeColor = vbGreen
+552         Label3.Caption = "Creado objindex.dat"
         Else
-500         MsgBox "Falta el archivo obj.dat dentro de la carpeta INIT."
+554         MsgBox "Falta el archivo obj.dat dentro de la carpeta INIT."
 
         End If
 
-502     If FileExist(App.Path & "\..\Recursos\Dat\npcs.dat", vbNormal) Then
-504         NpcFile = App.Path & "\..\Recursos\Dat\npcs.dat"
-506         Call Leer.Initialize(NpcFile)
-
+556     If FileExist(App.Path & "\..\Recursos\Dat\npcs.dat", vbNormal) Then
+558         NpcFile = App.Path & "\..\Recursos\Dat\npcs.dat"
+560         Call Leer.Initialize(NpcFile)
             Dim numnpcs As Long
-
-508         numnpcs = Val(GetVar(NpcFile, "INIT", "NumNPCs"))
-510         Label3.Caption = "0/" & numnpcs
-512         ReDim NpcData(1 To numnpcs) As NpcDatas
-
+562         numnpcs = Val(GetVar(NpcFile, "INIT", "NumNPCs"))
+564         Label3.Caption = "0/" & numnpcs
+566         ReDim NpcData(1 To numnpcs) As NpcDatas
             Dim aux As String
 
-514         For Npc = 1 To numnpcs
-516             DoEvents
-518             NpcData(Npc).Name = Leer.GetValue("npc" & Npc, "Name")
-520             NpcData(Npc).en_Name = Leer.GetValue("npc" & Npc, "en_Name")
-522             NpcData(Npc).desc = Leer.GetValue("npc" & Npc, "desc")
-524             NpcData(Npc).en_desc = Leer.GetValue("npc" & Npc, "en_desc")
-526             NpcData(Npc).Body = Val(Leer.GetValue("npc" & Npc, "Body"))
-528             NpcData(Npc).Exp = Val(Leer.GetValue("npc" & Npc, "GiveEXP"))
-530             NpcData(Npc).Head = Val(Leer.GetValue("npc" & Npc, "Head"))
-532             NpcData(Npc).Hp = Val(Leer.GetValue("npc" & Npc, "MaxHP"))
-534             NpcData(Npc).MaxHit = Val(Leer.GetValue("npc" & Npc, "MaxHit"))
-536             NpcData(Npc).MinHit = Val(Leer.GetValue("npc" & Npc, "MinHit"))
-538             NpcData(Npc).Oro = Val(Leer.GetValue("npc" & Npc, "GiveGLD"))
-540             NpcData(Npc).ExpClan = Val(Leer.GetValue("npc" & Npc, "GiveEXPClan"))
-542             NpcData(Npc).PuedeInvocar = Val(Leer.GetValue("npc" & Npc, "PuedeInvocar"))
-                NpcData(Npc).NoMapInfo = Val(Leer.GetValue("npc" & Npc, "NoMapInfo"))
-544             NpcData(Npc).QuizaProb = Val(Leer.GetValue("npc" & Npc, "QuizaProb"))
-546             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
+568         For Npc = 1 To numnpcs
+570             DoEvents
+                ' Nombres y descripciones (multi idioma)
+572             NpcData(Npc).Name = Leer.GetValue("npc" & Npc, "Name")
+574             NpcData(Npc).en_name = Leer.GetValue("npc" & Npc, "en_Name")
+576             NpcData(Npc).pt_name = Leer.GetValue("npc" & Npc, "pt_Name")
+578             NpcData(Npc).fr_name = Leer.GetValue("npc" & Npc, "fr_Name")
+580             NpcData(Npc).it_name = Leer.GetValue("npc" & Npc, "it_Name")
+582             NpcData(Npc).desc = Leer.GetValue("npc" & Npc, "desc")
+584             NpcData(Npc).en_Desc = Leer.GetValue("npc" & Npc, "en_desc")
+586             NpcData(Npc).pt_desc = Leer.GetValue("npc" & Npc, "pt_desc")
+588             NpcData(Npc).fr_desc = Leer.GetValue("npc" & Npc, "fr_desc")
+590             NpcData(Npc).it_desc = Leer.GetValue("npc" & Npc, "it_desc")
+                ' Atributos generales
+592             NpcData(Npc).Body = Val(Leer.GetValue("npc" & Npc, "Body"))
+594             NpcData(Npc).Head = Val(Leer.GetValue("npc" & Npc, "Head"))
+596             NpcData(Npc).Hp = Val(Leer.GetValue("npc" & Npc, "MaxHP"))
+598             NpcData(Npc).Exp = Val(Leer.GetValue("npc" & Npc, "GiveEXP"))
+600             NpcData(Npc).ExpClan = Val(Leer.GetValue("npc" & Npc, "GiveEXPClan"))
+602             NpcData(Npc).Oro = Val(Leer.GetValue("npc" & Npc, "GiveGLD"))
+                ' Combate
+604             NpcData(Npc).MinHit = Val(Leer.GetValue("npc" & Npc, "MinHit"))
+606             NpcData(Npc).MaxHit = Val(Leer.GetValue("npc" & Npc, "MaxHit"))
+                ' Flags y control
+608             NpcData(Npc).PuedeInvocar = Val(Leer.GetValue("npc" & Npc, "PuedeInvocar"))
+610             NpcData(Npc).NoMapInfo = Val(Leer.GetValue("npc" & Npc, "NoMapInfo"))
+612             NpcData(Npc).QuizaProb = Val(Leer.GetValue("npc" & Npc, "QuizaProb"))
+                ' QuizaDropea
+614             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
 
-548             If aux = 0 Then
-550                 NpcData(Npc).NumQuiza = 0
+616             If aux = 0 Then
+618                 NpcData(Npc).NumQuiza = 0
                 Else
-552                 NpcData(Npc).NumQuiza = Val(aux)
-554                 ReDim NpcData(Npc).QuizaDropea(1 To NpcData(Npc).NumQuiza) As Integer
+620                 NpcData(Npc).NumQuiza = Val(aux)
+622                 ReDim NpcData(Npc).QuizaDropea(1 To NpcData(Npc).NumQuiza) As Integer
 
-                    Dim LoopC As Long
-
-556                 For LoopC = 1 To NpcData(Npc).NumQuiza
-558                     NpcData(Npc).QuizaDropea(LoopC) = Val(Leer.GetValue("npc" & Npc, "QuizaDropea" & LoopC))
-560                 Next LoopC
+624                 For LoopC = 1 To NpcData(Npc).NumQuiza
+626                     NpcData(Npc).QuizaDropea(LoopC) = Val(Leer.GetValue("npc" & Npc, "QuizaDropea" & LoopC))
+628                 Next LoopC
 
                 End If
 
-562             Label3.ForeColor = vbRed
-564             Label3.Caption = "Leyendo NPCs: " & Npc & "/" & numnpcs
-566         Next Npc
+630             Label3.ForeColor = vbRed
+632             Label3.Caption = "Leyendo NPCs: " & Npc & "/" & numnpcs
+634         Next Npc
 
-568         Npc = 1
-570         Call Manager.ChangeValue("INIT", "NumNPCs", numnpcs)
+636         Npc = 1
+638         Call Manager.ChangeValue("INIT", "NumNPCs", numnpcs)
 
-572         For Npc = 1 To numnpcs
-574             DoEvents
+640         For Npc = 1 To numnpcs
+642             DoEvents
 
-576             If Len(NpcData(Npc).Name) <> 0 Then
-578                 Call Manager.ChangeValue("Npc" & Npc, "Name", NpcData(Npc).Name)
-
-                End If
-
-580             If Len(NpcData(Npc).en_Name) <> 0 Then
-582                 Call Manager.ChangeValue("Npc" & Npc, "en_Name", NpcData(Npc).en_Name)
+644             If Len(NpcData(Npc).Name) <> 0 Then
+646                 Call Manager.ChangeValue("Npc" & Npc, "Name", NpcData(Npc).Name)
 
                 End If
 
-584             If Len(NpcData(Npc).en_desc) <> 0 Then
-586                 Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_desc)
+648             If Len(NpcData(Npc).en_name) <> 0 Then
+650                 Call Manager.ChangeValue("Npc" & Npc, "en_Name", NpcData(Npc).en_name)
+
+                    ' Name multilenguaje
+652                 If Len(NpcData(Npc).pt_name) <> 0 Then
+654                     Call Manager.ChangeValue("Npc" & Npc, "pt_Name", NpcData(Npc).pt_name)
+
+                    End If
+
+656                 If Len(NpcData(Npc).fr_name) <> 0 Then
+658                     Call Manager.ChangeValue("Npc" & Npc, "fr_Name", NpcData(Npc).fr_name)
+
+                    End If
+
+660                 If Len(NpcData(Npc).it_name) <> 0 Then
+662                     Call Manager.ChangeValue("Npc" & Npc, "it_Name", NpcData(Npc).it_name)
+
+                    End If
 
                 End If
 
-588             If Len(NpcData(Npc).desc) <> 0 Then
-590                 Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).desc)
+664             If Len(NpcData(Npc).en_Desc) <> 0 Then
+666                 Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_Desc)
+
+                    ' Desc multilenguaje
+668                 If Len(NpcData(Npc).pt_desc) <> 0 Then
+670                     Call Manager.ChangeValue("Npc" & Npc, "pt_desc", NpcData(Npc).pt_desc)
+
+                    End If
+
+672                 If Len(NpcData(Npc).fr_desc) <> 0 Then
+674                     Call Manager.ChangeValue("Npc" & Npc, "fr_desc", NpcData(Npc).fr_desc)
+
+                    End If
+
+676                 If Len(NpcData(Npc).it_desc) <> 0 Then
+678                     Call Manager.ChangeValue("Npc" & Npc, "it_desc", NpcData(Npc).it_desc)
+
+                    End If
 
                 End If
 
-592             If NpcData(Npc).Body <> 0 Then
-594                 Call Manager.ChangeValue("Npc" & Npc, "Body", NpcData(Npc).Body)
+680             If Len(NpcData(Npc).desc) <> 0 Then
+682                 Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).desc)
 
                 End If
 
-596             If NpcData(Npc).Head <> 0 Then
-598                 Call Manager.ChangeValue("Npc" & Npc, "Head", NpcData(Npc).Head)
+684             If NpcData(Npc).Body <> 0 Then
+686                 Call Manager.ChangeValue("Npc" & Npc, "Body", NpcData(Npc).Body)
 
                 End If
 
-600             If NpcData(Npc).Exp <> 0 Then
-602                 Call Manager.ChangeValue("Npc" & Npc, "Exp", NpcData(Npc).Exp)
+688             If NpcData(Npc).Head <> 0 Then
+690                 Call Manager.ChangeValue("Npc" & Npc, "Head", NpcData(Npc).Head)
 
                 End If
 
-604             If NpcData(Npc).Hp <> 0 Then
-606                 Call Manager.ChangeValue("Npc" & Npc, "Hp", NpcData(Npc).Hp)
+692             If NpcData(Npc).Exp <> 0 Then
+694                 Call Manager.ChangeValue("Npc" & Npc, "Exp", NpcData(Npc).Exp)
 
                 End If
 
-608             If NpcData(Npc).MaxHit <> 0 Then
-610                 Call Manager.ChangeValue("Npc" & Npc, "MaxHit", NpcData(Npc).MaxHit)
+696             If NpcData(Npc).Hp <> 0 Then
+698                 Call Manager.ChangeValue("Npc" & Npc, "Hp", NpcData(Npc).Hp)
 
                 End If
 
-612             If NpcData(Npc).MinHit <> 0 Then
-614                 Call Manager.ChangeValue("Npc" & Npc, "MinHit", NpcData(Npc).MinHit)
+700             If NpcData(Npc).MaxHit <> 0 Then
+702                 Call Manager.ChangeValue("Npc" & Npc, "MaxHit", NpcData(Npc).MaxHit)
 
                 End If
 
-616             If NpcData(Npc).Oro <> 0 Then
-618                 Call Manager.ChangeValue("Npc" & Npc, "Oro", NpcData(Npc).Oro)
+704             If NpcData(Npc).MinHit <> 0 Then
+706                 Call Manager.ChangeValue("Npc" & Npc, "MinHit", NpcData(Npc).MinHit)
 
                 End If
 
-620             If NpcData(Npc).ExpClan <> 0 Then
-622                 Call Manager.ChangeValue("Npc" & Npc, "GiveEXPClan", NpcData(Npc).ExpClan)
+708             If NpcData(Npc).Oro <> 0 Then
+710                 Call Manager.ChangeValue("Npc" & Npc, "Oro", NpcData(Npc).Oro)
 
                 End If
 
-624             If NpcData(Npc).NumQuiza <> 0 Then
-626                 Call Manager.ChangeValue("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
-
-628                 For LoopC = 1 To NpcData(Npc).NumQuiza
-630                     Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
-632                 Next LoopC
+712             If NpcData(Npc).ExpClan <> 0 Then
+714                 Call Manager.ChangeValue("Npc" & Npc, "GiveEXPClan", NpcData(Npc).ExpClan)
 
                 End If
 
-634             If NpcData(Npc).QuizaProb <> 0 Then
-636                 Call Manager.ChangeValue("Npc" & Npc, "QuizaProb", NpcData(Npc).QuizaProb)
-                End If
-                
-                If NpcData(Npc).NoMapInfo <> 0 Then
-                     Call Manager.ChangeValue("Npc" & Npc, "NoMapInfo", NpcData(Npc).NoMapInfo)
-                End If
+716             If NpcData(Npc).NumQuiza <> 0 Then
+718                 Call Manager.ChangeValue("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
 
-638             If NpcData(Npc).PuedeInvocar <> 0 Then
-640                 Call Manager.ChangeValue("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
+720                 For LoopC = 1 To NpcData(Npc).NumQuiza
+722                     Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
+724                 Next LoopC
 
                 End If
 
-642             Label3.Caption = "Grabando NPCs: " & Npc & "/" & numnpcs
-644             Label3.ForeColor = &HC0C0&
-646         Next Npc
+726             If NpcData(Npc).QuizaProb <> 0 Then
+728                 Call Manager.ChangeValue("Npc" & Npc, "QuizaProb", NpcData(Npc).QuizaProb)
+
+                End If
+
+730             If NpcData(Npc).NoMapInfo <> 0 Then
+732                 Call Manager.ChangeValue("Npc" & Npc, "NoMapInfo", NpcData(Npc).NoMapInfo)
+
+                End If
+
+734             If NpcData(Npc).PuedeInvocar <> 0 Then
+736                 Call Manager.ChangeValue("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
+
+                End If
+
+738             Label3.Caption = "Grabando NPCs: " & Npc & "/" & numnpcs
+740             Label3.ForeColor = &HC0C0&
+742         Next Npc
 
         Else
-648         MsgBox "Falta el archivo npcs.dat dentro de la carpeta dats."
+744         MsgBox "Falta el archivo npcs.dat dentro de la carpeta dats."
 
         End If
 
-650     If FileExist(App.Path & "\..\Recursos\Dat\hechizos.dat", vbNormal) Then
-
+746     If FileExist(App.Path & "\..\Recursos\Dat\hechizos.dat", vbNormal) Then
             Dim hechizosFile As String, numhechizos As Long
-
-652         hechizosFile = App.Path & "\..\Recursos\Dat\hechizos.dat"
-654         numhechizos = Val(GetVar(hechizosFile, "INIT", "NumeroHechizos"))
-
+748         hechizosFile = App.Path & "\..\Recursos\Dat\hechizos.dat"
+750         numhechizos = Val(GetVar(hechizosFile, "INIT", "NumeroHechizos"))
             Dim hechic As New clsIniReader
+752         Call hechic.Initialize(hechizosFile)
+754         Label3.Caption = "Leyendo Hechizos: " & "0/" & numhechizos
+756         ReDim HechizoData(1 To numhechizos) As HechizoDatas
 
-656         Call hechic.Initialize(hechizosFile)
-658         Label3.Caption = "Leyendo Hechizos: " & "0/" & numhechizos
-660         ReDim HechizoData(1 To numhechizos) As HechizoDatas
+758         For Hechizo = 1 To numhechizos
+760             DoEvents
+                ' Nombre del hechizo
+762             HechizoData(Hechizo).Nombre = hechic.GetValue("Hechizo" & Hechizo, "Nombre")
+764             HechizoData(Hechizo).en_name = hechic.GetValue("Hechizo" & Hechizo, "en_name")
+766             HechizoData(Hechizo).pt_name = hechic.GetValue("Hechizo" & Hechizo, "pt_name")
+768             HechizoData(Hechizo).fr_name = hechic.GetValue("Hechizo" & Hechizo, "fr_name")
+770             HechizoData(Hechizo).it_name = hechic.GetValue("Hechizo" & Hechizo, "it_name")
+                ' Descripción
+772             HechizoData(Hechizo).desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
+774             HechizoData(Hechizo).en_Desc = hechic.GetValue("Hechizo" & Hechizo, "en_Desc")
+776             HechizoData(Hechizo).pt_desc = hechic.GetValue("Hechizo" & Hechizo, "pt_Desc")
+778             HechizoData(Hechizo).fr_desc = hechic.GetValue("Hechizo" & Hechizo, "fr_Desc")
+780             HechizoData(Hechizo).it_desc = hechic.GetValue("Hechizo" & Hechizo, "it_Desc")
+                ' Palabras mágicas
+782             HechizoData(Hechizo).PalabrasMagicas = hechic.GetValue("Hechizo" & Hechizo, "PalabrasMagicas")
+                ' Mensajes del lanzador
+784             HechizoData(Hechizo).HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "HechizeroMsg")
+786             HechizoData(Hechizo).en_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "en_HechizeroMsg")
+788             HechizoData(Hechizo).pt_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "pt_HechizeroMsg")
+790             HechizoData(Hechizo).fr_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "fr_HechizeroMsg")
+792             HechizoData(Hechizo).it_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "it_HechizeroMsg")
+                ' Mensajes para target
+794             HechizoData(Hechizo).TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "TargetMsg")
+796             HechizoData(Hechizo).en_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "en_TargetMsg")
+798             HechizoData(Hechizo).pt_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "pt_TargetMsg")
+800             HechizoData(Hechizo).fr_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "fr_TargetMsg")
+802             HechizoData(Hechizo).it_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "it_TargetMsg")
+                ' Mensajes para caster
+804             HechizoData(Hechizo).PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "PropioMsg")
+806             HechizoData(Hechizo).en_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "en_PropioMsg")
+808             HechizoData(Hechizo).pt_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "pt_PropioMsg")
+810             HechizoData(Hechizo).fr_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "fr_PropioMsg")
+812             HechizoData(Hechizo).it_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "it_PropioMsg")
+                ' Requerimientos
+814             HechizoData(Hechizo).ManaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "ManaRequerido"))
+816             HechizoData(Hechizo).StaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "StaRequerido"))
+818             HechizoData(Hechizo).MinSkill = Val(hechic.GetValue("Hechizo" & Hechizo, "MinSkill"))
+                ' Gráfica
+820             HechizoData(Hechizo).IconoIndex = Val(hechic.GetValue("Hechizo" & Hechizo, "IconoIndex"))
+822             HechizoData(Hechizo).Cooldown = Val(hechic.GetValue("Hechizo" & Hechizo, "Cooldown"))
+824             Label3.ForeColor = vbRed
+826             Label3.Caption = "Leyendo: " & Hechizo & "/" & numhechizos
+828         Next Hechizo
 
-662         For Hechizo = 1 To numhechizos
-664             DoEvents
-666             HechizoData(Hechizo).Nombre = hechic.GetValue("Hechizo" & Hechizo, "Nombre")
-                HechizoData(Hechizo).en_Name = hechic.GetValue("Hechizo" & Hechizo, "en_name")
-668             HechizoData(Hechizo).desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
-                HechizoData(Hechizo).en_desc = hechic.GetValue("Hechizo" & Hechizo, "en_Desc")
-670             HechizoData(Hechizo).PalabrasMagicas = hechic.GetValue("Hechizo" & Hechizo, "PalabrasMagicas")
-672             HechizoData(Hechizo).HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "HechizeroMsg")
-                HechizoData(Hechizo).en_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "en_HechizeroMsg")
-674             HechizoData(Hechizo).TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "TargetMsg")
-                HechizoData(Hechizo).en_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "en_TargetMsg")
-676             HechizoData(Hechizo).PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "PropioMsg")
-                HechizoData(Hechizo).en_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "en_PropioMsg")
-678             HechizoData(Hechizo).ManaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "ManaRequerido"))
-680             HechizoData(Hechizo).StaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "StaRequerido"))
-682             HechizoData(Hechizo).MinSkill = Val(hechic.GetValue("Hechizo" & Hechizo, "MinSkill"))
-684             HechizoData(Hechizo).StaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "StaRequerido"))
-686             HechizoData(Hechizo).IconoIndex = Val(hechic.GetValue("Hechizo" & Hechizo, "IconoIndex"))
-688             HechizoData(Hechizo).Cooldown = Val(hechic.GetValue("Hechizo" & Hechizo, "Cooldown"))
-690             Label3.ForeColor = vbRed
-692             Label3.Caption = "Leyendo: " & Hechizo & "/" & numhechizos
-694         Next Hechizo
+830         Call Manager.ChangeValue("INIT", "NumeroHechizo", numhechizos)
 
-696         Call Manager.ChangeValue("INIT", "NumeroHechizo", numhechizos)
-
-698         For Hechizo = 1 To numhechizos
-700             DoEvents
-702             Call Manager.ChangeValue("Hechizo" & Hechizo, "Nombre", HechizoData(Hechizo).Nombre)
-704             Call Manager.ChangeValue("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).desc)
-706             Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
-708             Call Manager.ChangeValue("Hechizo" & Hechizo, "HechizeroMsg", HechizoData(Hechizo).HechizeroMsg)
-710             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
-712             Call Manager.ChangeValue("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_Name)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_desc", HechizoData(Hechizo).en_desc)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
-714             Call Manager.ChangeValue("Hechizo" & Hechizo, "ManaRequerido", HechizoData(Hechizo).ManaRequerido)
-716             Call Manager.ChangeValue("Hechizo" & Hechizo, "StaRequerido", HechizoData(Hechizo).StaRequerido)
-718             Call Manager.ChangeValue("Hechizo" & Hechizo, "MinSkill", HechizoData(Hechizo).MinSkill)
-720             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
-722             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
-724             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
-726             Label3.ForeColor = &HC0C0&
-728         Next Hechizo
+832         For Hechizo = 1 To numhechizos
+834             DoEvents
+                ' Español
+836             Call Manager.ChangeValue("Hechizo" & Hechizo, "Nombre", HechizoData(Hechizo).Nombre)
+838             Call Manager.ChangeValue("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).desc)
+840             Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
+842             Call Manager.ChangeValue("Hechizo" & Hechizo, "HechizeroMsg", HechizoData(Hechizo).HechizeroMsg)
+844             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
+846             Call Manager.ChangeValue("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
+                ' Inglés
+848             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_name)
+850             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Desc", HechizoData(Hechizo).en_Desc)
+852             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
+854             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
+856             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
+                ' Portugués
+858             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Name", HechizoData(Hechizo).pt_name)
+860             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Desc", HechizoData(Hechizo).pt_desc)
+862             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_HechizeroMsg", HechizoData(Hechizo).pt_HechizeroMsg)
+864             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_TargetMsg", HechizoData(Hechizo).pt_TargetMsg)
+866             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_PropioMsg", HechizoData(Hechizo).pt_PropioMsg)
+                ' Francés
+868             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Name", HechizoData(Hechizo).fr_name)
+870             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Desc", HechizoData(Hechizo).fr_desc)
+872             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_HechizeroMsg", HechizoData(Hechizo).fr_HechizeroMsg)
+874             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_TargetMsg", HechizoData(Hechizo).fr_TargetMsg)
+876             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_PropioMsg", HechizoData(Hechizo).fr_PropioMsg)
+                ' Italiano
+878             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Name", HechizoData(Hechizo).it_name)
+880             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Desc", HechizoData(Hechizo).it_desc)
+882             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_HechizeroMsg", HechizoData(Hechizo).it_HechizeroMsg)
+884             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_TargetMsg", HechizoData(Hechizo).it_TargetMsg)
+886             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_PropioMsg", HechizoData(Hechizo).it_PropioMsg)
+                ' Otros datos
+888             Call Manager.ChangeValue("Hechizo" & Hechizo, "ManaRequerido", HechizoData(Hechizo).ManaRequerido)
+890             Call Manager.ChangeValue("Hechizo" & Hechizo, "StaRequerido", HechizoData(Hechizo).StaRequerido)
+892             Call Manager.ChangeValue("Hechizo" & Hechizo, "MinSkill", HechizoData(Hechizo).MinSkill)
+894             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
+896             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
+898             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
+900             Label3.ForeColor = &HC0C0&
+902         Next Hechizo
 
         End If
 
-        If FileExist(App.Path & "\..\Recursos\init\SP_LocalMsg.dat", vbNormal) Then
-            Dim MsgFile As String
-            Dim NumLocaleSP_Msg As Long
-            Dim arrLocale_SP_SMG() As String
-            Dim SP_MSG As Integer
-            Dim EN_MSG As Integer
-             
-            MsgFile = App.Path & "\..\Recursos\init\SP_LocalMsg.dat"
-            Dim Msgsss As New clsIniReader
-        
-            Call Msgsss.Initialize(MsgFile)
-            NumLocaleSP_Msg = Val(Msgsss.GetValue("INIT", "NumLocaleSP_Msg"))
-            Label3.Caption = "0/" & CStr(NumLocaleSP_Msg)
-            ReDim arrLocale_SP_SMG(1 To NumLocaleSP_Msg) As String
-        
-            ' Leer mensajes en español
-            For SP_MSG = 1 To NumLocaleSP_Msg
-                DoEvents
-                arrLocale_SP_SMG(SP_MSG) = Msgsss.GetValue("SP_MSG", "Msg" & SP_MSG)
-                Label3.ForeColor = vbRed
-                Label3.Caption = "Leyendo MSG ESP: " & SP_MSG & "/" & NumLocaleSP_Msg
-            Next SP_MSG
-        
-            ' Escribir mensajes en español
-            'Call Manager.ChangeValue("INIT", "NumLocaleSP_Msg", NumLocaleSP_Msg)
-            For SP_MSG = 1 To NumLocaleSP_Msg
-                DoEvents
-                Call Manager.ChangeValue("SP_Msg", "Msg" & SP_MSG, arrLocale_SP_SMG(SP_MSG))
-                Label3.Caption = "Grabando MSG ESP: " & SP_MSG & "/" & NumLocaleSP_Msg
-                Label3.ForeColor = &HC0C0&
-            Next SP_MSG
-        Else
-            MsgBox "Falta el archivo SP_LocalMsg.dat dentro de la carpeta dats."
-        End If
-        
-        If FileExist(App.Path & "\..\Recursos\init\EN_LocalMsg.dat", vbNormal) Then
-            Dim NumLocaleEN_Msg As Long
-            Dim arrLocale_EN_SMG() As String
-        
-            MsgFile = App.Path & "\..\Recursos\init\EN_LocalMsg.dat"
-            Call Msgsss.Initialize(MsgFile)
-            NumLocaleEN_Msg = Val(Msgsss.GetValue("INIT", "NumLocaleEN_Msg"))
-            Label3.Caption = "0/" & CStr(NumLocaleEN_Msg)
-            ReDim arrLocale_EN_SMG(1 To NumLocaleEN_Msg) As String
-        
-            ' Leer mensajes en inglés
-            For EN_MSG = 1 To NumLocaleEN_Msg
-                DoEvents
-                arrLocale_EN_SMG(EN_MSG) = Msgsss.GetValue("EN_MSG", "Msg" & EN_MSG)
-                Label3.ForeColor = vbRed
-                Label3.Caption = "Leyendo MSG EN: " & EN_MSG & "/" & NumLocaleEN_Msg
-            Next EN_MSG
-        
-            ' Escribir mensajes en inglés
-            Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleEN_Msg)
-            For EN_MSG = 1 To NumLocaleEN_Msg
-                DoEvents
-                Call Manager.ChangeValue("EN_Msg", "Msg" & EN_MSG, arrLocale_EN_SMG(EN_MSG))
-                Label3.Caption = "Grabando MSG EN: " & EN_MSG & "/" & NumLocaleEN_Msg
-                Label3.ForeColor = &HC0C0&
-            Next EN_MSG
-        Else
-            MsgBox "Falta el archivo EN_LocalMsg.dat dentro de la carpeta dats."
-        End If
+904     Call CargarMensajesIdioma("SP", Manager, Label3)
+906     Call CargarMensajesIdioma("EN", Manager, Label3)
+908     Call CargarMensajesIdioma("BR", Manager, Label3)
+910     Call CargarMensajesIdioma("FR", Manager, Label3)
+912     Call CargarMensajesIdioma("IT", Manager, Label3)
+914     Call CargarMensajesIdioma("ES", Manager, Label3)
 
-
-772     If FileExist(App.Path & "\..\Recursos\init\NameMapa.dat", vbNormal) Then
-
+916     If FileExist(App.Path & "\..\Recursos\init\NameMapa.dat", vbNormal) Then
             Dim MapFile As String
-
-774         MapFile = App.Path & "\..\Recursos\init\NameMapa.dat"
-
+918         MapFile = App.Path & "\..\Recursos\init\NameMapa.dat"
             Dim Mapa As New clsIniReader
+920         Call Mapa.Initialize(MapFile)
+922         Label3.Caption = "0/" & 750
+924         ReDim MapName(1 To 750) As String
+926         ReDim MapDesc(1 To 750) As String
 
-776         Call Mapa.Initialize(MapFile)
-778         Label3.Caption = "0/" & 750
-780         ReDim MapName(1 To 750) As String
-782         ReDim MapDesc(1 To 750) As String
+928         For Npc = 1 To 750
+930             DoEvents
+932             MapName(Npc) = Mapa.GetValue("NameMapa", "mapa" & Npc)
+934             MapDesc(Npc) = Mapa.GetValue("NameMapa", "mapa" & Npc & "desc")
+936             Label3.ForeColor = vbRed
+938             Label3.Caption = "Leyendo Mapas: " & Npc & "/" & 750
+940         Next Npc
 
-784         For Npc = 1 To 750
-786             DoEvents
-788             MapName(Npc) = Mapa.GetValue("NameMapa", "mapa" & Npc)
-790             MapDesc(Npc) = Mapa.GetValue("NameMapa", "mapa" & Npc & "desc")
-792             Label3.ForeColor = vbRed
-794             Label3.Caption = "Leyendo Mapas: " & Npc & "/" & 750
-796         Next Npc
+942         Npc = 1
+944         Call Manager.ChangeValue("INIT", "NumMapas", 750)
 
-798         Npc = 1
-800         Call Manager.ChangeValue("INIT", "NumMapas", 750)
-
-802         For Npc = 1 To 750
-804             DoEvents
-806             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc, MapName(Npc))
-808             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc & "Desc", MapDesc(Npc))
-810             Label3.Caption = "Grabando Mapas: " & Npc & "/" & 750
-812             Label3.ForeColor = &HC0C0&
-814         Next Npc
+946         For Npc = 1 To 750
+948             DoEvents
+950             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc, MapName(Npc))
+952             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc & "Desc", MapDesc(Npc))
+954             Label3.Caption = "Grabando Mapas: " & Npc & "/" & 750
+956             Label3.ForeColor = &HC0C0&
+958         Next Npc
 
         Else
-816         MsgBox "Falta el archivo NameMapa.dat dentro de la carpeta dats."
+960         MsgBox "Falta el archivo NameMapa.dat dentro de la carpeta dats."
 
         End If
 
         'quest
-818     If FileExist(App.Path & "\..\Recursos\Dat\Quests.DAT", vbNormal) Then
-820         MapFile = App.Path & "\..\Recursos\Dat\Quests.DAT"
-822         Call Mapa.Initialize(MapFile)
-
+962     If FileExist(App.Path & "\..\Recursos\Dat\Quests.DAT", vbNormal) Then
+964         MapFile = App.Path & "\..\Recursos\Dat\Quests.DAT"
+966         Call Mapa.Initialize(MapFile)
             Dim nunquest As Integer
+968         nunquest = Mapa.GetValue("INIT", "NumQuests")
+970         Label3.Caption = "0/" & nunquest
+972         ReDim QuestName(1 To nunquest) As String
+974         ReDim QuestDesc(1 To nunquest) As String
+976         ReDim QuestFin(1 To nunquest) As String
+978         ReDim QuestNameEN(1 To nunquest) As String
+980         ReDim QuestDescEN(1 To nunquest) As String
+982         ReDim QuestFinEN(1 To nunquest) As String
+984         ReDim QuestNext(1 To nunquest) As String
+986         ReDim QuestPos(1 To nunquest) As Integer
+988         ReDim QuestRepetible(1 To nunquest) As Byte
+990         ReDim RequiredLevel(1 To nunquest) As Integer
 
-824         nunquest = Mapa.GetValue("INIT", "NumQuests")
-826         Label3.Caption = "0/" & nunquest
-828         ReDim QuestName(1 To nunquest) As String
-830         ReDim QuestDesc(1 To nunquest) As String
-832         ReDim QuestFin(1 To nunquest) As String
-            ReDim QuestNameEN(1 To nunquest) As String
-            ReDim QuestDescEN(1 To nunquest) As String
-            ReDim QuestFinEN(1 To nunquest) As String
-834         ReDim QuestNext(1 To nunquest) As String
-836         ReDim QuestPos(1 To nunquest) As Integer
-838         ReDim QuestRepetible(1 To nunquest) As Byte
-840         ReDim RequiredLevel(1 To nunquest) As Integer
+992         For Npc = 1 To nunquest
+994             DoEvents
+996             QuestName(Npc) = Mapa.GetValue("QUEST" & Npc, "Nombre")
+998             QuestNameEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Nombre")
+1000             QuestDesc(Npc) = Mapa.GetValue("QUEST" & Npc, "Desc")
+1002             QuestFin(Npc) = Mapa.GetValue("QUEST" & Npc, "DescFinal")
+1004             QuestDescEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Desc")
+1006             QuestFinEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_DescFinal")
+1008             QuestNext(Npc) = Mapa.GetValue("QUEST" & Npc, "NextQuest")
+1010             QuestRepetible(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "Repetible"))
+1012             QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
+1014             RequiredLevel(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "RequiredLevel"))
+1016             Label3.ForeColor = vbRed
+1018             Label3.Caption = "Leyendo Quest: " & Npc & "/" & nunquest
+1020         Next Npc
 
-842         For Npc = 1 To nunquest
-844             DoEvents
-846             QuestName(Npc) = Mapa.GetValue("QUEST" & Npc, "Nombre")
-                QuestNameEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Nombre")
-848             QuestDesc(Npc) = Mapa.GetValue("QUEST" & Npc, "Desc")
-850             QuestFin(Npc) = Mapa.GetValue("QUEST" & Npc, "DescFinal")
-                QuestDescEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Desc")
-                QuestFinEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_DescFinal")
-                QuestNext(Npc) = Mapa.GetValue("QUEST" & Npc, "NextQuest")
-854             QuestRepetible(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "Repetible"))
-856             QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
-858             RequiredLevel(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "RequiredLevel"))
-860             Label3.ForeColor = vbRed
-862             Label3.Caption = "Leyendo Quest: " & Npc & "/" & nunquest
-864         Next Npc
+1022         Npc = 1
+1024         Call Manager.ChangeValue("INIT", "NumQuests", nunquest)
 
-866         Npc = 1
-868         Call Manager.ChangeValue("INIT", "NumQuests", nunquest)
+1026         For Npc = 1 To nunquest
+1028             DoEvents
+1030             Call Manager.ChangeValue("QUEST" & Npc, "Nombre", QuestName(Npc))
+1032             Call Manager.ChangeValue("QUEST" & Npc, "en_Nombre", QuestNameEN(Npc))
+1034             Call Manager.ChangeValue("QUEST" & Npc, "Desc", QuestDesc(Npc))
+1036             Call Manager.ChangeValue("QUEST" & Npc, "DescFinal", QuestFin(Npc))
+1038             Call Manager.ChangeValue("QUEST" & Npc, "en_Desc", QuestDescEN(Npc))
+1040             Call Manager.ChangeValue("QUEST" & Npc, "en_DescFinal", QuestFinEN(Npc))
+1042             Call Manager.ChangeValue("QUEST" & Npc, "NextQuest", QuestNext(Npc))
+1044             Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
+1046             Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
+1048             Call Manager.ChangeValue("QUEST" & Npc, "PosMap", QuestPos(Npc))
+1050             Label3.Caption = "Grabando Quest: " & Npc & "/" & nunquest
+1052             Label3.ForeColor = &HC0C0&
+1054         Next Npc
 
-870         For Npc = 1 To nunquest
-872             DoEvents
-874             Call Manager.ChangeValue("QUEST" & Npc, "Nombre", QuestName(Npc))
-                Call Manager.ChangeValue("QUEST" & Npc, "en_Nombre", QuestNameEN(Npc))
-876             Call Manager.ChangeValue("QUEST" & Npc, "Desc", QuestDesc(Npc))
-878             Call Manager.ChangeValue("QUEST" & Npc, "DescFinal", QuestFin(Npc))
-                Call Manager.ChangeValue("QUEST" & Npc, "en_Desc", QuestDescEN(Npc))
-                Call Manager.ChangeValue("QUEST" & Npc, "en_DescFinal", QuestFinEN(Npc))
-880             Call Manager.ChangeValue("QUEST" & Npc, "NextQuest", QuestNext(Npc))
-882             Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
-884             Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
-886             Call Manager.ChangeValue("QUEST" & Npc, "PosMap", QuestPos(Npc))
-888             Label3.Caption = "Grabando Quest: " & Npc & "/" & nunquest
-890             Label3.ForeColor = &HC0C0&
-892         Next Npc
+         Else
+1056         MsgBox "Falta el archivo Quests.DAT dentro de la carpeta dats."
 
-        Else
-894         MsgBox "Falta el archivo Quests.DAT dentro de la carpeta dats."
+         End If
 
-        End If
+1058     If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
+1060         MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"
+1062         Call Mapa.Initialize(MapFile)
+             Dim NumSug As Integer
+1064         NumSug = Val(Mapa.GetValue("Sugerencias", "NumSugerencias"))
+1066         Label3.Caption = "0/" & CStr(NumSug)
+1068         ReDim Sugerencia(1 To NumSug) As String
 
-896     If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
-898         MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"
-900         Call Mapa.Initialize(MapFile)
+1070         For Npc = 1 To NumSug
+1072             DoEvents
+1074             Sugerencia(Npc) = Mapa.GetValue("Sugerencias", "Sugerencia" & Npc)
+1076             Label3.ForeColor = vbRed
+1078             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
+1080         Next Npc
 
-            Dim NumSug As Integer
+1082         Npc = 1
+1084         Call Manager.ChangeValue("INIT", "NumSugerencias", NumSug)
 
-902         NumSug = Val(Mapa.GetValue("Sugerencias", "NumSugerencias"))
-904         Label3.Caption = "0/" & CStr(NumSug)
-906         ReDim Sugerencia(1 To NumSug) As String
+1086         For Npc = 1 To NumSug
+1088             DoEvents
+1090             Call Manager.ChangeValue("Sugerencias", "Sugerencia" & Npc, Sugerencia(Npc))
+1092             Label3.Caption = "Grabando: " & Npc & "/" & NumSug
+1094             Label3.ForeColor = &HC0C0&
+1096         Next Npc
 
-908         For Npc = 1 To NumSug
-910             DoEvents
-912             Sugerencia(Npc) = Mapa.GetValue("Sugerencias", "Sugerencia" & Npc)
-914             Label3.ForeColor = vbRed
-916             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
-918         Next Npc
+         Else
+1098         MsgBox "Falta el archivo Sugerencias.ini dentro de la carpeta init."
 
-920         Npc = 1
-922         Call Manager.ChangeValue("INIT", "NumSugerencias", NumSug)
+         End If
 
-924         For Npc = 1 To NumSug
-926             DoEvents
-928             Call Manager.ChangeValue("Sugerencias", "Sugerencia" & Npc, Sugerencia(Npc))
-930             Label3.Caption = "Grabando: " & Npc & "/" & NumSug
-932             Label3.ForeColor = &HC0C0&
-934         Next Npc
+         Dim ListaRazas(1 To NUMRAZAS) As String
+1100     ListaRazas(1) = "Humano"
+1102     ListaRazas(2) = "Elfo"
+1104     ListaRazas(3) = "Elfo Oscuro"
+1106     ListaRazas(4) = "Gnomo"
+1108     ListaRazas(5) = "Enano"
+1110     ListaRazas(6) = "Orco"
+1112     Call Leer.Initialize(App.Path & "\..\Recursos\Dat\Balance.dat")
+         Dim SearchVar As String
 
-        Else
-936         MsgBox "Falta el archivo Sugerencias.ini dentro de la carpeta init."
+1114     For Raza = 1 To NUMRAZAS
 
-        End If
+1116         With ModRaza(Raza)
+1118             SearchVar = Replace(ListaRazas(Raza), " ", vbNullString)
+1120             .Fuerza = Val(Leer.GetValue("MODRAZA", SearchVar + "Fuerza"))
+1122             .Agilidad = Val(Leer.GetValue("MODRAZA", SearchVar + "Agilidad"))
+1124             .Inteligencia = Val(Leer.GetValue("MODRAZA", SearchVar + "Inteligencia"))
+1126             .Constitucion = Val(Leer.GetValue("MODRAZA", SearchVar + "Constitucion"))
+1128             .Carisma = Val(Leer.GetValue("MODRAZA", SearchVar + "Carisma"))
+1130             Call Manager.ChangeValue("MODRAZA", SearchVar + "Fuerza", .Fuerza)
+1132             Call Manager.ChangeValue("MODRAZA", SearchVar + "Agilidad", .Agilidad)
+1134             Call Manager.ChangeValue("MODRAZA", SearchVar + "Inteligencia", .Inteligencia)
+1136             Call Manager.ChangeValue("MODRAZA", SearchVar + "Constitucion", .Constitucion)
+1138             Call Manager.ChangeValue("MODRAZA", SearchVar + "Carisma", .Carisma)
 
-        Dim ListaRazas(1 To NUMRAZAS) As String
+             End With
 
-938     ListaRazas(1) = "Humano"
-940     ListaRazas(2) = "Elfo"
-942     ListaRazas(3) = "Elfo Oscuro"
-944     ListaRazas(4) = "Gnomo"
-946     ListaRazas(5) = "Enano"
-948     ListaRazas(6) = "Orco"
-950     Call Leer.Initialize(App.Path & "\..\Recursos\Dat\Balance.dat")
+1140     Next Raza
 
-        Dim SearchVar As String
-
-952     For Raza = 1 To NUMRAZAS
-
-954         With ModRaza(Raza)
-956             SearchVar = Replace(ListaRazas(Raza), " ", vbNullString)
-958             .Fuerza = Val(Leer.GetValue("MODRAZA", SearchVar + "Fuerza"))
-960             .Agilidad = Val(Leer.GetValue("MODRAZA", SearchVar + "Agilidad"))
-962             .Inteligencia = Val(Leer.GetValue("MODRAZA", SearchVar + "Inteligencia"))
-964             .Constitucion = Val(Leer.GetValue("MODRAZA", SearchVar + "Constitucion"))
-966             .Carisma = Val(Leer.GetValue("MODRAZA", SearchVar + "Carisma"))
-968             Call Manager.ChangeValue("MODRAZA", SearchVar + "Fuerza", .Fuerza)
-970             Call Manager.ChangeValue("MODRAZA", SearchVar + "Agilidad", .Agilidad)
-972             Call Manager.ChangeValue("MODRAZA", SearchVar + "Inteligencia", .Inteligencia)
-974             Call Manager.ChangeValue("MODRAZA", SearchVar + "Constitucion", .Constitucion)
-976             Call Manager.ChangeValue("MODRAZA", SearchVar + "Carisma", .Carisma)
-
-            End With
-
-978     Next Raza
-
-980     Set Leer = Nothing
-982     Call Manager.DumpFile(OutputFile)
-984     Set Manager = Nothing
-986     Label3.ForeColor = vbGreen
-988     Label3.Caption = "Creado localindex.dat"
+1142     Set Leer = Nothing
+1144     Call Manager.DumpFile(OutputFile)
+1146     Set Manager = Nothing
+1148     Label3.ForeColor = vbGreen
+1150     Label3.Caption = "Creado localindex.dat"
 
 End Sub
 
@@ -980,13 +1029,9 @@ Private Sub Command2_Click()
 End Sub
 
 Public Sub LeerLineaComandos()
-
         Dim rdata As String
-
 100     rdata = Command
-
         Dim FileTypeName As String
-
 102     FileTypeName = ReadField(1, rdata, Asc("*")) ' File Type Name
 
 104     If Len(FileTypeName) > 0 Then
@@ -1010,5 +1055,46 @@ Private Sub Form_Load()
 102     OutputFile = App.Path & "\..\Recursos\init\localindex.dat"
         ' Leer argumentos
 104     Call LeerLineaComandos
+
+End Sub
+
+Private Sub CargarMensajesIdioma(ByVal codigoIdioma As String, _
+                                 ByRef Manager As Object, _
+                                 ByRef Label3 As Object)
+        Dim MsgFile   As String
+        Dim Msgsss    As New clsIniReader
+        Dim NumMsgs   As Long
+        Dim arrMsgs() As String
+        Dim i         As Long
+        Dim keyInit   As String, keySeccion As String
+100     MsgFile = App.Path & "\..\Recursos\init\" & codigoIdioma & "_LocalMsg.dat"
+
+102     If FileExist(MsgFile, vbNormal) Then
+104         Msgsss.Initialize MsgFile
+106         keyInit = "NumLocale" & codigoIdioma & "_Msg"
+108         keySeccion = codigoIdioma & "_MSG"
+110         NumMsgs = Val(Msgsss.GetValue("INIT", keyInit))
+112         ReDim arrMsgs(1 To NumMsgs)
+
+            ' Leer mensajes
+114         For i = 1 To NumMsgs
+116             DoEvents
+118             arrMsgs(i) = Msgsss.GetValue(keySeccion, "Msg" & i)
+120             Label3.ForeColor = vbRed
+122             Label3.Caption = "Leyendo MSG " & codigoIdioma & ": " & i & "/" & NumMsgs
+124         Next i
+
+            ' Escribir mensajes
+126         For i = 1 To NumMsgs
+128             DoEvents
+130             Manager.ChangeValue codigoIdioma & "_MSG", "Msg" & i, arrMsgs(i)
+132             Label3.Caption = "Grabando MSG " & codigoIdioma & ": " & i & "/" & NumMsgs
+134             Label3.ForeColor = &HC0C0&
+136         Next i
+
+        Else
+138         MsgBox "Falta el archivo " & codigoIdioma & "_LocalMsg.dat dentro de la carpeta init.", vbExclamation
+
+        End If
 
 End Sub

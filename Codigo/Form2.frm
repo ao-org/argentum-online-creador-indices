@@ -94,9 +94,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
 Private NumMsg  As Integer
-
 Private MsgFile As String
 
 Private Sub Command1_Click()
@@ -113,11 +111,8 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Command2_Click()
-
         Dim arch As String
-
         Dim msg  As Integer
-
 100     arch = App.Path & "\..\Recursos\init\" & "LocalMsg.dat"
 102     Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
 
@@ -130,7 +125,6 @@ End Sub
 
 Private Sub Command3_Click()
 100     List1.Clear
-
         Dim i As Integer
 
 102     If Filtro.Text = vbNullString Then
@@ -156,7 +150,6 @@ End Sub
 
 Private Sub Command4_Click()
 100     List1.Clear
-
         Dim i As Integer
 
 102     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
@@ -180,7 +173,6 @@ Private Sub Filtro_Change()
 End Sub
 
 Private Sub Form_Load()
-
         Dim i As Integer
 
 100     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then

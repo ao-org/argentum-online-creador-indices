@@ -34,7 +34,6 @@ Public Declare Function getprivateprofilestring _
                                                  ByVal lpFileName As String) As Long
 
 Public Type ModRaza
-
     Fuerza As Integer
     Agilidad As Integer
     Inteligencia As Integer
@@ -63,15 +62,28 @@ Public QuestRepetible()       As Byte
 
 Public RequiredLevel()        As Integer
 
+' Datos de Objetos (Objs.dat)
 Public Type ObjDatas
-
-    grhindex As Long ' Indice del grafico que representa el obj
-    Name As String
-    texto As String
-    Info As String
-    en_Name As String
-    en_texto As String
-    en_Info As String
+    grhindex As Long ' Índice del gráfico que representa el objeto
+    ' Nombre por idioma
+    Name     As String       ' Español
+    en_name  As String
+    pt_name  As String
+    fr_name  As String
+    it_name  As String
+    ' Texto por idioma
+    texto     As String      ' Español
+    en_texto  As String
+    pt_texto  As String
+    fr_texto  As String
+    it_texto  As String
+    ' Descripción / Info por idioma
+    Info     As String       ' Español
+    en_Info  As String
+    pt_desc  As String
+    fr_desc  As String
+    it_desc  As String
+    ' Atributos de combate y uso
     MINDEF As Integer
     MaxDEF As Integer
     MinHit As Long
@@ -79,8 +91,9 @@ Public Type ObjDatas
     ObjType As Byte
     CreaLuz As String
     CreaParticulaPiso As Integer
-    CreaGRH  As String
+    CreaGRH As String
     Hechizo As Integer
+    ' Ingredientes y componentes (alquimia, crafteo)
     Raices As Integer
     Cuchara As Integer
     Botella As Integer
@@ -114,6 +127,7 @@ Public Type ObjDatas
     LingP As Integer
     LingO As Integer
     Coal As Integer
+    ' Otros atributos
     Destruye As Byte
     Proyectil As Byte
     Municiones As Byte
@@ -129,66 +143,92 @@ Public Type ObjDatas
 
 End Type
 
+' Datos del NPC (Npcs.dat)
 Public Type NpcDatas
-
-    Name As String
-    desc As String
-    en_Name As String
-    en_desc As String
-    Body As Integer
-    Head As Integer
-    Hp As Long
-    Exp As Long
-    ExpClan As Long
-    Oro As Long
-    MinHit As Long
-    MaxHit As Long
-    NumQuiza As Byte
-    QuizaProb As Integer
-    NoMapInfo As Byte
-    PuedeInvocar As Byte
+    ' Nombre por idioma
+    Name     As String        ' Español
+    en_name  As String
+    pt_name  As String
+    fr_name  As String
+    it_name  As String
+    ' Descripción por idioma
+    desc     As String        ' Español
+    en_Desc  As String
+    pt_desc  As String
+    fr_desc  As String
+    it_desc  As String
+    ' Atributos generales
+    Body          As Integer
+    Head          As Integer
+    Hp            As Long
+    Exp           As Long
+    ExpClan       As Long
+    Oro           As Long
+    MinHit        As Long
+    MaxHit        As Long
+    NumQuiza      As Byte
+    QuizaProb     As Integer
+    NoMapInfo     As Byte
+    PuedeInvocar  As Byte
     QuizaDropea() As Integer
 
 End Type
 
+' Datos de Hechizos (Hechizos.dat)
 Public Type HechizoDatas
-
-    Nombre As String ' Indice del grafico que representa el obj
-    en_name As String
-    desc As String
-    en_Desc As String
+    ' Nombre por idioma
+    Nombre     As String       ' Español
+    en_name    As String
+    pt_name    As String
+    fr_name    As String
+    it_name    As String
+    ' Descripción por idioma
+    desc       As String       ' Español
+    en_Desc    As String
+    pt_desc    As String
+    fr_desc    As String
+    it_desc    As String
+    ' Palabras mágicas
     PalabrasMagicas As String
-    en_HechizeroMsg As String
-    HechizeroMsg As String
-    TargetMsg As String
-    PropioMsg As String
-    en_TargetMsg As String
-    en_PropioMsg As String
-    StaRequerido As Integer
-    ManaRequerido As Integer
-    MinSkill As Byte
-    IconoIndex As Long
-    Cooldown As Long
+    ' Mensajes del lanzador por idioma
+    HechizeroMsg        As String
+    en_HechizeroMsg     As String
+    pt_HechizeroMsg     As String
+    fr_HechizeroMsg     As String
+    it_HechizeroMsg     As String
+    ' Mensajes al objetivo por idioma
+    TargetMsg           As String
+    en_TargetMsg        As String
+    pt_TargetMsg        As String
+    fr_TargetMsg        As String
+    it_TargetMsg        As String
+    ' Mensajes propios por idioma
+    PropioMsg           As String
+    en_PropioMsg        As String
+    pt_PropioMsg        As String
+    fr_PropioMsg        As String
+    it_PropioMsg        As String
+    ' Parámetros técnicos
+    StaRequerido   As Integer
+    ManaRequerido  As Integer
+    MinSkill       As Byte
+    IconoIndex     As Long
+    Cooldown       As Long
 
 End Type
 
 Function ReadField(ByVal Pos As Integer, _
                    ByRef Text As String, _
                    ByVal SepASCII As Byte) As String
-
         '*****************************************************************
         'Gets a field from a delimited string
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 11/15/2004
         '*****************************************************************
         Dim i          As Long
-
         Dim LastPos    As Long
-
         Dim CurrentPos As Long
-
         Dim delimiter  As String * 1
-
 100     delimiter = Chr$(SepASCII)
 
 102     For i = 1 To Pos
@@ -206,16 +246,13 @@ Function ReadField(ByVal Pos As Integer, _
 End Function
 
 Function FieldCount(ByRef Text As String, ByVal SepASCII As Byte) As Long
-
         '*****************************************************************
         'Gets the number of fields in a delimited string
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 07/29/2007
         '*****************************************************************
         Dim count     As Long
-
         Dim curPos    As Long
-
         Dim delimiter As String * 1
 
 100     If LenB(Text) = 0 Then Exit Function
@@ -233,20 +270,15 @@ End Function
 Public Function GetVar(ByVal File As String, _
                        ByVal Main As String, _
                        ByVal Var As String) As String
-
         '*****************************************************************
         'Author: Aaron Perkins
         'Last Modify Date: 10/07/2002
         'Get a var to from a text file
         '*****************************************************************
         Dim L        As Long
-
         Dim Char     As String
-
         Dim sSpaces  As String 'Input that the program will retrieve
-
         Dim szReturn As String 'Default value if the string is not found
-
 100     sSpaces = Space$(5000)
 102     getprivateprofilestring Main, Var, vbNullString, sSpaces, Len(sSpaces), File
 104     GetVar = RTrim$(sSpaces)
@@ -271,16 +303,13 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 End Function
 
 Public Sub Clean_File(ByVal file_path As String)
-
         '*****************************************************************
         'Author: Juan Martín Dotuyo Dodero
         'Last Modify Date: 10/12/2020 (Jopi)
         'Wipe out the contents of the file
         '*****************************************************************
         On Error GoTo Error_Handler
-
         Dim handle As Integer
-
         'We open the file to delete
 100     handle = FreeFile
 102     Open OutputFile For Output As handle
