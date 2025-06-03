@@ -17,19 +17,19 @@ Public MapName()     As String
 
 Public MapDesc()     As String
 
-Public Declare Function writeprivateprofilestring _
+Public Declare Function WritePrivateProfileString _
                Lib "kernel32" _
                Alias "WritePrivateProfileStringA" (ByVal lpApplicationname As String, _
-                                                   ByVal lpKeyname As Any, _
+                                                   ByVal lpKeyName As Any, _
                                                    ByVal lpString As String, _
                                                    ByVal lpFileName As String) As Long
 
-Public Declare Function getprivateprofilestring _
+Public Declare Function GetPrivateProfileString _
                Lib "kernel32" _
                Alias "GetPrivateProfileStringA" (ByVal lpApplicationname As String, _
-                                                 ByVal lpKeyname As Any, _
-                                                 ByVal lpdefault As String, _
-                                                 ByVal lpreturnedstring As String, _
+                                                 ByVal lpKeyName As Any, _
+                                                 ByVal lpDefault As String, _
+                                                 ByVal lpReturnedString As String, _
                                                  ByVal nSize As Long, _
                                                  ByVal lpFileName As String) As Long
 
@@ -64,6 +64,7 @@ Public RequiredLevel()        As Integer
 
 ' Datos de Objetos (Objs.dat)
 Public Type ObjDatas
+
     grhindex As Long ' Índice del gráfico que representa el objeto
     ' Nombre por idioma
     Name     As String       ' Español
@@ -80,10 +81,17 @@ Public Type ObjDatas
     ' Descripción / Info por idioma
     Info     As String       ' Español
     en_Info  As String
-    pt_desc  As String
-    fr_desc  As String
-    it_desc  As String
+    pt_Info  As String
+    fr_Info  As String
+    it_Info  As String
+    
+    Desc     As String       ' Español
+    en_Desc  As String
+    pt_Desc  As String
+    fr_Desc  As String
+    it_Desc  As String
     ' Atributos de combate y uso
+
     MINDEF As Integer
     MaxDEF As Integer
     MinHit As Long
@@ -145,6 +153,7 @@ End Type
 
 ' Datos del NPC (Npcs.dat)
 Public Type NpcDatas
+
     ' Nombre por idioma
     Name     As String        ' Español
     en_name  As String
@@ -152,11 +161,11 @@ Public Type NpcDatas
     fr_name  As String
     it_name  As String
     ' Descripción por idioma
-    desc     As String        ' Español
+    Desc     As String        ' Español
     en_Desc  As String
-    pt_desc  As String
-    fr_desc  As String
-    it_desc  As String
+    pt_Desc  As String
+    fr_Desc  As String
+    it_Desc  As String
     ' Atributos generales
     Body          As Integer
     Head          As Integer
@@ -174,6 +183,7 @@ Public Type NpcDatas
 
 End Type
 
+
 ' Datos de Hechizos (Hechizos.dat)
 Public Type HechizoDatas
     ' Nombre por idioma
@@ -183,11 +193,11 @@ Public Type HechizoDatas
     fr_name    As String
     it_name    As String
     ' Descripción por idioma
-    desc       As String       ' Español
+    Desc       As String       ' Español
     en_Desc    As String
-    pt_desc    As String
-    fr_desc    As String
-    it_desc    As String
+    pt_Desc    As String
+    fr_Desc    As String
+    it_Desc    As String
     ' Palabras mágicas
     PalabrasMagicas As String
     ' Mensajes del lanzador por idioma
@@ -215,7 +225,9 @@ Public Type HechizoDatas
     IconoIndex     As Long
     Cooldown       As Long
 
+
 End Type
+
 
 Function ReadField(ByVal Pos As Integer, _
                    ByRef Text As String, _
@@ -280,7 +292,7 @@ Public Function GetVar(ByVal File As String, _
         Dim sSpaces  As String 'Input that the program will retrieve
         Dim szReturn As String 'Default value if the string is not found
 100     sSpaces = Space$(5000)
-102     getprivateprofilestring Main, Var, vbNullString, sSpaces, Len(sSpaces), File
+102     GetPrivateProfileString Main, Var, vbNullString, sSpaces, Len(sSpaces), File
 104     GetVar = RTrim$(sSpaces)
 106     GetVar = Left$(GetVar, Len(GetVar) - 1)
 
@@ -293,7 +305,7 @@ Sub WriteVar(ByVal File As String, _
         '*****************************************************************
         'Writes a var to a text file
         '*****************************************************************
-100     writeprivateprofilestring Main, Var, Value, File
+100     WritePrivateProfileString Main, Var, Value, File
 
 End Sub
 

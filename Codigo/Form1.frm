@@ -215,6 +215,7 @@ Private Sub Command1_Click()
 262             Label3.Caption = "Leyendo objetos: " & Obj & "/" & numobjs
 264         Next Obj
 
+
 266         Obj = 1
             Dim Manager As clsIniReader
 268         Set Manager = New clsIniReader
@@ -244,6 +245,7 @@ Private Sub Command1_Click()
 292             If Len(ObjData(Obj).en_name) <> 0 Then
 294                 Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_name)
 
+
                 End If
 
 296             If Len(ObjData(Obj).en_texto) <> 0 Then
@@ -258,6 +260,7 @@ Private Sub Command1_Click()
 
 304             If ObjData(Obj).MINDEF > 0 Then
 306                 Call Manager.ChangeValue("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
+
 
                 End If
 
@@ -588,11 +591,11 @@ Private Sub Command1_Click()
 576             NpcData(Npc).pt_name = Leer.GetValue("npc" & Npc, "pt_Name")
 578             NpcData(Npc).fr_name = Leer.GetValue("npc" & Npc, "fr_Name")
 580             NpcData(Npc).it_name = Leer.GetValue("npc" & Npc, "it_Name")
-582             NpcData(Npc).desc = Leer.GetValue("npc" & Npc, "desc")
+582             NpcData(Npc).Desc = Leer.GetValue("npc" & Npc, "desc")
 584             NpcData(Npc).en_Desc = Leer.GetValue("npc" & Npc, "en_desc")
-586             NpcData(Npc).pt_desc = Leer.GetValue("npc" & Npc, "pt_desc")
-588             NpcData(Npc).fr_desc = Leer.GetValue("npc" & Npc, "fr_desc")
-590             NpcData(Npc).it_desc = Leer.GetValue("npc" & Npc, "it_desc")
+586             NpcData(Npc).pt_Desc = Leer.GetValue("npc" & Npc, "pt_desc")
+588             NpcData(Npc).fr_Desc = Leer.GetValue("npc" & Npc, "fr_desc")
+590             NpcData(Npc).it_Desc = Leer.GetValue("npc" & Npc, "it_desc")
                 ' Atributos generales
 592             NpcData(Npc).Body = Val(Leer.GetValue("npc" & Npc, "Body"))
 594             NpcData(Npc).Head = Val(Leer.GetValue("npc" & Npc, "Head"))
@@ -610,12 +613,13 @@ Private Sub Command1_Click()
                 ' QuizaDropea
 614             aux = Val(GetVar(NpcFile, "Npc" & Npc, "NumQuiza"))
 
+
 616             If aux = 0 Then
 618                 NpcData(Npc).NumQuiza = 0
                 Else
 620                 NpcData(Npc).NumQuiza = Val(aux)
 622                 ReDim NpcData(Npc).QuizaDropea(1 To NpcData(Npc).NumQuiza) As Integer
-
+                    Dim LoopC As Integer
 624                 For LoopC = 1 To NpcData(Npc).NumQuiza
 626                     NpcData(Npc).QuizaDropea(LoopC) = Val(Leer.GetValue("npc" & Npc, "QuizaDropea" & LoopC))
 628                 Next LoopC
@@ -662,25 +666,26 @@ Private Sub Command1_Click()
 666                 Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_Desc)
 
                     ' Desc multilenguaje
-668                 If Len(NpcData(Npc).pt_desc) <> 0 Then
-670                     Call Manager.ChangeValue("Npc" & Npc, "pt_desc", NpcData(Npc).pt_desc)
+668                 If Len(NpcData(Npc).pt_Desc) <> 0 Then
+670                     Call Manager.ChangeValue("Npc" & Npc, "pt_desc", NpcData(Npc).pt_Desc)
 
                     End If
 
-672                 If Len(NpcData(Npc).fr_desc) <> 0 Then
-674                     Call Manager.ChangeValue("Npc" & Npc, "fr_desc", NpcData(Npc).fr_desc)
+672                 If Len(NpcData(Npc).fr_Desc) <> 0 Then
+674                     Call Manager.ChangeValue("Npc" & Npc, "fr_desc", NpcData(Npc).fr_Desc)
 
                     End If
 
-676                 If Len(NpcData(Npc).it_desc) <> 0 Then
-678                     Call Manager.ChangeValue("Npc" & Npc, "it_desc", NpcData(Npc).it_desc)
+676                 If Len(NpcData(Npc).it_Desc) <> 0 Then
+678                     Call Manager.ChangeValue("Npc" & Npc, "it_desc", NpcData(Npc).it_Desc)
 
                     End If
+
 
                 End If
 
-680             If Len(NpcData(Npc).desc) <> 0 Then
-682                 Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).desc)
+680             If Len(NpcData(Npc).Desc) <> 0 Then
+682                 Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).Desc)
 
                 End If
 
@@ -771,15 +776,15 @@ Private Sub Command1_Click()
                 ' Nombre del hechizo
 762             HechizoData(Hechizo).Nombre = hechic.GetValue("Hechizo" & Hechizo, "Nombre")
 764             HechizoData(Hechizo).en_name = hechic.GetValue("Hechizo" & Hechizo, "en_name")
-766             HechizoData(Hechizo).pt_name = hechic.GetValue("Hechizo" & Hechizo, "pt_name")
-768             HechizoData(Hechizo).fr_name = hechic.GetValue("Hechizo" & Hechizo, "fr_name")
-770             HechizoData(Hechizo).it_name = hechic.GetValue("Hechizo" & Hechizo, "it_name")
+766             HechizoData(Hechizo).pt_name = hechic.GetValue("Hechizo" & Hechizo, "pt_Nombre")
+768             HechizoData(Hechizo).fr_name = hechic.GetValue("Hechizo" & Hechizo, "fr_Nombre")
+770             HechizoData(Hechizo).it_name = hechic.GetValue("Hechizo" & Hechizo, "it_Nombre")
                 ' Descripción
-772             HechizoData(Hechizo).desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
+772             HechizoData(Hechizo).Desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
 774             HechizoData(Hechizo).en_Desc = hechic.GetValue("Hechizo" & Hechizo, "en_Desc")
-776             HechizoData(Hechizo).pt_desc = hechic.GetValue("Hechizo" & Hechizo, "pt_Desc")
-778             HechizoData(Hechizo).fr_desc = hechic.GetValue("Hechizo" & Hechizo, "fr_Desc")
-780             HechizoData(Hechizo).it_desc = hechic.GetValue("Hechizo" & Hechizo, "it_Desc")
+776             HechizoData(Hechizo).pt_Desc = hechic.GetValue("Hechizo" & Hechizo, "pt_Desc")
+778             HechizoData(Hechizo).fr_Desc = hechic.GetValue("Hechizo" & Hechizo, "fr_Desc")
+780             HechizoData(Hechizo).it_Desc = hechic.GetValue("Hechizo" & Hechizo, "it_Desc")
                 ' Palabras mágicas
 782             HechizoData(Hechizo).PalabrasMagicas = hechic.GetValue("Hechizo" & Hechizo, "PalabrasMagicas")
                 ' Mensajes del lanzador
@@ -817,7 +822,7 @@ Private Sub Command1_Click()
 834             DoEvents
                 ' Español
 836             Call Manager.ChangeValue("Hechizo" & Hechizo, "Nombre", HechizoData(Hechizo).Nombre)
-838             Call Manager.ChangeValue("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).desc)
+838             Call Manager.ChangeValue("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).Desc)
 840             Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
 842             Call Manager.ChangeValue("Hechizo" & Hechizo, "HechizeroMsg", HechizoData(Hechizo).HechizeroMsg)
 844             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
@@ -829,20 +834,20 @@ Private Sub Command1_Click()
 854             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
 856             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
                 ' Portugués
-858             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Name", HechizoData(Hechizo).pt_name)
-860             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Desc", HechizoData(Hechizo).pt_desc)
+858             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Nombre", HechizoData(Hechizo).pt_name)
+860             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Desc", HechizoData(Hechizo).pt_Desc)
 862             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_HechizeroMsg", HechizoData(Hechizo).pt_HechizeroMsg)
 864             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_TargetMsg", HechizoData(Hechizo).pt_TargetMsg)
 866             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_PropioMsg", HechizoData(Hechizo).pt_PropioMsg)
                 ' Francés
-868             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Name", HechizoData(Hechizo).fr_name)
-870             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Desc", HechizoData(Hechizo).fr_desc)
+868             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Nombre", HechizoData(Hechizo).fr_name)
+870             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Desc", HechizoData(Hechizo).fr_Desc)
 872             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_HechizeroMsg", HechizoData(Hechizo).fr_HechizeroMsg)
 874             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_TargetMsg", HechizoData(Hechizo).fr_TargetMsg)
 876             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_PropioMsg", HechizoData(Hechizo).fr_PropioMsg)
                 ' Italiano
-878             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Name", HechizoData(Hechizo).it_name)
-880             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Desc", HechizoData(Hechizo).it_desc)
+878             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Nombre", HechizoData(Hechizo).it_name)
+880             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Desc", HechizoData(Hechizo).it_Desc)
 882             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_HechizeroMsg", HechizoData(Hechizo).it_HechizeroMsg)
 884             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_TargetMsg", HechizoData(Hechizo).it_TargetMsg)
 886             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_PropioMsg", HechizoData(Hechizo).it_PropioMsg)
@@ -860,10 +865,34 @@ Private Sub Command1_Click()
 
 904     Call CargarMensajesIdioma("SP", Manager, Label3)
 906     Call CargarMensajesIdioma("EN", Manager, Label3)
-908     Call CargarMensajesIdioma("BR", Manager, Label3)
+908     Call CargarMensajesIdioma("PT", Manager, Label3)
 910     Call CargarMensajesIdioma("FR", Manager, Label3)
 912     Call CargarMensajesIdioma("IT", Manager, Label3)
-914     Call CargarMensajesIdioma("ES", Manager, Label3)
+914     'Call CargarMensajesIdioma("ES", Manager, Label3)
+
+            Dim MsgFile As String
+            Dim NumLocaleSP_Msg As Long
+            Dim arrLocale_SP_SMG() As String
+            Dim SP_MSG As Integer
+            Dim EN_MSG As Integer
+            Dim Msgsss As New clsIniReader
+            
+        If FileExist(App.Path & "\..\Recursos\init\EN_LocalMsg.dat", vbNormal) Then
+            Dim NumLocaleEN_Msg As Long
+            Dim arrLocale_EN_SMG() As String
+        
+            MsgFile = App.Path & "\..\Recursos\init\EN_LocalMsg.dat"
+            Call Msgsss.Initialize(MsgFile)
+            NumLocaleEN_Msg = Val(Msgsss.GetValue("INIT", "NumLocaleEN_Msg"))
+            Label3.Caption = "0/" & CStr(NumLocaleEN_Msg)
+            ReDim arrLocale_EN_SMG(1 To NumLocaleEN_Msg) As String
+
+            Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleEN_Msg)
+
+        Else
+            MsgBox "Falta el archivo EN_LocalMsg.dat dentro de la carpeta dats."
+        End If
+
 
 916     If FileExist(App.Path & "\..\Recursos\init\NameMapa.dat", vbNormal) Then
             Dim MapFile As String
@@ -898,63 +927,98 @@ Private Sub Command1_Click()
 
         End If
 
-        'quest
-962     If FileExist(App.Path & "\..\Recursos\Dat\Quests.DAT", vbNormal) Then
-964         MapFile = App.Path & "\..\Recursos\Dat\Quests.DAT"
-966         Call Mapa.Initialize(MapFile)
-            Dim nunquest As Integer
-968         nunquest = Mapa.GetValue("INIT", "NumQuests")
-970         Label3.Caption = "0/" & nunquest
-972         ReDim QuestName(1 To nunquest) As String
-974         ReDim QuestDesc(1 To nunquest) As String
-976         ReDim QuestFin(1 To nunquest) As String
-978         ReDim QuestNameEN(1 To nunquest) As String
-980         ReDim QuestDescEN(1 To nunquest) As String
-982         ReDim QuestFinEN(1 To nunquest) As String
-984         ReDim QuestNext(1 To nunquest) As String
-986         ReDim QuestPos(1 To nunquest) As Integer
-988         ReDim QuestRepetible(1 To nunquest) As Byte
-990         ReDim RequiredLevel(1 To nunquest) As Integer
+    ' Quests - Soporte multilenguaje
+    If FileExist(App.Path & "\..\Recursos\Dat\Quests.DAT", vbNormal) Then
+        MapFile = App.Path & "\..\Recursos\Dat\Quests.DAT"
+        Call Mapa.Initialize(MapFile)
 
-992         For Npc = 1 To nunquest
-994             DoEvents
-996             QuestName(Npc) = Mapa.GetValue("QUEST" & Npc, "Nombre")
-998             QuestNameEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Nombre")
-1000             QuestDesc(Npc) = Mapa.GetValue("QUEST" & Npc, "Desc")
-1002             QuestFin(Npc) = Mapa.GetValue("QUEST" & Npc, "DescFinal")
-1004             QuestDescEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Desc")
-1006             QuestFinEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_DescFinal")
-1008             QuestNext(Npc) = Mapa.GetValue("QUEST" & Npc, "NextQuest")
-1010             QuestRepetible(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "Repetible"))
-1012             QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
-1014             RequiredLevel(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "RequiredLevel"))
-1016             Label3.ForeColor = vbRed
-1018             Label3.Caption = "Leyendo Quest: " & Npc & "/" & nunquest
-1020         Next Npc
+        Dim nunquest As Integer
+        nunquest = Mapa.GetValue("INIT", "NumQuests")
+        Label3.Caption = "0/" & nunquest
 
-1022         Npc = 1
-1024         Call Manager.ChangeValue("INIT", "NumQuests", nunquest)
+        ReDim QuestName(1 To nunquest) As String
+        ReDim QuestDesc(1 To nunquest) As String
+        ReDim QuestFin(1 To nunquest) As String
+        ReDim QuestNameEN(1 To nunquest) As String
+        ReDim QuestDescEN(1 To nunquest) As String
+        ReDim QuestFinEN(1 To nunquest) As String
+        ReDim QuestNamePT(1 To nunquest) As String
+        ReDim QuestDescPT(1 To nunquest) As String
+        ReDim QuestFinPT(1 To nunquest) As String
+        ReDim QuestNameFR(1 To nunquest) As String
+        ReDim QuestDescFR(1 To nunquest) As String
+        ReDim QuestFinFR(1 To nunquest) As String
+        ReDim QuestNameIT(1 To nunquest) As String
+        ReDim QuestDescIT(1 To nunquest) As String
+        ReDim QuestFinIT(1 To nunquest) As String
+        ReDim QuestNext(1 To nunquest) As String
+        ReDim QuestPos(1 To nunquest) As Integer
+        ReDim QuestRepetible(1 To nunquest) As Byte
+        ReDim RequiredLevel(1 To nunquest) As Integer
 
-1026         For Npc = 1 To nunquest
-1028             DoEvents
-1030             Call Manager.ChangeValue("QUEST" & Npc, "Nombre", QuestName(Npc))
-1032             Call Manager.ChangeValue("QUEST" & Npc, "en_Nombre", QuestNameEN(Npc))
-1034             Call Manager.ChangeValue("QUEST" & Npc, "Desc", QuestDesc(Npc))
-1036             Call Manager.ChangeValue("QUEST" & Npc, "DescFinal", QuestFin(Npc))
-1038             Call Manager.ChangeValue("QUEST" & Npc, "en_Desc", QuestDescEN(Npc))
-1040             Call Manager.ChangeValue("QUEST" & Npc, "en_DescFinal", QuestFinEN(Npc))
-1042             Call Manager.ChangeValue("QUEST" & Npc, "NextQuest", QuestNext(Npc))
-1044             Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
-1046             Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
-1048             Call Manager.ChangeValue("QUEST" & Npc, "PosMap", QuestPos(Npc))
-1050             Label3.Caption = "Grabando Quest: " & Npc & "/" & nunquest
-1052             Label3.ForeColor = &HC0C0&
-1054         Next Npc
+        For Npc = 1 To nunquest
+            DoEvents
+            Label3.ForeColor = vbRed
+            Label3.Caption = "Leyendo Quest: " & Npc & "/" & nunquest
 
-         Else
-1056         MsgBox "Falta el archivo Quests.DAT dentro de la carpeta dats."
+            QuestName(Npc) = Mapa.GetValue("QUEST" & Npc, "Nombre")
+            QuestNameEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Nombre")
+            QuestNamePT(Npc) = Mapa.GetValue("QUEST" & Npc, "pt_Nombre")
+            QuestNameFR(Npc) = Mapa.GetValue("QUEST" & Npc, "fr_Nombre")
+            QuestNameIT(Npc) = Mapa.GetValue("QUEST" & Npc, "it_Nombre")
 
-         End If
+            QuestDesc(Npc) = Mapa.GetValue("QUEST" & Npc, "Desc")
+            QuestFin(Npc) = Mapa.GetValue("QUEST" & Npc, "DescFinal")
+            QuestDescEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_Desc")
+            QuestFinEN(Npc) = Mapa.GetValue("QUEST" & Npc, "en_DescFinal")
+            QuestDescPT(Npc) = Mapa.GetValue("QUEST" & Npc, "pt_Desc")
+            QuestFinPT(Npc) = Mapa.GetValue("QUEST" & Npc, "pt_DescFinal")
+            QuestDescFR(Npc) = Mapa.GetValue("QUEST" & Npc, "fr_Desc")
+            QuestFinFR(Npc) = Mapa.GetValue("QUEST" & Npc, "fr_DescFinal")
+            QuestDescIT(Npc) = Mapa.GetValue("QUEST" & Npc, "it_Desc")
+            QuestFinIT(Npc) = Mapa.GetValue("QUEST" & Npc, "it_DescFinal")
+
+            QuestNext(Npc) = Mapa.GetValue("QUEST" & Npc, "NextQuest")
+            QuestRepetible(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "Repetible"))
+            QuestPos(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "PosMap"))
+            RequiredLevel(Npc) = Val(Mapa.GetValue("QUEST" & Npc, "RequiredLevel"))
+        Next Npc
+
+        Npc = 1
+        Call Manager.ChangeValue("INIT", "NumQuests", nunquest)
+
+        For Npc = 1 To nunquest
+            DoEvents
+            Label3.ForeColor = &HC0C0&
+            Label3.Caption = "Grabando Quest: " & Npc & "/" & nunquest
+
+            Call Manager.ChangeValue("QUEST" & Npc, "Nombre", QuestName(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "en_Nombre", QuestNameEN(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "pt_Nombre", QuestNamePT(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "fr_Nombre", QuestNameFR(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "it_Nombre", QuestNameIT(Npc))
+
+            Call Manager.ChangeValue("QUEST" & Npc, "Desc", QuestDesc(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "DescFinal", QuestFin(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "en_Desc", QuestDescEN(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "en_DescFinal", QuestFinEN(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "pt_Desc", QuestDescPT(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "pt_DescFinal", QuestFinPT(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "fr_Desc", QuestDescFR(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "fr_DescFinal", QuestFinFR(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "it_Desc", QuestDescIT(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "it_DescFinal", QuestFinIT(Npc))
+
+            Call Manager.ChangeValue("QUEST" & Npc, "NextQuest", QuestNext(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
+            Call Manager.ChangeValue("QUEST" & Npc, "PosMap", QuestPos(Npc))
+        Next Npc
+
+    Else
+        MsgBox "Falta el archivo Quests.DAT dentro de la carpeta dats."
+    End If
+
 
 1058     If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
 1060         MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"

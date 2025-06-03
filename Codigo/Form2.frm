@@ -96,100 +96,129 @@ Attribute VB_Exposed = False
 Option Explicit
 Private NumMsg  As Integer
 Private MsgFile As String
+Private SelectedLangCode As String
+Private SelectedLangName As String
+Private arrLocale_SMG() As String
+
+' Declaraciones API ANSI para leer y escribir archivos INI
+Private Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _
+    (ByVal lpAppName As String, ByVal lpKeyName As String, ByVal lpDefault As String, _
+     ByVal lpReturnedString As String, ByVal nSize As Long, ByVal lpFileName As String) As Long
+
+Private Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" _
+    (ByVal lpAppName As String, ByVal lpKeyName As String, ByVal lpString As String, _
+     ByVal lpFileName As String) As Long
+
+Private Sub Form_Load()
+    Dim inputLang As String
+    Dim i As Integer
+
+    inputLang = InputBox( _
+        "Seleccione el idioma:" & vbCrLf & _
+        "1 = Espaï¿½ol" & vbCrLf & _
+        "2 = Inglï¿½s" & vbCrLf & _
+        "3 = Portuguï¿½s" & vbCrLf & _
+        "4 = Francï¿½s" & vbCrLf & _
+        "5 = Italiano", _
+        "Idioma")
+
+    Select Case Trim(inputLang)
+        Case "1": SelectedLangCode = "ES": SelectedLangName = "Espaï¿½ol"
+        Case "2": SelectedLangCode = "EN": SelectedLangName = "Inglï¿½s"
+        Case "3": SelectedLangCode = "PT": SelectedLangName = "Portuguï¿½s"
+        Case "4": SelectedLangCode = "FR": SelectedLangName = "Francï¿½s"
+        Case "5": SelectedLangCode = "IT": SelectedLangName = "Italiano"
+        Case Else
+            MsgBox "Selecciï¿½n invï¿½lida.", vbCritical
+            Unload Me
+            Exit Sub
+    End Select
+
+    MsgFile = App.Path & "\..\Recursos\init\" & SelectedLangCode & "_LocalMsg.dat"
+
+    If FileExist(MsgFile, vbNormal) Then
+        NumMsg = Val(GetIniValue("INIT", "NumLocale" & SelectedLangCode & "_Msg", MsgFile))
+        ReDim arrLocale_SMG(1 To NumMsg)
+
+        For i = 1 To NumMsg
+            arrLocale_SMG(i) = GetIniValue(SelectedLangCode & "_MSG", "Msg" & i, MsgFile)
+            List1.AddItem i & "-" & arrLocale_SMG(i)
+        Next i
+    Else
+        MsgBox "Archivo no encontrado: " & MsgFile, vbExclamation
+    End If
+End Sub
 
 Private Sub Command1_Click()
+    If List1.ListIndex < 0 Then
+        MsgBox "Debes seleccionar un elemento de la lista."
+        Exit Sub
+    End If
 
-100     If List1.ListIndex < 0 Then
-102         MsgBox "Debes seleccionar un elemento de la lista."
-            Exit Sub
-
-        End If
-
-104     arrLocale_SMG(Val(ReadField(1, List1.List(List1.ListIndex), 45))) = Text1.Text
-106     Call Command3_Click
-
+    arrLocale_SMG(Val(ReadField(1, List1.List(List1.ListIndex), 45))) = Text1.Text
+    Call Command3_Click
 End Sub
 
 Private Sub Command2_Click()
-        Dim arch As String
-        Dim msg  As Integer
-100     arch = App.Path & "\..\Recursos\init\" & "LocalMsg.dat"
-102     Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
 
-104     For msg = 1 To NumMsg
-106         DoEvents
-108         Call WriteVar(arch, "Msg", "Msg" & msg, arrLocale_SMG(msg))
-110     Next msg
+    Dim i As Integer
 
+    Call WriteIniValue("INIT", "NumLocale" & SelectedLangCode & "_Msg", NumMsg, MsgFile)
+
+    For i = 1 To NumMsg
+        DoEvents
+        Call WriteIniValue(SelectedLangCode & "_MSG", "Msg" & i, arrLocale_SMG(i), MsgFile)
+    Next i
+
+
+    MsgBox "Mensajes guardados correctamente en " & MsgFile, vbInformation
 End Sub
 
 Private Sub Command3_Click()
-100     List1.Clear
-        Dim i As Integer
 
-102     If Filtro.Text = vbNullString Then
+    Dim i As Integer
+    List1.Clear
 
-104         For i = 1 To NumMsg
-106             List1.AddItem i & "-" & arrLocale_SMG(i)
-108         Next i
 
-        Else
-
-110         For i = 1 To NumMsg
-
-112             If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(Filtro.Text)) Then
-114                 List1.AddItem i & "-" & arrLocale_SMG(i)
-
-                End If
-
-116         Next i
-
-        End If
-
+    If Filtro.Text = vbNullString Then
+        For i = 1 To NumMsg
+            List1.AddItem i & "-" & arrLocale_SMG(i)
+        Next i
+    Else
+        For i = 1 To NumMsg
+            If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(Filtro.Text)) Then
+                List1.AddItem i & "-" & arrLocale_SMG(i)
+            End If
+        Next i
+    End If
 End Sub
 
 Private Sub Command4_Click()
-100     List1.Clear
-        Dim i As Integer
 
-102     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
-104         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
-106         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
-108         Filtro.Text = ""
-110         ReDim arrLocale_SMG(1 To NumMsg) As String
-
-112         For i = 1 To NumMsg
-114             arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
-116             List1.AddItem i & "-" & arrLocale_SMG(i)
-118         Next i
-
-        End If
-
+    Filtro.Text = ""
+    Call Command3_Click
 End Sub
 
 Private Sub Filtro_Change()
-100     Call Command3_Click
-
-End Sub
-
-Private Sub Form_Load()
-        Dim i As Integer
-
-100     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
-102         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
-104         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
-106         ReDim arrLocale_SMG(1 To NumMsg) As String
-
-108         For i = 1 To NumMsg
-110             arrLocale_SMG(i) = GetVar(MsgFile, "Msg", "Msg" & i)
-112             List1.AddItem i & "-" & arrLocale_SMG(i)
-114         Next i
-
-        End If
+    Call Command3_Click
 
 End Sub
 
 Private Sub List1_Click()
-100     Text1.Text = ReadField(2, List1.Text, Asc("-"))
-
+    Text1.Text = ReadField(2, List1.Text, Asc("-"))
 End Sub
+
+' Funciones para leer desde archivos INI (ANSI)
+Private Function GetIniValue(ByVal section As String, ByVal Key As String, ByVal FileName As String) As String
+    Dim buffer As String * 1024
+    Dim length As Long
+    length = GetPrivateProfileString(section, Key, "", buffer, Len(buffer), FileName)
+    GetIniValue = Left$(buffer, length)
+End Function
+
+' Funciï¿½n para escribir en archivos INI (ANSI)
+Private Function WriteIniValue(ByVal section As String, ByVal Key As String, ByVal Value As String, ByVal FileName As String) As Boolean
+    WriteIniValue = (WritePrivateProfileString(section, Key, Value, FileName) <> 0)
+End Function
+
+
