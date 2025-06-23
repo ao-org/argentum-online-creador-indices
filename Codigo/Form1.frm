@@ -115,6 +115,50 @@ Private Sub Command1_Click()
         Dim Hechizo As Integer
         Dim Raza    As Integer
         Dim numobjs As Long
+' === BLOQUE MULTILENGUAJE ===
+' === Escritura multilenguaje ===
+Dim idiomas() As String
+idiomas = Split("es,en,pt,fr,it", ",")
+
+Dim ManagerES As New clsIniReader
+Dim ManagerEN As New clsIniReader
+Dim ManagerPT As New clsIniReader
+Dim ManagerFR As New clsIniReader
+Dim ManagerIT As New clsIniReader
+
+Call ManagerES.Initialize(App.Path & "\..\Recursos\init\es_localindex.dat")
+Call ManagerEN.Initialize(App.Path & "\..\Recursos\init\en_localindex.dat")
+Call ManagerPT.Initialize(App.Path & "\..\Recursos\init\pt_localindex.dat")
+Call ManagerFR.Initialize(App.Path & "\..\Recursos\init\fr_localindex.dat")
+Call ManagerIT.Initialize(App.Path & "\..\Recursos\init\it_localindex.dat")
+
+' Guardar claves en los managers según idioma
+Private Sub GuardarClaveMultilenguaje(ByVal seccion As String, ByVal clave As String, ByVal valor As String)
+    If Len(valor) = 0 Then Exit Sub
+
+    Dim idioma As String
+    idioma = LCase(Left(clave, 3))
+
+    Select Case idioma
+        Case "en_"
+            Call ManagerEN.ChangeValue(seccion, clave, valor)
+        Case "pt_"
+            Call ManagerPT.ChangeValue(seccion, clave, valor)
+        Case "fr_"
+            Call ManagerFR.ChangeValue(seccion, clave, valor)
+        Case "it_"
+            Call ManagerIT.ChangeValue(seccion, clave, valor)
+        Case "es_"
+            Call ManagerES.ChangeValue(seccion, clave, valor)
+        Case Else
+            ' Clave sin prefijo de idioma -> va en todos
+            Call ManagerES.ChangeValue(seccion, clave, valor)
+            Call ManagerEN.ChangeValue(seccion, clave, valor)
+            Call ManagerPT.ChangeValue(seccion, clave, valor)
+            Call ManagerFR.ChangeValue(seccion, clave, valor)
+            Call ManagerIT.ChangeValue(seccion, clave, valor)
+    End Select
+End Sub
 
 100     If FileExist(OutputFile, vbNormal) Then
 102         Clean_File OutputFile
@@ -220,312 +264,312 @@ Private Sub Command1_Click()
             Dim Manager As clsIniReader
 268         Set Manager = New clsIniReader
 270         Call Manager.Initialize(OutputFile)
-272         Call Manager.ChangeValue("INIT", "NumOBJs", numobjs)
+272         Call GuardarClaveMultilenguaje("INIT", "NumOBJs", numobjs)
 
 274         For Obj = 1 To numobjs
 276             DoEvents
-278             Call Manager.ChangeValue("OBJ" & Obj, "GrhIndex", ObjData(Obj).grhindex)
+278             Call GuardarClaveMultilenguaje("OBJ" & Obj, "GrhIndex", ObjData(Obj).grhindex)
 
 280             If Len(ObjData(Obj).Name) <> 0 Then
-282                 Call Manager.ChangeValue("OBJ" & Obj, "Name", ObjData(Obj).Name)
+282                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Name", ObjData(Obj).Name)
 
                 End If
 
 284             If Len(ObjData(Obj).texto) <> 0 Then
-286                 Call Manager.ChangeValue("OBJ" & Obj, "Texto", ObjData(Obj).texto)
+286                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Texto", ObjData(Obj).texto)
 
                 End If
 
 288             If Len(ObjData(Obj).Info) <> 0 Then
-290                 Call Manager.ChangeValue("OBJ" & Obj, "Info", ObjData(Obj).Info)
+290                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Info", ObjData(Obj).Info)
 
                 End If
 
                 'English
 292             If Len(ObjData(Obj).en_name) <> 0 Then
-294                 Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_name)
+294                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "en_Name", ObjData(Obj).en_name)
 
 
                 End If
 
 296             If Len(ObjData(Obj).en_texto) <> 0 Then
-298                 Call Manager.ChangeValue("OBJ" & Obj, "en_Texto", ObjData(Obj).en_texto)
+298                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "en_Texto", ObjData(Obj).en_texto)
 
                 End If
 
 300             If Len(ObjData(Obj).en_Info) <> 0 Then
-302                 Call Manager.ChangeValue("OBJ" & Obj, "en_Info", ObjData(Obj).en_Info)
+302                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "en_Info", ObjData(Obj).en_Info)
 
                 End If
 
 304             If ObjData(Obj).MINDEF > 0 Then
-306                 Call Manager.ChangeValue("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
+306                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "MINDEF", ObjData(Obj).MINDEF)
 
 
                 End If
 
 308             If ObjData(Obj).MaxDEF > 0 Then
-310                 Call Manager.ChangeValue("OBJ" & Obj, "MaxDEF", ObjData(Obj).MaxDEF)
+310                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "MaxDEF", ObjData(Obj).MaxDEF)
 
                 End If
 
 312             If ObjData(Obj).MinHit > 0 Then
-314                 Call Manager.ChangeValue("OBJ" & Obj, "MinHIt", ObjData(Obj).MinHit)
+314                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "MinHIt", ObjData(Obj).MinHit)
 
                 End If
 
 316             If ObjData(Obj).MaxHit > 0 Then
-318                 Call Manager.ChangeValue("OBJ" & Obj, "maxhit", ObjData(Obj).MaxHit)
+318                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "maxhit", ObjData(Obj).MaxHit)
 
                 End If
 
 320             If ObjData(Obj).ObjType > 0 Then
-322                 Call Manager.ChangeValue("OBJ" & Obj, "ObjType", ObjData(Obj).ObjType)
+322                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "ObjType", ObjData(Obj).ObjType)
 
                 End If
 
 324             If Len(ObjData(Obj).CreaLuz) <> 0 Then
-326                 Call Manager.ChangeValue("OBJ" & Obj, "CreaLuz", ObjData(Obj).CreaLuz)
+326                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "CreaLuz", ObjData(Obj).CreaLuz)
 
                 End If
 
 328             If Len(ObjData(Obj).CreaGRH) <> 0 Then
-330                 Call Manager.ChangeValue("OBJ" & Obj, "CreaGRH", ObjData(Obj).CreaGRH)
+330                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "CreaGRH", ObjData(Obj).CreaGRH)
 
                 End If
 
 332             If ObjData(Obj).Hechizo <> 0 Then
-334                 Call Manager.ChangeValue("OBJ" & Obj, "Hechizo", ObjData(Obj).Hechizo)
+334                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Hechizo", ObjData(Obj).Hechizo)
 
                 End If
 
 336             If ObjData(Obj).Raices <> 0 Then
-338                 Call Manager.ChangeValue("OBJ" & Obj, "Raices", ObjData(Obj).Raices)
+338                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Raices", ObjData(Obj).Raices)
 
                 End If
 
 340             If ObjData(Obj).Cuchara <> 0 Then
-342                 Call Manager.ChangeValue("OBJ" & Obj, "Cuchara", ObjData(Obj).Cuchara)
+342                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Cuchara", ObjData(Obj).Cuchara)
 
                 End If
 
 344             If ObjData(Obj).Botella <> 0 Then
-346                 Call Manager.ChangeValue("OBJ" & Obj, "Botella", ObjData(Obj).Botella)
+346                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Botella", ObjData(Obj).Botella)
 
                 End If
 
 348             If ObjData(Obj).Mortero <> 0 Then
-350                 Call Manager.ChangeValue("OBJ" & Obj, "Mortero", ObjData(Obj).Mortero)
+350                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Mortero", ObjData(Obj).Mortero)
 
                 End If
 
 352             If ObjData(Obj).FrascoAlq <> 0 Then
-354                 Call Manager.ChangeValue("OBJ" & Obj, "FrascoAlq", ObjData(Obj).FrascoAlq)
+354                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "FrascoAlq", ObjData(Obj).FrascoAlq)
 
                 End If
 
 356             If ObjData(Obj).FrascoElixir <> 0 Then
-358                 Call Manager.ChangeValue("OBJ" & Obj, "FrascoElixir", ObjData(Obj).FrascoElixir)
+358                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "FrascoElixir", ObjData(Obj).FrascoElixir)
 
                 End If
 
 360             If ObjData(Obj).Dosificador <> 0 Then
-362                 Call Manager.ChangeValue("OBJ" & Obj, "Dosificador", ObjData(Obj).Dosificador)
+362                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Dosificador", ObjData(Obj).Dosificador)
 
                 End If
 
 364             If ObjData(Obj).Orquidea <> 0 Then
-366                 Call Manager.ChangeValue("OBJ" & Obj, "Orquidea", ObjData(Obj).Orquidea)
+366                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Orquidea", ObjData(Obj).Orquidea)
 
                 End If
 
 368             If ObjData(Obj).Carmesi <> 0 Then
-370                 Call Manager.ChangeValue("OBJ" & Obj, "Carmesi", ObjData(Obj).Carmesi)
+370                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Carmesi", ObjData(Obj).Carmesi)
 
                 End If
 
 372             If ObjData(Obj).HongoDeLuz <> 0 Then
-374                 Call Manager.ChangeValue("OBJ" & Obj, "HongoDeLuz", ObjData(Obj).HongoDeLuz)
+374                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "HongoDeLuz", ObjData(Obj).HongoDeLuz)
 
                 End If
 
 376             If ObjData(Obj).Esporas <> 0 Then
-378                 Call Manager.ChangeValue("OBJ" & Obj, "Esporas", ObjData(Obj).Esporas)
+378                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Esporas", ObjData(Obj).Esporas)
 
                 End If
 
 380             If ObjData(Obj).Tuna <> 0 Then
-382                 Call Manager.ChangeValue("OBJ" & Obj, "Tuna", ObjData(Obj).Tuna)
+382                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Tuna", ObjData(Obj).Tuna)
 
                 End If
 
 384             If ObjData(Obj).Cala <> 0 Then
-386                 Call Manager.ChangeValue("OBJ" & Obj, "Cala", ObjData(Obj).Cala)
+386                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Cala", ObjData(Obj).Cala)
 
                 End If
 
 388             If ObjData(Obj).ColaDeZorro <> 0 Then
-390                 Call Manager.ChangeValue("OBJ" & Obj, "ColaDeZorro", ObjData(Obj).ColaDeZorro)
+390                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "ColaDeZorro", ObjData(Obj).ColaDeZorro)
 
                 End If
 
 392             If ObjData(Obj).FlorOceano <> 0 Then
-394                 Call Manager.ChangeValue("OBJ" & Obj, "FlorOceano", ObjData(Obj).FlorOceano)
+394                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "FlorOceano", ObjData(Obj).FlorOceano)
 
                 End If
 
 396             If ObjData(Obj).FlorRoja <> 0 Then
-398                 Call Manager.ChangeValue("OBJ" & Obj, "FlorRoja", ObjData(Obj).FlorRoja)
+398                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "FlorRoja", ObjData(Obj).FlorRoja)
 
                 End If
 
 400             If ObjData(Obj).Hierva <> 0 Then
-402                 Call Manager.ChangeValue("OBJ" & Obj, "Hierva", ObjData(Obj).Hierva)
+402                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Hierva", ObjData(Obj).Hierva)
 
                 End If
 
 404             If ObjData(Obj).HojasDeRin <> 0 Then
-406                 Call Manager.ChangeValue("OBJ" & Obj, "HojasDeRin", ObjData(Obj).HojasDeRin)
+406                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "HojasDeRin", ObjData(Obj).HojasDeRin)
 
                 End If
 
 408             If ObjData(Obj).HojasRojas <> 0 Then
-410                 Call Manager.ChangeValue("OBJ" & Obj, "HojasRojas", ObjData(Obj).HojasRojas)
+410                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "HojasRojas", ObjData(Obj).HojasRojas)
 
                 End If
 
 412             If ObjData(Obj).SemillasPros <> 0 Then
-414                 Call Manager.ChangeValue("OBJ" & Obj, "SemillasPros", ObjData(Obj).SemillasPros)
+414                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "SemillasPros", ObjData(Obj).SemillasPros)
 
                 End If
 
 416             If ObjData(Obj).Pimiento <> 0 Then
-418                 Call Manager.ChangeValue("OBJ" & Obj, "Pimiento", ObjData(Obj).Pimiento)
+418                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Pimiento", ObjData(Obj).Pimiento)
 
                 End If
 
 420             If ObjData(Obj).Madera <> 0 Then
-422                 Call Manager.ChangeValue("OBJ" & Obj, "Madera", ObjData(Obj).Madera)
+422                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Madera", ObjData(Obj).Madera)
 
                 End If
 
 424             If ObjData(Obj).MaderaElfica <> 0 Then
-426                 Call Manager.ChangeValue("OBJ" & Obj, "MaderaElfica", ObjData(Obj).MaderaElfica)
+426                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "MaderaElfica", ObjData(Obj).MaderaElfica)
 
                 End If
 
 428             If ObjData(Obj).PielLobo <> 0 Then
-430                 Call Manager.ChangeValue("OBJ" & Obj, "PielLobo", ObjData(Obj).PielLobo)
+430                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "PielLobo", ObjData(Obj).PielLobo)
 
                 End If
 
 432             If ObjData(Obj).PielLoboNegro <> 0 Then
-434                 Call Manager.ChangeValue("OBJ" & Obj, "PielLoboNegro", ObjData(Obj).PielLoboNegro)
+434                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "PielLoboNegro", ObjData(Obj).PielLoboNegro)
 
                 End If
 
 436             If ObjData(Obj).PielOsoPardo <> 0 Then
-438                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPardo", ObjData(Obj).PielOsoPardo)
+438                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "PielOsoPardo", ObjData(Obj).PielOsoPardo)
 
                 End If
 
 440             If ObjData(Obj).PielTigre <> 0 Then
-442                 Call Manager.ChangeValue("OBJ" & Obj, "PielTigre", ObjData(Obj).PielTigre)
+442                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "PielTigre", ObjData(Obj).PielTigre)
 
                 End If
 
 444             If ObjData(Obj).PielTigreBengala <> 0 Then
-446                 Call Manager.ChangeValue("OBJ" & Obj, "PielTigreBengala", ObjData(Obj).PielTigreBengala)
+446                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "PielTigreBengala", ObjData(Obj).PielTigreBengala)
 
                 End If
 
 448             If ObjData(Obj).PielOsoPolar <> 0 Then
-450                 Call Manager.ChangeValue("OBJ" & Obj, "PielOsoPolar", ObjData(Obj).PielOsoPolar)
+450                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "PielOsoPolar", ObjData(Obj).PielOsoPolar)
 
                 End If
 
 452             If ObjData(Obj).LingH <> 0 Then
-454                 Call Manager.ChangeValue("OBJ" & Obj, "LingH", ObjData(Obj).LingH)
+454                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "LingH", ObjData(Obj).LingH)
 
                 End If
 
 456             If ObjData(Obj).LingP <> 0 Then
-458                 Call Manager.ChangeValue("OBJ" & Obj, "LingP", ObjData(Obj).LingP)
+458                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "LingP", ObjData(Obj).LingP)
 
                 End If
 
 460             If ObjData(Obj).LingO <> 0 Then
-462                 Call Manager.ChangeValue("OBJ" & Obj, "LingO", ObjData(Obj).LingO)
+462                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "LingO", ObjData(Obj).LingO)
 
                 End If
 
 464             If ObjData(Obj).Coal <> 0 Then
-466                 Call Manager.ChangeValue("OBJ" & Obj, "Coal", ObjData(Obj).Coal)
+466                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Coal", ObjData(Obj).Coal)
 
                 End If
 
 468             If ObjData(Obj).Destruye <> 0 Then
-470                 Call Manager.ChangeValue("OBJ" & Obj, "Destruye", ObjData(Obj).Destruye)
+470                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Destruye", ObjData(Obj).Destruye)
 
                 End If
 
 472             If ObjData(Obj).SkHerreria <> 0 Then
-474                 Call Manager.ChangeValue("OBJ" & Obj, "SkHerreria", ObjData(Obj).SkHerreria)
+474                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "SkHerreria", ObjData(Obj).SkHerreria)
 
                 End If
 
 476             If ObjData(Obj).SkPociones <> 0 Then
-478                 Call Manager.ChangeValue("OBJ" & Obj, "SkPociones", ObjData(Obj).SkPociones)
+478                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "SkPociones", ObjData(Obj).SkPociones)
 
                 End If
 
 480             If ObjData(Obj).Sksastreria <> 0 Then
-482                 Call Manager.ChangeValue("OBJ" & Obj, "Sksastreria", ObjData(Obj).Sksastreria)
+482                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Sksastreria", ObjData(Obj).Sksastreria)
 
                 End If
 
 484             If ObjData(Obj).Valor <> 0 Then
-486                 Call Manager.ChangeValue("OBJ" & Obj, "Valor", ObjData(Obj).Valor)
+486                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Valor", ObjData(Obj).Valor)
 
                 End If
 
 488             If ObjData(Obj).Agarrable Then
-490                 Call Manager.ChangeValue("OBJ" & Obj, "Agarrable", 1)
+490                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Agarrable", 1)
 
                 End If
 
 492             If ObjData(Obj).CreaParticulaPiso > 0 Then
-494                 Call Manager.ChangeValue("OBJ" & Obj, "CreaParticulaPiso", ObjData(Obj).CreaParticulaPiso)
+494                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "CreaParticulaPiso", ObjData(Obj).CreaParticulaPiso)
 
                 End If
 
 496             If ObjData(Obj).Proyectil > 0 Then
-498                 Call Manager.ChangeValue("OBJ" & Obj, "Proyectil", ObjData(Obj).Proyectil)
+498                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Proyectil", ObjData(Obj).Proyectil)
 
                 End If
 
 500             If ObjData(Obj).Municiones > 0 Then
-502                 Call Manager.ChangeValue("OBJ" & Obj, "Municiones", ObjData(Obj).Municiones)
+502                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Municiones", ObjData(Obj).Municiones)
 
                 End If
 
 504             If ObjData(Obj).Llave > 0 Then
-506                 Call Manager.ChangeValue("OBJ" & Obj, "Llave", ObjData(Obj).Llave)
+506                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "Llave", ObjData(Obj).Llave)
 
                 End If
 
 508             If ObjData(Obj).Cooldown > 0 Then
-510                 Call Manager.ChangeValue("OBJ" & Obj, "CD", ObjData(Obj).Cooldown)
+510                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "CD", ObjData(Obj).Cooldown)
 
                 End If
 
 512             If ObjData(Obj).CdType > 0 Then
-514                 Call Manager.ChangeValue("OBJ" & Obj, "CDType", ObjData(Obj).CdType)
+514                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "CDType", ObjData(Obj).CdType)
 
                 End If
 
 516             If ObjData(Obj).SpellIndex > 0 Then
-518                 Call Manager.ChangeValue("OBJ" & Obj, "SpellIndex", ObjData(Obj).SpellIndex)
+518                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "SpellIndex", ObjData(Obj).SpellIndex)
 
                 End If
 
@@ -534,34 +578,34 @@ Private Sub Command1_Click()
 
                 ' Portugués
 524             If Len(ObjData(Obj).pt_name) <> 0 Then
-526                 Call Manager.ChangeValue("OBJ" & Obj, "pt_name", ObjData(Obj).pt_name)
+526                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "pt_name", ObjData(Obj).pt_name)
 
                 End If
 
 528             If Len(ObjData(Obj).pt_texto) <> 0 Then
-530                 Call Manager.ChangeValue("OBJ" & Obj, "pt_texto", ObjData(Obj).pt_texto)
+530                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "pt_texto", ObjData(Obj).pt_texto)
 
                 End If
 
                 ' Francés
 532             If Len(ObjData(Obj).fr_name) <> 0 Then
-534                 Call Manager.ChangeValue("OBJ" & Obj, "fr_name", ObjData(Obj).fr_name)
+534                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "fr_name", ObjData(Obj).fr_name)
 
                 End If
 
 536             If Len(ObjData(Obj).fr_texto) <> 0 Then
-538                 Call Manager.ChangeValue("OBJ" & Obj, "fr_texto", ObjData(Obj).fr_texto)
+538                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "fr_texto", ObjData(Obj).fr_texto)
 
                 End If
 
                 ' Italiano
 540             If Len(ObjData(Obj).it_name) <> 0 Then
-542                 Call Manager.ChangeValue("OBJ" & Obj, "it_name", ObjData(Obj).it_name)
+542                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "it_name", ObjData(Obj).it_name)
 
                 End If
 
 544             If Len(ObjData(Obj).it_texto) <> 0 Then
-546                 Call Manager.ChangeValue("OBJ" & Obj, "it_texto", ObjData(Obj).it_texto)
+546                 Call GuardarClaveMultilenguaje("OBJ" & Obj, "it_texto", ObjData(Obj).it_texto)
 
                 End If
 
@@ -631,53 +675,53 @@ Private Sub Command1_Click()
 634         Next Npc
 
 636         Npc = 1
-638         Call Manager.ChangeValue("INIT", "NumNPCs", numnpcs)
+638         Call GuardarClaveMultilenguaje("INIT", "NumNPCs", numnpcs)
 
 640         For Npc = 1 To numnpcs
 642             DoEvents
 
 644             If Len(NpcData(Npc).Name) <> 0 Then
-646                 Call Manager.ChangeValue("Npc" & Npc, "Name", NpcData(Npc).Name)
+646                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Name", NpcData(Npc).Name)
 
                 End If
 
 648             If Len(NpcData(Npc).en_name) <> 0 Then
-650                 Call Manager.ChangeValue("Npc" & Npc, "en_Name", NpcData(Npc).en_name)
+650                 Call GuardarClaveMultilenguaje("Npc" & Npc, "en_Name", NpcData(Npc).en_name)
 
                     ' Name multilenguaje
 652                 If Len(NpcData(Npc).pt_name) <> 0 Then
-654                     Call Manager.ChangeValue("Npc" & Npc, "pt_Name", NpcData(Npc).pt_name)
+654                     Call GuardarClaveMultilenguaje("Npc" & Npc, "pt_Name", NpcData(Npc).pt_name)
 
                     End If
 
 656                 If Len(NpcData(Npc).fr_name) <> 0 Then
-658                     Call Manager.ChangeValue("Npc" & Npc, "fr_Name", NpcData(Npc).fr_name)
+658                     Call GuardarClaveMultilenguaje("Npc" & Npc, "fr_Name", NpcData(Npc).fr_name)
 
                     End If
 
 660                 If Len(NpcData(Npc).it_name) <> 0 Then
-662                     Call Manager.ChangeValue("Npc" & Npc, "it_Name", NpcData(Npc).it_name)
+662                     Call GuardarClaveMultilenguaje("Npc" & Npc, "it_Name", NpcData(Npc).it_name)
 
                     End If
 
                 End If
 
 664             If Len(NpcData(Npc).en_Desc) <> 0 Then
-666                 Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_Desc)
+666                 Call GuardarClaveMultilenguaje("Npc" & Npc, "en_desc", NpcData(Npc).en_Desc)
 
                     ' Desc multilenguaje
 668                 If Len(NpcData(Npc).pt_Desc) <> 0 Then
-670                     Call Manager.ChangeValue("Npc" & Npc, "pt_desc", NpcData(Npc).pt_Desc)
+670                     Call GuardarClaveMultilenguaje("Npc" & Npc, "pt_desc", NpcData(Npc).pt_Desc)
 
                     End If
 
 672                 If Len(NpcData(Npc).fr_Desc) <> 0 Then
-674                     Call Manager.ChangeValue("Npc" & Npc, "fr_desc", NpcData(Npc).fr_Desc)
+674                     Call GuardarClaveMultilenguaje("Npc" & Npc, "fr_desc", NpcData(Npc).fr_Desc)
 
                     End If
 
 676                 If Len(NpcData(Npc).it_Desc) <> 0 Then
-678                     Call Manager.ChangeValue("Npc" & Npc, "it_desc", NpcData(Npc).it_Desc)
+678                     Call GuardarClaveMultilenguaje("Npc" & Npc, "it_desc", NpcData(Npc).it_Desc)
 
                     End If
 
@@ -685,52 +729,52 @@ Private Sub Command1_Click()
                 End If
 
 680             If Len(NpcData(Npc).Desc) <> 0 Then
-682                 Call Manager.ChangeValue("Npc" & Npc, "Desc", NpcData(Npc).Desc)
+682                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Desc", NpcData(Npc).Desc)
 
                 End If
 
 684             If NpcData(Npc).Body <> 0 Then
-686                 Call Manager.ChangeValue("Npc" & Npc, "Body", NpcData(Npc).Body)
+686                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Body", NpcData(Npc).Body)
 
                 End If
 
 688             If NpcData(Npc).Head <> 0 Then
-690                 Call Manager.ChangeValue("Npc" & Npc, "Head", NpcData(Npc).Head)
+690                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Head", NpcData(Npc).Head)
 
                 End If
 
 692             If NpcData(Npc).Exp <> 0 Then
-694                 Call Manager.ChangeValue("Npc" & Npc, "Exp", NpcData(Npc).Exp)
+694                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Exp", NpcData(Npc).Exp)
 
                 End If
 
 696             If NpcData(Npc).Hp <> 0 Then
-698                 Call Manager.ChangeValue("Npc" & Npc, "Hp", NpcData(Npc).Hp)
+698                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Hp", NpcData(Npc).Hp)
 
                 End If
 
 700             If NpcData(Npc).MaxHit <> 0 Then
-702                 Call Manager.ChangeValue("Npc" & Npc, "MaxHit", NpcData(Npc).MaxHit)
+702                 Call GuardarClaveMultilenguaje("Npc" & Npc, "MaxHit", NpcData(Npc).MaxHit)
 
                 End If
 
 704             If NpcData(Npc).MinHit <> 0 Then
-706                 Call Manager.ChangeValue("Npc" & Npc, "MinHit", NpcData(Npc).MinHit)
+706                 Call GuardarClaveMultilenguaje("Npc" & Npc, "MinHit", NpcData(Npc).MinHit)
 
                 End If
 
 708             If NpcData(Npc).Oro <> 0 Then
-710                 Call Manager.ChangeValue("Npc" & Npc, "Oro", NpcData(Npc).Oro)
+710                 Call GuardarClaveMultilenguaje("Npc" & Npc, "Oro", NpcData(Npc).Oro)
 
                 End If
 
 712             If NpcData(Npc).ExpClan <> 0 Then
-714                 Call Manager.ChangeValue("Npc" & Npc, "GiveEXPClan", NpcData(Npc).ExpClan)
+714                 Call GuardarClaveMultilenguaje("Npc" & Npc, "GiveEXPClan", NpcData(Npc).ExpClan)
 
                 End If
 
 716             If NpcData(Npc).NumQuiza <> 0 Then
-718                 Call Manager.ChangeValue("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
+718                 Call GuardarClaveMultilenguaje("Npc" & Npc, "NumQuiza", NpcData(Npc).NumQuiza)
 
 720                 For LoopC = 1 To NpcData(Npc).NumQuiza
 722                     Call Manager.ChangeValue("Npc" & Npc, "QuizaDropea" & LoopC, NpcData(Npc).QuizaDropea(LoopC))
@@ -739,17 +783,17 @@ Private Sub Command1_Click()
                 End If
 
 726             If NpcData(Npc).QuizaProb <> 0 Then
-728                 Call Manager.ChangeValue("Npc" & Npc, "QuizaProb", NpcData(Npc).QuizaProb)
+728                 Call GuardarClaveMultilenguaje("Npc" & Npc, "QuizaProb", NpcData(Npc).QuizaProb)
 
                 End If
 
 730             If NpcData(Npc).NoMapInfo <> 0 Then
-732                 Call Manager.ChangeValue("Npc" & Npc, "NoMapInfo", NpcData(Npc).NoMapInfo)
+732                 Call GuardarClaveMultilenguaje("Npc" & Npc, "NoMapInfo", NpcData(Npc).NoMapInfo)
 
                 End If
 
 734             If NpcData(Npc).PuedeInvocar <> 0 Then
-736                 Call Manager.ChangeValue("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
+736                 Call GuardarClaveMultilenguaje("Npc" & Npc, "PuedeInvocar", NpcData(Npc).PuedeInvocar)
 
                 End If
 
@@ -816,47 +860,47 @@ Private Sub Command1_Click()
 826             Label3.Caption = "Leyendo: " & Hechizo & "/" & numhechizos
 828         Next Hechizo
 
-830         Call Manager.ChangeValue("INIT", "NumeroHechizo", numhechizos)
+830         Call GuardarClaveMultilenguaje("INIT", "NumeroHechizo", numhechizos)
 
 832         For Hechizo = 1 To numhechizos
 834             DoEvents
                 ' Español
-836             Call Manager.ChangeValue("Hechizo" & Hechizo, "Nombre", HechizoData(Hechizo).Nombre)
-838             Call Manager.ChangeValue("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).Desc)
-840             Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
-842             Call Manager.ChangeValue("Hechizo" & Hechizo, "HechizeroMsg", HechizoData(Hechizo).HechizeroMsg)
-844             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
-846             Call Manager.ChangeValue("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
+836             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "Nombre", HechizoData(Hechizo).Nombre)
+838             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).Desc)
+840             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
+842             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "HechizeroMsg", HechizoData(Hechizo).HechizeroMsg)
+844             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
+846             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
                 ' Inglés
-848             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_name)
-850             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Desc", HechizoData(Hechizo).en_Desc)
-852             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
-854             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
-856             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
+848             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_name)
+850             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "en_Desc", HechizoData(Hechizo).en_Desc)
+852             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
+854             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
+856             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
                 ' Portugués
-858             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Nombre", HechizoData(Hechizo).pt_name)
-860             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Desc", HechizoData(Hechizo).pt_Desc)
-862             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_HechizeroMsg", HechizoData(Hechizo).pt_HechizeroMsg)
-864             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_TargetMsg", HechizoData(Hechizo).pt_TargetMsg)
-866             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_PropioMsg", HechizoData(Hechizo).pt_PropioMsg)
+858             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "pt_Nombre", HechizoData(Hechizo).pt_name)
+860             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "pt_Desc", HechizoData(Hechizo).pt_Desc)
+862             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "pt_HechizeroMsg", HechizoData(Hechizo).pt_HechizeroMsg)
+864             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "pt_TargetMsg", HechizoData(Hechizo).pt_TargetMsg)
+866             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "pt_PropioMsg", HechizoData(Hechizo).pt_PropioMsg)
                 ' Francés
-868             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Nombre", HechizoData(Hechizo).fr_name)
-870             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Desc", HechizoData(Hechizo).fr_Desc)
-872             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_HechizeroMsg", HechizoData(Hechizo).fr_HechizeroMsg)
-874             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_TargetMsg", HechizoData(Hechizo).fr_TargetMsg)
-876             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_PropioMsg", HechizoData(Hechizo).fr_PropioMsg)
+868             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "fr_Nombre", HechizoData(Hechizo).fr_name)
+870             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "fr_Desc", HechizoData(Hechizo).fr_Desc)
+872             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "fr_HechizeroMsg", HechizoData(Hechizo).fr_HechizeroMsg)
+874             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "fr_TargetMsg", HechizoData(Hechizo).fr_TargetMsg)
+876             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "fr_PropioMsg", HechizoData(Hechizo).fr_PropioMsg)
                 ' Italiano
-878             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Nombre", HechizoData(Hechizo).it_name)
-880             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Desc", HechizoData(Hechizo).it_Desc)
-882             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_HechizeroMsg", HechizoData(Hechizo).it_HechizeroMsg)
-884             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_TargetMsg", HechizoData(Hechizo).it_TargetMsg)
-886             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_PropioMsg", HechizoData(Hechizo).it_PropioMsg)
+878             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "it_Nombre", HechizoData(Hechizo).it_name)
+880             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "it_Desc", HechizoData(Hechizo).it_Desc)
+882             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "it_HechizeroMsg", HechizoData(Hechizo).it_HechizeroMsg)
+884             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "it_TargetMsg", HechizoData(Hechizo).it_TargetMsg)
+886             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "it_PropioMsg", HechizoData(Hechizo).it_PropioMsg)
                 ' Otros datos
-888             Call Manager.ChangeValue("Hechizo" & Hechizo, "ManaRequerido", HechizoData(Hechizo).ManaRequerido)
-890             Call Manager.ChangeValue("Hechizo" & Hechizo, "StaRequerido", HechizoData(Hechizo).StaRequerido)
-892             Call Manager.ChangeValue("Hechizo" & Hechizo, "MinSkill", HechizoData(Hechizo).MinSkill)
-894             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
-896             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
+888             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "ManaRequerido", HechizoData(Hechizo).ManaRequerido)
+890             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "StaRequerido", HechizoData(Hechizo).StaRequerido)
+892             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "MinSkill", HechizoData(Hechizo).MinSkill)
+894             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
+896             Call GuardarClaveMultilenguaje("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
 898             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
 900             Label3.ForeColor = &HC0C0&
 902         Next Hechizo
@@ -887,7 +931,7 @@ Private Sub Command1_Click()
             Label3.Caption = "0/" & CStr(NumLocaleEN_Msg)
             ReDim arrLocale_EN_SMG(1 To NumLocaleEN_Msg) As String
 
-            Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleEN_Msg)
+            Call GuardarClaveMultilenguaje("INIT", "NumLocaleMsg", NumLocaleEN_Msg)
 
         Else
             MsgBox "Falta el archivo EN_LocalMsg.dat dentro de la carpeta dats."
@@ -912,7 +956,7 @@ Private Sub Command1_Click()
 940         Next Npc
 
 942         Npc = 1
-944         Call Manager.ChangeValue("INIT", "NumMapas", 750)
+944         Call GuardarClaveMultilenguaje("INIT", "NumMapas", 750)
 
 946         For Npc = 1 To 750
 948             DoEvents
@@ -985,34 +1029,34 @@ Private Sub Command1_Click()
         Next Npc
 
         Npc = 1
-        Call Manager.ChangeValue("INIT", "NumQuests", nunquest)
+        Call GuardarClaveMultilenguaje("INIT", "NumQuests", nunquest)
 
         For Npc = 1 To nunquest
             DoEvents
             Label3.ForeColor = &HC0C0&
             Label3.Caption = "Grabando Quest: " & Npc & "/" & nunquest
 
-            Call Manager.ChangeValue("QUEST" & Npc, "Nombre", QuestName(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "en_Nombre", QuestNameEN(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "pt_Nombre", QuestNamePT(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "fr_Nombre", QuestNameFR(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "it_Nombre", QuestNameIT(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "Nombre", QuestName(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "en_Nombre", QuestNameEN(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "pt_Nombre", QuestNamePT(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "fr_Nombre", QuestNameFR(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "it_Nombre", QuestNameIT(Npc))
 
-            Call Manager.ChangeValue("QUEST" & Npc, "Desc", QuestDesc(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "DescFinal", QuestFin(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "en_Desc", QuestDescEN(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "en_DescFinal", QuestFinEN(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "pt_Desc", QuestDescPT(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "pt_DescFinal", QuestFinPT(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "fr_Desc", QuestDescFR(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "fr_DescFinal", QuestFinFR(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "it_Desc", QuestDescIT(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "it_DescFinal", QuestFinIT(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "Desc", QuestDesc(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "DescFinal", QuestFin(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "en_Desc", QuestDescEN(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "en_DescFinal", QuestFinEN(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "pt_Desc", QuestDescPT(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "pt_DescFinal", QuestFinPT(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "fr_Desc", QuestDescFR(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "fr_DescFinal", QuestFinFR(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "it_Desc", QuestDescIT(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "it_DescFinal", QuestFinIT(Npc))
 
-            Call Manager.ChangeValue("QUEST" & Npc, "NextQuest", QuestNext(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
-            Call Manager.ChangeValue("QUEST" & Npc, "PosMap", QuestPos(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "NextQuest", QuestNext(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "Repetible", QuestRepetible(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "RequiredLevel", RequiredLevel(Npc))
+            Call GuardarClaveMultilenguaje("QUEST" & Npc, "PosMap", QuestPos(Npc))
         Next Npc
 
     Else
@@ -1036,7 +1080,7 @@ Private Sub Command1_Click()
 1080         Next Npc
 
 1082         Npc = 1
-1084         Call Manager.ChangeValue("INIT", "NumSugerencias", NumSug)
+1084         Call GuardarClaveMultilenguaje("INIT", "NumSugerencias", NumSug)
 
 1086         For Npc = 1 To NumSug
 1088             DoEvents
