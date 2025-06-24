@@ -5,12 +5,12 @@ Begin VB.Form Form1
    ClientHeight    =   2850
    ClientLeft      =   165
    ClientTop       =   855
-   ClientWidth     =   4215
+   ClientWidth     =   5100
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   2850
-   ScaleWidth      =   4215
+   ScaleWidth      =   5100
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command2 
       Caption         =   "Mensajes"
@@ -24,10 +24,10 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   615
-      Left            =   2400
+      Left            =   2760
       TabIndex        =   4
       Top             =   960
-      Width           =   1695
+      Width           =   2175
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Crear archivo"
@@ -44,7 +44,7 @@ Begin VB.Form Form1
       Left            =   120
       TabIndex        =   0
       Top             =   960
-      Width           =   1935
+      Width           =   2415
    End
    Begin VB.Label Label3 
       Alignment       =   2  'Center
@@ -63,7 +63,7 @@ Begin VB.Form Form1
       Left            =   120
       TabIndex        =   3
       Top             =   1800
-      Width           =   3975
+      Width           =   4815
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
@@ -81,7 +81,7 @@ Begin VB.Form Form1
       Left            =   240
       TabIndex        =   2
       Top             =   2280
-      Width           =   3735
+      Width           =   4575
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
@@ -96,10 +96,10 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   855
-      Left            =   0
+      Left            =   120
       TabIndex        =   1
-      Top             =   0
-      Width           =   4095
+      Top             =   120
+      Width           =   4815
    End
 End
 Attribute VB_Name = "Form1"
@@ -120,6 +120,16 @@ Private Sub Command1_Click()
         Dim Raza    As Integer
 
         Dim numobjs As Long
+        
+        Dim faltante As String
+        
+            faltante = VerificarArchivosRequeridos()
+            If Len(faltante) > 0 Then
+                MsgBox "Falta el archivo requerido: " & faltante, vbCritical, "Error de archivos"
+                Exit Sub
+            End If
+
+
 
 100     If FileExist(OutputFile, vbNormal) Then
 102         Clean_File OutputFile
@@ -140,7 +150,7 @@ Private Sub Command1_Click()
 118             DoEvents
 120             ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "grhindex"))
 122             ObjData(Obj).Name = Leer.GetValue("OBJ" & Obj, "Name")
-124             ObjData(Obj).en_Name = Leer.GetValue("OBJ" & Obj, "en_Name")
+124             ObjData(Obj).en_name = Leer.GetValue("OBJ" & Obj, "en_Name")
 126             ObjData(Obj).texto = Leer.GetValue("OBJ" & Obj, "Texto")
 128             ObjData(Obj).en_texto = Leer.GetValue("OBJ" & Obj, "en_Texto")
 130             ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
@@ -231,8 +241,8 @@ Private Sub Command1_Click()
                 End If
 
                 'English
-270             If Len(ObjData(Obj).en_Name) <> 0 Then
-272                 Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_Name)
+270             If Len(ObjData(Obj).en_name) <> 0 Then
+272                 Call Manager.ChangeValue("OBJ" & Obj, "en_Name", ObjData(Obj).en_name)
 
                 End If
 
@@ -546,9 +556,9 @@ Private Sub Command1_Click()
 514         For Npc = 1 To numnpcs
 516             DoEvents
 518             NpcData(Npc).Name = Leer.GetValue("npc" & Npc, "Name")
-520             NpcData(Npc).en_Name = Leer.GetValue("npc" & Npc, "en_Name")
+520             NpcData(Npc).en_name = Leer.GetValue("npc" & Npc, "en_Name")
 522             NpcData(Npc).desc = Leer.GetValue("npc" & Npc, "desc")
-524             NpcData(Npc).en_desc = Leer.GetValue("npc" & Npc, "en_desc")
+524             NpcData(Npc).en_Desc = Leer.GetValue("npc" & Npc, "en_desc")
 526             NpcData(Npc).Body = Val(Leer.GetValue("npc" & Npc, "Body"))
 528             NpcData(Npc).Exp = Val(Leer.GetValue("npc" & Npc, "GiveEXP"))
 530             NpcData(Npc).Head = Val(Leer.GetValue("npc" & Npc, "Head"))
@@ -591,13 +601,13 @@ Private Sub Command1_Click()
 
                 End If
 
-580             If Len(NpcData(Npc).en_Name) <> 0 Then
-582                 Call Manager.ChangeValue("Npc" & Npc, "en_Name", NpcData(Npc).en_Name)
+580             If Len(NpcData(Npc).en_name) <> 0 Then
+582                 Call Manager.ChangeValue("Npc" & Npc, "en_Name", NpcData(Npc).en_name)
 
                 End If
 
-584             If Len(NpcData(Npc).en_desc) <> 0 Then
-586                 Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_desc)
+584             If Len(NpcData(Npc).en_Desc) <> 0 Then
+586                 Call Manager.ChangeValue("Npc" & Npc, "en_desc", NpcData(Npc).en_Desc)
 
                 End If
 
@@ -677,68 +687,110 @@ Private Sub Command1_Click()
 
         End If
 
-650     If FileExist(App.Path & "\..\Recursos\Dat\hechizos.dat", vbNormal) Then
+If FileExist(App.Path & "\..\Recursos\Dat\hechizos.dat", vbNormal) Then
 
-            Dim hechizosFile As String, numhechizos As Long
+    Dim hechizosFile As String, numhechizos As Long
+    hechizosFile = App.Path & "\..\Recursos\Dat\hechizos.dat"
+    numhechizos = Val(GetVar(hechizosFile, "INIT", "NumeroHechizos"))
 
-652         hechizosFile = App.Path & "\..\Recursos\Dat\hechizos.dat"
-654         numhechizos = Val(GetVar(hechizosFile, "INIT", "NumeroHechizos"))
+    Dim hechic As New clsIniReader
+    Call hechic.Initialize(hechizosFile)
 
-            Dim hechic As New clsIniReader
+    Label3.Caption = "Leyendo Hechizos: 0/" & numhechizos
+    ReDim HechizoData(1 To numhechizos) As HechizoDatas
 
-656         Call hechic.Initialize(hechizosFile)
-658         Label3.Caption = "Leyendo Hechizos: " & "0/" & numhechizos
-660         ReDim HechizoData(1 To numhechizos) As HechizoDatas
+    For Hechizo = 1 To numhechizos
+        DoEvents
+        With HechizoData(Hechizo)
+            .Nombre = hechic.GetValue("Hechizo" & Hechizo, "Nombre")
+            .desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
+            .PalabrasMagicas = hechic.GetValue("Hechizo" & Hechizo, "PalabrasMagicas")
+            .HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "HechizeroMsg")
+            .TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "TargetMsg")
+            .PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "PropioMsg")
 
-662         For Hechizo = 1 To numhechizos
-664             DoEvents
-666             HechizoData(Hechizo).Nombre = hechic.GetValue("Hechizo" & Hechizo, "Nombre")
-                HechizoData(Hechizo).en_Name = hechic.GetValue("Hechizo" & Hechizo, "en_name")
-668             HechizoData(Hechizo).desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
-                HechizoData(Hechizo).en_desc = hechic.GetValue("Hechizo" & Hechizo, "en_Desc")
-670             HechizoData(Hechizo).PalabrasMagicas = hechic.GetValue("Hechizo" & Hechizo, "PalabrasMagicas")
-672             HechizoData(Hechizo).HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "HechizeroMsg")
-                HechizoData(Hechizo).en_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "en_HechizeroMsg")
-674             HechizoData(Hechizo).TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "TargetMsg")
-                HechizoData(Hechizo).en_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "en_TargetMsg")
-676             HechizoData(Hechizo).PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "PropioMsg")
-                HechizoData(Hechizo).en_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "en_PropioMsg")
-678             HechizoData(Hechizo).ManaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "ManaRequerido"))
-680             HechizoData(Hechizo).StaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "StaRequerido"))
-682             HechizoData(Hechizo).MinSkill = Val(hechic.GetValue("Hechizo" & Hechizo, "MinSkill"))
-684             HechizoData(Hechizo).StaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "StaRequerido"))
-686             HechizoData(Hechizo).IconoIndex = Val(hechic.GetValue("Hechizo" & Hechizo, "IconoIndex"))
-688             HechizoData(Hechizo).Cooldown = Val(hechic.GetValue("Hechizo" & Hechizo, "Cooldown"))
-690             Label3.ForeColor = vbRed
-692             Label3.Caption = "Leyendo: " & Hechizo & "/" & numhechizos
-694         Next Hechizo
+            .en_name = hechic.GetValue("Hechizo" & Hechizo, "EN_NAME")
+            .en_Desc = hechic.GetValue("Hechizo" & Hechizo, "EN_DESC")
+            .en_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "EN_HECHIZEROMSG")
+            .en_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "EN_TARGETMSG")
+            .en_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "EN_PROPIOMSG")
 
-696         Call Manager.ChangeValue("INIT", "NumeroHechizo", numhechizos)
+            .pt_name = hechic.GetValue("Hechizo" & Hechizo, "PT_NAME")
+            .pt_Desc = hechic.GetValue("Hechizo" & Hechizo, "PT_DESC")
+            .pt_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "PT_HECHIZEROMSG")
+            .pt_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "PT_TARGETMSG")
+            .pt_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "PT_PROPIOMSG")
 
-698         For Hechizo = 1 To numhechizos
-700             DoEvents
-702             Call Manager.ChangeValue("Hechizo" & Hechizo, "Nombre", HechizoData(Hechizo).Nombre)
-704             Call Manager.ChangeValue("Hechizo" & Hechizo, "Desc", HechizoData(Hechizo).desc)
-706             Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
-708             Call Manager.ChangeValue("Hechizo" & Hechizo, "HechizeroMsg", HechizoData(Hechizo).HechizeroMsg)
-710             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
-712             Call Manager.ChangeValue("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_Name)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_desc", HechizoData(Hechizo).en_desc)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "PalabrasMagicas", HechizoData(Hechizo).PalabrasMagicas)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
-                Call Manager.ChangeValue("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
-714             Call Manager.ChangeValue("Hechizo" & Hechizo, "ManaRequerido", HechizoData(Hechizo).ManaRequerido)
-716             Call Manager.ChangeValue("Hechizo" & Hechizo, "StaRequerido", HechizoData(Hechizo).StaRequerido)
-718             Call Manager.ChangeValue("Hechizo" & Hechizo, "MinSkill", HechizoData(Hechizo).MinSkill)
-720             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
-722             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
-724             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
-726             Label3.ForeColor = &HC0C0&
-728         Next Hechizo
+            .fr_name = hechic.GetValue("Hechizo" & Hechizo, "FR_NAME")
+            .fr_Desc = hechic.GetValue("Hechizo" & Hechizo, "FR_DESC")
+            .fr_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "FR_HECHIZEROMSG")
+            .fr_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "FR_TARGETMSG")
+            .fr_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "FR_PROPIOMSG")
 
-        End If
+            .it_name = hechic.GetValue("Hechizo" & Hechizo, "IT_NAME")
+            .it_Desc = hechic.GetValue("Hechizo" & Hechizo, "IT_DESC")
+            .it_HechizeroMsg = hechic.GetValue("Hechizo" & Hechizo, "IT_HECHIZEROMSG")
+            .it_TargetMsg = hechic.GetValue("Hechizo" & Hechizo, "IT_TARGETMSG")
+            .it_PropioMsg = hechic.GetValue("Hechizo" & Hechizo, "IT_PROPIOMSG")
+
+            .ManaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "MANAREQUERIDO"))
+            .StaRequerido = Val(hechic.GetValue("Hechizo" & Hechizo, "STAREQUERIDO"))
+            .MinSkill = Val(hechic.GetValue("Hechizo" & Hechizo, "MINSKILL"))
+            .IconoIndex = Val(hechic.GetValue("Hechizo" & Hechizo, "ICONOINDEX"))
+            .Cooldown = Val(hechic.GetValue("Hechizo" & Hechizo, "COOLDOWN"))
+        End With
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Leyendo: " & Hechizo & "/" & numhechizos
+    Next Hechizo
+
+    Call Manager.ChangeValue("INIT", "NumeroHechizo", numhechizos)
+
+    For Hechizo = 1 To numhechizos
+        DoEvents
+        With HechizoData(Hechizo)
+            Manager.ChangeValue "Hechizo" & Hechizo, "Nombre", .Nombre
+            Manager.ChangeValue "Hechizo" & Hechizo, "desc", .desc
+            Manager.ChangeValue "Hechizo" & Hechizo, "PalabrasMagicas", .PalabrasMagicas
+            Manager.ChangeValue "Hechizo" & Hechizo, "HechizeroMsg", .HechizeroMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "TargetMsg", .TargetMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "PropioMsg", .PropioMsg
+
+            Manager.ChangeValue "Hechizo" & Hechizo, "en_name", .en_name
+            Manager.ChangeValue "Hechizo" & Hechizo, "en_desc", .en_Desc
+            Manager.ChangeValue "Hechizo" & Hechizo, "en_HechizeroMsg", .en_HechizeroMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "en_TargetMsg", .en_TargetMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "en_PropioMsg", .en_PropioMsg
+
+            Manager.ChangeValue "Hechizo" & Hechizo, "pt_name", .pt_name
+            Manager.ChangeValue "Hechizo" & Hechizo, "pt_desc", .pt_Desc
+            Manager.ChangeValue "Hechizo" & Hechizo, "pt_HechizeroMsg", .pt_HechizeroMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "pt_TargetMsg", .pt_TargetMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "pt_PropioMsg", .pt_PropioMsg
+
+            Manager.ChangeValue "Hechizo" & Hechizo, "fr_name", .fr_name
+            Manager.ChangeValue "Hechizo" & Hechizo, "fr_desc", .fr_Desc
+            Manager.ChangeValue "Hechizo" & Hechizo, "fr_HechizeroMsg", .fr_HechizeroMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "fr_TargetMsg", .fr_TargetMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "fr_PropioMsg", .fr_PropioMsg
+
+            Manager.ChangeValue "Hechizo" & Hechizo, "it_name", .it_name
+            Manager.ChangeValue "Hechizo" & Hechizo, "it_desc", .it_Desc
+            Manager.ChangeValue "Hechizo" & Hechizo, "it_HechizeroMsg", .it_HechizeroMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "it_TargetMsg", .it_TargetMsg
+            Manager.ChangeValue "Hechizo" & Hechizo, "it_PropioMsg", .it_PropioMsg
+
+            Manager.ChangeValue "Hechizo" & Hechizo, "ManaRequerido", .ManaRequerido
+            Manager.ChangeValue "Hechizo" & Hechizo, "StaRequerido", .StaRequerido
+            Manager.ChangeValue "Hechizo" & Hechizo, "MinSkill", .MinSkill
+            Manager.ChangeValue "Hechizo" & Hechizo, "IconoIndex", .IconoIndex
+            Manager.ChangeValue "Hechizo" & Hechizo, "Cooldown", .Cooldown
+        End With
+        Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
+        Label3.ForeColor = &HC0C0&
+    Next Hechizo
+
+End If
+
 
         If FileExist(App.Path & "\..\Recursos\init\SP_LocalMsg.dat", vbNormal) Then
             Dim MsgFile As String
@@ -746,6 +798,9 @@ Private Sub Command1_Click()
             Dim arrLocale_SP_SMG() As String
             Dim SP_MSG As Integer
             Dim EN_MSG As Integer
+            Dim PT_MSG As Integer
+            Dim FR_MSG As Integer
+            Dim IT_MSG As Integer
              
             MsgFile = App.Path & "\..\Recursos\init\SP_LocalMsg.dat"
             Dim Msgsss As New clsIniReader
@@ -805,6 +860,83 @@ Private Sub Command1_Click()
             MsgBox "Falta el archivo EN_LocalMsg.dat dentro de la carpeta dats."
         End If
 
+                ' === Cargar mensajes en francés ===
+        If FileExist(App.Path & "\..\Recursos\init\FR_LocalMsg.dat", vbNormal) Then
+            MsgFile = App.Path & "\..\Recursos\init\FR_LocalMsg.dat"
+            Call Msgsss.Initialize(MsgFile)
+            Dim NumLocaleFR_Msg As Long
+            NumLocaleFR_Msg = Val(Msgsss.GetValue("INIT", "NumLocaleFR_Msg"))
+            Label3.Caption = "0/" & CStr(NumLocaleFR_Msg)
+            ReDim arrLocale_FR_SMG(1 To NumLocaleFR_Msg) As String
+        
+            For FR_MSG = 1 To NumLocaleFR_Msg
+                DoEvents
+                arrLocale_FR_SMG(FR_MSG) = Msgsss.GetValue("FR_MSG", "Msg" & FR_MSG)
+                Label3.ForeColor = vbRed
+                Label3.Caption = "Leyendo MSG FR: " & FR_MSG & "/" & NumLocaleFR_Msg
+            Next FR_MSG
+        
+            For FR_MSG = 1 To NumLocaleFR_Msg
+                DoEvents
+                Call Manager.ChangeValue("FR_MSG", "Msg" & FR_MSG, arrLocale_FR_SMG(FR_MSG))
+                Label3.Caption = "Grabando MSG FR: " & FR_MSG & "/" & NumLocaleFR_Msg
+                Label3.ForeColor = &HC0C0&
+            Next FR_MSG
+        Else
+            MsgBox "Falta el archivo FR_LocalMsg.dat dentro de la carpeta init."
+        End If
+        
+        ' === Cargar mensajes en portugués ===
+        If FileExist(App.Path & "\..\Recursos\init\PT_LocalMsg.dat", vbNormal) Then
+            MsgFile = App.Path & "\..\Recursos\init\PT_LocalMsg.dat"
+            Call Msgsss.Initialize(MsgFile)
+            Dim NumLocalePT_Msg As Long
+            NumLocalePT_Msg = Val(Msgsss.GetValue("INIT", "NumLocalePT_Msg"))
+            Label3.Caption = "0/" & CStr(NumLocalePT_Msg)
+            ReDim arrLocale_PT_SMG(1 To NumLocalePT_Msg) As String
+        
+            For PT_MSG = 1 To NumLocalePT_Msg
+                DoEvents
+                arrLocale_PT_SMG(PT_MSG) = Msgsss.GetValue("PT_MSG", "Msg" & PT_MSG)
+                Label3.ForeColor = vbRed
+                Label3.Caption = "Leyendo MSG PT: " & PT_MSG & "/" & NumLocalePT_Msg
+            Next PT_MSG
+        
+            For PT_MSG = 1 To NumLocalePT_Msg
+                DoEvents
+                Call Manager.ChangeValue("PT_MSG", "Msg" & PT_MSG, arrLocale_PT_SMG(PT_MSG))
+                Label3.Caption = "Grabando MSG PT: " & PT_MSG & "/" & NumLocalePT_Msg
+                Label3.ForeColor = &HC0C0&
+            Next PT_MSG
+        Else
+            MsgBox "Falta el archivo PT_LocalMsg.dat dentro de la carpeta init."
+        End If
+        
+        ' === Cargar mensajes en italiano ===
+        If FileExist(App.Path & "\..\Recursos\init\IT_LocalMsg.dat", vbNormal) Then
+            MsgFile = App.Path & "\..\Recursos\init\IT_LocalMsg.dat"
+            Call Msgsss.Initialize(MsgFile)
+            Dim NumLocaleIT_Msg As Long
+            NumLocaleIT_Msg = Val(Msgsss.GetValue("INIT", "NumLocaleIT_Msg"))
+            Label3.Caption = "0/" & CStr(NumLocaleIT_Msg)
+            ReDim arrLocale_IT_SMG(1 To NumLocaleIT_Msg) As String
+        
+            For IT_MSG = 1 To NumLocaleIT_Msg
+                DoEvents
+                arrLocale_IT_SMG(IT_MSG) = Msgsss.GetValue("IT_MSG", "Msg" & IT_MSG)
+                Label3.ForeColor = vbRed
+                Label3.Caption = "Leyendo MSG IT: " & IT_MSG & "/" & NumLocaleIT_Msg
+            Next IT_MSG
+        
+            For IT_MSG = 1 To NumLocaleIT_Msg
+                DoEvents
+                Call Manager.ChangeValue("IT_MSG", "Msg" & IT_MSG, arrLocale_IT_SMG(IT_MSG))
+                Label3.Caption = "Grabando MSG IT: " & IT_MSG & "/" & NumLocaleIT_Msg
+                Label3.ForeColor = &HC0C0&
+            Next IT_MSG
+        Else
+            MsgBox "Falta el archivo IT_LocalMsg.dat dentro de la carpeta init."
+        End If
 
 772     If FileExist(App.Path & "\..\Recursos\init\NameMapa.dat", vbNormal) Then
 
@@ -903,37 +1035,183 @@ Private Sub Command1_Click()
 
         End If
 
-896     If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
-898         MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"
-900         Call Mapa.Initialize(MapFile)
+'896     If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
+'898         MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"
+'900         Call Mapa.Initialize(MapFile)
+'
+'            Dim NumSug As Integer
+'
+'902         NumSug = Val(Mapa.GetValue("Sugerencias", "NumSugerencias"))
+'904         Label3.Caption = "0/" & CStr(NumSug)
+'906         ReDim Sugerencia(1 To NumSug) As String
+'
+'908         For Npc = 1 To NumSug
+'910             DoEvents
+'912             Sugerencia(Npc) = Mapa.GetValue("Sugerencias", "Sugerencia" & Npc)
+'914             Label3.ForeColor = vbRed
+'916             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
+'918         Next Npc
+'
+'920         Npc = 1
+'922         Call Manager.ChangeValue("INIT", "NumSugerencias", NumSug)
+'
+'924         For Npc = 1 To NumSug
+'926             DoEvents
+'928             Call Manager.ChangeValue("Sugerencias", "Sugerencia" & Npc, Sugerencia(Npc))
+'930             Label3.Caption = "Grabando: " & Npc & "/" & NumSug
+'932             Label3.ForeColor = &HC0C0&
+'934         Next Npc
+'
+'        Else
+'936         MsgBox "Falta el archivo Sugerencias.ini dentro de la carpeta init."
+'
+'        End If
 
-            Dim NumSug As Integer
+        ' === Cargar sugerencias en español ===
+If FileExist(App.Path & "\..\Recursos\init\es_sugerencias.ini", vbNormal) Then
+    Dim SugFile As String
+    Dim NumSugES As Long
+    Dim arrSug_ES() As String
+    Dim ES_SUG As Integer
+    Dim Sugsss As New clsIniReader
+    Dim i As Integer
 
-902         NumSug = Val(Mapa.GetValue("Sugerencias", "NumSugerencias"))
-904         Label3.Caption = "0/" & CStr(NumSug)
-906         ReDim Sugerencia(1 To NumSug) As String
 
-908         For Npc = 1 To NumSug
-910             DoEvents
-912             Sugerencia(Npc) = Mapa.GetValue("Sugerencias", "Sugerencia" & Npc)
-914             Label3.ForeColor = vbRed
-916             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
-918         Next Npc
+    SugFile = App.Path & "\..\Recursos\init\es_sugerencias.ini"
+    Call Sugsss.Initialize(SugFile)
 
-920         Npc = 1
-922         Call Manager.ChangeValue("INIT", "NumSugerencias", NumSug)
+    NumSugES = Val(Sugsss.GetValue("ES_SUGERENCIAS", "NumSugerencias"))
+    Label3.Caption = "0/" & CStr(NumSugES)
+    ReDim arrSug_ES(1 To NumSugES) As String
 
-924         For Npc = 1 To NumSug
-926             DoEvents
-928             Call Manager.ChangeValue("Sugerencias", "Sugerencia" & Npc, Sugerencia(Npc))
-930             Label3.Caption = "Grabando: " & Npc & "/" & NumSug
-932             Label3.ForeColor = &HC0C0&
-934         Next Npc
+    For ES_SUG = 1 To NumSugES
+        DoEvents
+        arrSug_ES(ES_SUG) = Sugsss.GetValue("ES_SUGERENCIAS", "Sugerencia" & ES_SUG)
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Leyendo Sugerencia ES: " & ES_SUG & "/" & NumSugES
+    Next ES_SUG
 
-        Else
-936         MsgBox "Falta el archivo Sugerencias.ini dentro de la carpeta init."
+    For ES_SUG = 1 To NumSugES
+        DoEvents
+        Call Manager.ChangeValue("ES_SUGERENCIAS", "Sugerencia" & ES_SUG, arrSug_ES(ES_SUG))
+        Label3.Caption = "Grabando Sugerencia ES: " & ES_SUG & "/" & NumSugES
+        Label3.ForeColor = &HC0C0&
+    Next ES_SUG
+Else
+    MsgBox "Falta el archivo es_sugerencias.ini dentro de la carpeta init."
+End If
 
-        End If
+' === Cargar sugerencias en inglés ===
+If FileExist(App.Path & "\..\Recursos\init\en_sugerencias.ini", vbNormal) Then
+    SugFile = App.Path & "\..\Recursos\init\en_sugerencias.ini"
+    Call Sugsss.Initialize(SugFile)
+    Dim NumSugEN As Long
+    Dim arrSug_EN() As String
+
+    NumSugEN = Val(Sugsss.GetValue("EN_SUGERENCIAS", "NumSugerencias"))
+    Label3.Caption = "0/" & CStr(NumSugEN)
+    ReDim arrSug_EN(1 To NumSugEN) As String
+
+    For i = 1 To NumSugEN
+        DoEvents
+        arrSug_EN(i) = Sugsss.GetValue("EN_SUGERENCIAS", "Sugerencia" & i)
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Leyendo Sugerencia EN: " & i & "/" & NumSugEN
+    Next i
+
+    For i = 1 To NumSugEN
+        DoEvents
+        Call Manager.ChangeValue("EN_SUGERENCIAS", "Sugerencia" & i, arrSug_EN(i))
+        Label3.Caption = "Grabando Sugerencia EN: " & i & "/" & NumSugEN
+        Label3.ForeColor = &HC0C0&
+    Next i
+Else
+    MsgBox "Falta el archivo en_sugerencias.ini dentro de la carpeta init."
+End If
+
+' === Cargar sugerencias en portugués ===
+If FileExist(App.Path & "\..\Recursos\init\pt_sugerencias.ini", vbNormal) Then
+    SugFile = App.Path & "\..\Recursos\init\pt_sugerencias.ini"
+    Call Sugsss.Initialize(SugFile)
+    Dim NumSugPT As Long
+    Dim arrSug_PT() As String
+
+    NumSugPT = Val(Sugsss.GetValue("PT_SUGERENCIAS", "NumSugerencias"))
+    Label3.Caption = "0/" & CStr(NumSugPT)
+    ReDim arrSug_PT(1 To NumSugPT) As String
+
+    For i = 1 To NumSugPT
+        DoEvents
+        arrSug_PT(i) = Sugsss.GetValue("PT_SUGERENCIAS", "Sugerencia" & i)
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Leyendo Sugerencia PT: " & i & "/" & NumSugPT
+    Next i
+
+    For i = 1 To NumSugPT
+        DoEvents
+        Call Manager.ChangeValue("PT_SUGERENCIAS", "Sugerencia" & i, arrSug_PT(i))
+        Label3.Caption = "Grabando Sugerencia PT: " & i & "/" & NumSugPT
+        Label3.ForeColor = &HC0C0&
+    Next i
+Else
+    MsgBox "Falta el archivo pt_sugerencias.ini dentro de la carpeta init."
+End If
+
+' === Cargar sugerencias en francés ===
+If FileExist(App.Path & "\..\Recursos\init\fr_sugerencias.ini", vbNormal) Then
+    SugFile = App.Path & "\..\Recursos\init\fr_sugerencias.ini"
+    Call Sugsss.Initialize(SugFile)
+    Dim NumSugFR As Long
+    Dim arrSug_FR() As String
+
+    NumSugFR = Val(Sugsss.GetValue("FR_SUGERENCIAS", "NumSugerencias"))
+    Label3.Caption = "0/" & CStr(NumSugFR)
+    ReDim arrSug_FR(1 To NumSugFR) As String
+
+    For i = 1 To NumSugFR
+        DoEvents
+        arrSug_FR(i) = Sugsss.GetValue("FR_SUGERENCIAS", "Sugerencia" & i)
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Leyendo Sugerencia FR: " & i & "/" & NumSugFR
+    Next i
+
+    For i = 1 To NumSugFR
+        DoEvents
+        Call Manager.ChangeValue("FR_SUGERENCIAS", "Sugerencia" & i, arrSug_FR(i))
+        Label3.Caption = "Grabando Sugerencia FR: " & i & "/" & NumSugFR
+        Label3.ForeColor = &HC0C0&
+    Next i
+Else
+    MsgBox "Falta el archivo fr_sugerencias.ini dentro de la carpeta init."
+End If
+
+' === Cargar sugerencias en italiano ===
+If FileExist(App.Path & "\..\Recursos\init\it_sugerencias.ini", vbNormal) Then
+    SugFile = App.Path & "\..\Recursos\init\it_sugerencias.ini"
+    Call Sugsss.Initialize(SugFile)
+    Dim NumSugIT As Long
+    Dim arrSug_IT() As String
+
+    NumSugIT = Val(Sugsss.GetValue("IT_SUGERENCIAS", "NumSugerencias"))
+    Label3.Caption = "0/" & CStr(NumSugIT)
+    ReDim arrSug_IT(1 To NumSugIT) As String
+
+    For i = 1 To NumSugIT
+        DoEvents
+        arrSug_IT(i) = Sugsss.GetValue("IT_SUGERENCIAS", "Sugerencia" & i)
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Leyendo Sugerencia IT: " & i & "/" & NumSugIT
+    Next i
+
+    For i = 1 To NumSugIT
+        DoEvents
+        Call Manager.ChangeValue("IT_SUGERENCIAS", "Sugerencia" & i, arrSug_IT(i))
+        Label3.Caption = "Grabando Sugerencia IT: " & i & "/" & NumSugIT
+        Label3.ForeColor = &HC0C0&
+    Next i
+Else
+    MsgBox "Falta el archivo it_sugerencias.ini dentro de la carpeta init."
+End If
 
         Dim ListaRazas(1 To NUMRAZAS) As String
 
@@ -967,12 +1245,48 @@ Private Sub Command1_Click()
 978     Next Raza
 
 980     Set Leer = Nothing
-982     Call Manager.DumpFile(OutputFile)
+        Label3.ForeColor = vbRed
+        Label3.Caption = "Generando por idiomas..."
+        DoEvents
+982     Call DumpLocalIndexPorIdioma(Manager)
 984     Set Manager = Nothing
 986     Label3.ForeColor = vbGreen
-988     Label3.Caption = "Creado localindex.dat"
+988     Label3.Caption = "Creados los localindex.dat"
 
 End Sub
+
+Private Function VerificarArchivosRequeridos() As String
+    Dim basePath As String
+    basePath = App.Path & "\..\Recursos\"
+
+    ' Archivos obligatorios
+    Dim archivos() As String
+archivos = Split( _
+    "Dat\obj.dat,Dat\npcs.dat,Dat\hechizos.dat,Dat\Quests.dat,Dat\Balance.dat," & _
+    "init\SP_LocalMsg.dat,init\EN_LocalMsg.dat,init\FR_LocalMsg.dat," & _
+    "init\PT_LocalMsg.dat,init\IT_LocalMsg.dat,init\NameMapa.dat", ",")
+
+
+    Dim i As Long
+    For i = 0 To UBound(archivos)
+        If Dir$(basePath & archivos(i)) = "" Then
+            VerificarArchivosRequeridos = archivos(i)
+            Exit Function
+        End If
+    Next i
+
+    ' Si falta localindex.dat, lo crea vacío (por compatibilidad)
+    If Dir$(basePath & "init\localindex.dat") = "" Then
+        Dim f As Integer
+        f = FreeFile
+        Open basePath & "init\localindex.dat" For Output As #f
+        Close #f
+    End If
+
+    VerificarArchivosRequeridos = "" ' Todo OK
+End Function
+
+
 
 Private Sub Command2_Click()
 100     Form2.Show
@@ -1012,3 +1326,111 @@ Private Sub Form_Load()
 104     Call LeerLineaComandos
 
 End Sub
+
+' DumpLocalIndexPorIdioma debe modificar esto:
+
+Private Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
+    Dim i As Long
+    Dim langPrefix(1 To 5) As String
+    Dim langSuffix(1 To 5) As String
+    Dim langMsgSection(1 To 5) As String
+    Dim langWriters(1 To 5) As clsIniReader
+
+    langPrefix(1) = "ES_": langSuffix(1) = "es": langMsgSection(1) = "SP_MSG"
+    langPrefix(2) = "EN_": langSuffix(2) = "en": langMsgSection(2) = "EN_MSG"
+    langPrefix(3) = "PT_": langSuffix(3) = "pt": langMsgSection(3) = "PT_MSG"
+    langPrefix(4) = "FR_": langSuffix(4) = "fr": langMsgSection(4) = "FR_MSG"
+    langPrefix(5) = "IT_": langSuffix(5) = "it": langMsgSection(5) = "IT_MSG"
+
+    For i = 1 To 5
+        Set langWriters(i) = New clsIniReader
+    Next i
+
+    Dim secciones As Collection
+    Set secciones = origen.GetAllSections
+
+    Dim claves As Collection
+    Dim sec As Variant, clave As Variant, Valor As String
+
+    For Each sec In secciones
+        Set claves = origen.GetAllKeys(sec)
+
+        Dim procesado As Boolean
+        procesado = False
+
+        ' Sección que empieza con prefijo de idioma ? solo para ese idioma
+        For i = 1 To 5
+            If LCase(Left(sec, Len(langPrefix(i)))) = LCase(langPrefix(i)) Then
+                For Each clave In claves
+                    Valor = origen.GetValue(sec, clave)
+                    langWriters(i).ChangeValue sec, clave, Valor
+                Next clave
+                procesado = True
+                Exit For
+            End If
+        Next i
+        If procesado Then GoTo SiguienteSeccion
+
+        ' Sección tipo SP_MSG / EN_MSG / etc ? solo idioma correspondiente
+        For i = 1 To 5
+            If UCase(sec) = UCase(langMsgSection(i)) Then
+                For Each clave In claves
+                    Valor = origen.GetValue(sec, clave)
+                    langWriters(i).ChangeValue sec, clave, Valor
+                Next clave
+                procesado = True
+                Exit For
+            End If
+        Next i
+        If procesado Then GoTo SiguienteSeccion
+
+        ' Secciones QUEST ? distribuir claves según idioma
+        If LCase(Left(sec, 5)) = "quest" Then
+            For Each clave In claves
+                Valor = origen.GetValue(sec, clave)
+                Dim asignado As Boolean: asignado = False
+
+                For i = 1 To 5
+                    If LCase(Left$(clave, Len(langPrefix(i)))) = LCase(langPrefix(i)) Then
+                        langWriters(i).ChangeValue sec, mid$(clave, Len(langPrefix(i)) + 1), Valor
+                        asignado = True
+                        Exit For
+                    End If
+                Next i
+
+                If Not asignado Then
+                    langWriters(1).ChangeValue sec, clave, Valor ' Solo a ES
+                End If
+            Next clave
+            GoTo SiguienteSeccion
+        End If
+
+        ' Distribución de claves sin prefijo solo a español (ES)
+        For Each clave In claves
+            Valor = origen.GetValue(sec, clave)
+
+            For i = 1 To 5
+                If LCase(Left$(clave, Len(langPrefix(i)))) = LCase(langPrefix(i)) Then
+                    langWriters(i).ChangeValue sec, mid$(clave, Len(langPrefix(i)) + 1), Valor
+                    asignado = True
+                    Exit For
+                End If
+            Next i
+
+            If Not asignado Then
+                ' solo a ES
+                langWriters(1).ChangeValue sec, clave, Valor
+            End If
+        Next clave
+
+SiguienteSeccion:
+    Next sec
+
+    For i = 1 To 5
+        langWriters(i).DumpFile App.Path & "\..\Recursos\init\" & langSuffix(i) & "_localindex.dat"
+        Set langWriters(i) = Nothing
+    Next i
+
+    MsgBox "Archivos localindex por idioma creados con éxito.", vbInformation
+End Sub
+

@@ -606,3 +606,32 @@ Public Sub DumpFile(ByRef File As String)
 120     Close hFile
 
 End Sub
+' Devuelve todas las secciones del archivo INI cargado
+Public Function GetAllSections() As Collection
+    Dim secciones As New Collection
+    Dim i As Long
+
+    For i = 0 To MainNodes - 1
+        secciones.Add fileData(i).Name
+    Next i
+
+    Set GetAllSections = secciones
+End Function
+
+' Devuelve todas las claves dentro de una sección específica
+Public Function GetAllKeys(ByVal section As String) As Collection
+    Dim claves As New Collection
+    Dim i As Long, j As Long
+
+    For i = 0 To MainNodes - 1
+        If UCase$(fileData(i).Name) = UCase$(section) Then
+            For j = 0 To fileData(i).numValues - 1
+                claves.Add fileData(i).values(j).Key
+            Next j
+            Exit For
+        End If
+    Next i
+
+    Set GetAllKeys = claves
+End Function
+

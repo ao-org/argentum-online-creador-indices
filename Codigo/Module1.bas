@@ -69,9 +69,18 @@ Public Type ObjDatas
     Name As String
     texto As String
     Info As String
-    en_Name As String
+    en_name As String
     en_texto As String
     en_Info As String
+    pt_name As String
+    pt_texto As String
+    pt_Info As String
+    fr_name As String
+    fr_texto As String
+    fr_Info As String
+    it_name As String
+    it_texto As String
+    it_Info As String
     MINDEF As Integer
     MaxDEF As Integer
     MinHit As Long
@@ -133,8 +142,14 @@ Public Type NpcDatas
 
     Name As String
     desc As String
-    en_Name As String
-    en_desc As String
+    en_name As String
+    en_Desc As String
+    pt_name As String
+    pt_Desc As String
+    fr_name As String
+    fr_Desc As String
+    it_name As String
+    it_Desc As String
     Body As Integer
     Head As Integer
     Hp As Long
@@ -153,17 +168,32 @@ End Type
 
 Public Type HechizoDatas
 
-    Nombre As String ' Indice del grafico que representa el obj
+    Nombre As String
     en_name As String
+    pt_name As String
+    fr_name As String
+    it_name As String
     desc As String
     en_Desc As String
+    pt_Desc As String
+    fr_Desc As String
+    it_Desc As String
     PalabrasMagicas As String
-    en_HechizeroMsg As String
     HechizeroMsg As String
+    en_HechizeroMsg As String
+    pt_HechizeroMsg As String
+    fr_HechizeroMsg As String
+    it_HechizeroMsg As String
     TargetMsg As String
-    PropioMsg As String
     en_TargetMsg As String
+    pt_TargetMsg As String
+    fr_TargetMsg As String
+    it_TargetMsg As String
+    PropioMsg As String
     en_PropioMsg As String
+    pt_PropioMsg As String
+    fr_PropioMsg As String
+    it_PropioMsg As String
     StaRequerido As Integer
     ManaRequerido As Integer
     MinSkill As Byte
