@@ -886,7 +886,7 @@ Private Sub Command1_Click()
 942             Label3.Caption = "Leyendo MSG SP: " & SP_MSG & "/" & NumLocaleSP_Msg
 944         Next SP_MSG
 
-946         Call Manager.ChangeValue("INIT", "NumLocaleSP_Msg", NumLocaleSP_Msg)
+946         Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleSP_Msg)
 
 948         For SP_MSG = 1 To NumLocaleSP_Msg
 950             DoEvents
@@ -915,7 +915,7 @@ Private Sub Command1_Click()
 982             Label3.Caption = "Leyendo MSG EN: " & EN_MSG & "/" & NumLocaleEN_Msg
 984         Next EN_MSG
 
-986         Call Manager.ChangeValue("INIT", "NumLocaleEN_Msg", NumLocaleEN_Msg)
+986         Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleEN_Msg)
 
 988         For EN_MSG = 1 To NumLocaleEN_Msg
 990             DoEvents
@@ -944,7 +944,7 @@ Private Sub Command1_Click()
 1022             Label3.Caption = "Leyendo MSG PT: " & PT_MSG & "/" & NumLocalePT_Msg
 1024         Next PT_MSG
 
-1026         Call Manager.ChangeValue("INIT", "NumLocalePT_Msg", NumLocalePT_Msg)
+1026         Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocalePT_Msg)
 
 1028         For PT_MSG = 1 To NumLocalePT_Msg
 1030             DoEvents
@@ -973,7 +973,7 @@ Private Sub Command1_Click()
 1062             Label3.Caption = "Leyendo MSG FR: " & FR_MSG & "/" & NumLocaleFR_Msg
 1064         Next FR_MSG
 
-1066         Call Manager.ChangeValue("INIT", "NumLocaleFR_Msg", NumLocaleFR_Msg)
+1066         Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleFR_Msg)
 
 1068         For FR_MSG = 1 To NumLocaleFR_Msg
 1070             DoEvents
@@ -1002,7 +1002,7 @@ Private Sub Command1_Click()
 1102             Label3.Caption = "Leyendo MSG IT: " & IT_MSG & "/" & NumLocaleIT_Msg
 1104         Next IT_MSG
 
-1106         Call Manager.ChangeValue("INIT", "NumLocaleIT_Msg", NumLocaleIT_Msg)
+1106         Call Manager.ChangeValue("INIT", "NumLocaleMsg", NumLocaleIT_Msg)
 
 1108         For IT_MSG = 1 To NumLocaleIT_Msg
 1110             DoEvents

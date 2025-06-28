@@ -23,6 +23,58 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 114     Next i
 
 116     Set clavesGlobales = CreateObject("Scripting.Dictionary")
+        clavesGlobales.Add "BODY", 1
+        clavesGlobales.Add "HEAD", 1
+        clavesGlobales.Add "EXP", 1
+        clavesGlobales.Add "HP", 1
+        clavesGlobales.Add "MAXHIT", 1
+        clavesGlobales.Add "MINHIT", 1
+        clavesGlobales.Add "ORO", 1
+        clavesGlobales.Add "NUMQUIZA", 1
+        clavesGlobales.Add "QUIZADROPEA1", 1
+        clavesGlobales.Add "QUIZADROPEA2", 1
+        clavesGlobales.Add "QUIZADROPEA3", 1
+        clavesGlobales.Add "QUIZADROPEA4", 1
+        clavesGlobales.Add "QUIZADROPEA5", 1
+        clavesGlobales.Add "QUIZADROPEA6", 1
+        clavesGlobales.Add "QUIZADROPEA7", 1
+        clavesGlobales.Add "QUIZADROPEA8", 1
+        clavesGlobales.Add "QUIZADROPEA9", 1
+        clavesGlobales.Add "QUIZADROPEA10", 1
+        clavesGlobales.Add "QUIZADROPEA11", 1
+        clavesGlobales.Add "QUIZADROPEA12", 1
+        clavesGlobales.Add "QUIZADROPEA13", 1
+        clavesGlobales.Add "QUIZADROPEA14", 1
+        clavesGlobales.Add "QUIZADROPEA15", 1
+        clavesGlobales.Add "QUIZADROPEA16", 1
+        clavesGlobales.Add "QUIZAPROB", 1
+        
+        clavesGlobales.Add "MAXDEF", 1
+        clavesGlobales.Add "MINDEF", 1
+        clavesGlobales.Add "LINGH", 1
+        clavesGlobales.Add "LINGP", 1
+        clavesGlobales.Add "LINGO", 1
+        clavesGlobales.Add "SKHERRERIA", 1
+        clavesGlobales.Add "SKSASTRERIA", 1
+        clavesGlobales.Add "PIELOSOPARDO", 1
+        clavesGlobales.Add "PIELTIGREBENGALA", 1
+        clavesGlobales.Add "PIELOSOPOLAR", 1
+        clavesGlobales.Add "SKPOCIONES", 1
+        clavesGlobales.Add "RAICES", 1
+        clavesGlobales.Add "PIELTIGRE", 1
+        clavesGlobales.Add "PIELLOBO", 1
+        clavesGlobales.Add "LLAVE", 1
+        clavesGlobales.Add "AGARRABLE", 1
+        clavesGlobales.Add "GIVEEXPCLAN", 1
+        
+        clavesGlobales.Add "FRASCOALQ", 1
+        clavesGlobales.Add "HECHIZO", 1
+        clavesGlobales.Add "MORTERO", 1
+        clavesGlobales.Add "SEMILLASPROS", 1
+        clavesGlobales.Add "PROYECTIL", 1
+        clavesGlobales.Add "MUNICIONES", 1
+        clavesGlobales.Add "INFO", 1
+                                
 118     clavesGlobales.Add "NOMBRE", 1
 120     clavesGlobales.Add "NAME", 1
 122     clavesGlobales.Add "TEXTO", 1
@@ -82,11 +134,7 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 228     clavesGlobales.Add "ORCOFUERZA", 1
 230     clavesGlobales.Add "ORCOINTELIGENCIA", 1
 232     clavesGlobales.Add "NUMEROHECHIZO", 1
-234     clavesGlobales.Add "NUMLOCALEEN_MSG", 1
-236     clavesGlobales.Add "NUMLOCALEFR_MSG", 1
-238     clavesGlobales.Add "NUMLOCALEIT_MSG", 1
-240     clavesGlobales.Add "NUMLOCALEPT_MSG", 1
-242     clavesGlobales.Add "NUMLOCALESP_MSG", 1
+234     clavesGlobales.Add "NUMLOCALEMSG", 1
 244     clavesGlobales.Add "NUMMAPAS", 1
 246     clavesGlobales.Add "NUMNPCS", 1
 248     clavesGlobales.Add "NUMOBJS", 1
@@ -98,6 +146,7 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 260     clavesGlobales.Add "SUGERENCIA4", 1
 262     clavesGlobales.Add "SUGERENCIA5", 1
 264     clavesGlobales.Add "SUGERENCIA6", 1
+
         Dim secciones As Collection
 266     Set secciones = origen.GetAllSectionNames()
         Dim clavesPorSeccion As Object
@@ -174,22 +223,7 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 348                         langWriters(i).ChangeValue sec, FormatoClave(claveNorm), ""
 
                         End If
-
 350                 Next claveNorm
-
-352                 If LCase(Left$(sec, 3)) = "obj" Then
-354                     If langWriters(i).GetValue(sec, "GrhIndex") = "" Then
-356                         langWriters(i).ChangeValue sec, "GrhIndex", ""
-
-                        End If
-
-358                     If langWriters(i).GetValue(sec, "ObjType") = "" Then
-360                         langWriters(i).ChangeValue sec, "ObjType", ""
-
-                        End If
-
-                    End If
-
 362             Next i
 
 364             GoTo SiguienteSeccion
