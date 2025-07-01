@@ -12,7 +12,7 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
         Dim procesado              As Boolean
         Dim claveNorm              As Variant
         Dim normalClave            As String
-100     LangPrefix(1) = "ES_": LangSuffix(1) = "es": langMsgSection(1) = "SP_MSG"
+100     LangPrefix(1) = "ES_": LangSuffix(1) = "sp": langMsgSection(1) = "SP_MSG"
 102     LangPrefix(2) = "EN_": LangSuffix(2) = "en": langMsgSection(2) = "EN_MSG"
 104     LangPrefix(3) = "PT_": LangSuffix(3) = "pt": langMsgSection(3) = "PT_MSG"
 106     LangPrefix(4) = "FR_": LangSuffix(4) = "fr": langMsgSection(4) = "FR_MSG"
