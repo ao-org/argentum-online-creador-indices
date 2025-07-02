@@ -178,7 +178,9 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 296     For Each sec In secciones
 298         Set claves = origen.GetAllKeys(sec)
 300         procesado = False
-302         If EsSeccionTraducible(sec) Or Left$(sec, 4) = "NAME" Or sec = "SUGERENCIAS" Or sec = "INIT" Or sec = "MODRAZA" Then
+
+        ' Secciones traducibles normales o globales
+302         If EsSeccionTraducible(sec) Or Left$(sec, 4) = "NAME" Or sec = "INIT" Or sec = "MODRAZA" Then
 304             For Each clave In claves
 306                 Valor = origen.GetValue(sec, clave)
 308                 asignado = False
@@ -190,107 +192,88 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 318                         langWriters(i).ChangeValue sec, FormatoClave(normalClave), Valor
 320                         asignado = True
                             Exit For
-
                         End If
-
 322                 Next i
 
 324                 If Not asignado Then
 326                     If clavesGlobales.Exists(UCase(clave)) Or Left$(UCase(clave), 4) = "MAPA" Then
-
 328                         For i = 1 To 5
 330                             If langWriters(i).GetValue(sec, FormatoClave(clave)) = "" Then
 332                                 langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
-
                                 End If
-
 334                         Next i
-
                         Else
 336                         langWriters(1).ChangeValue sec, FormatoClave(clave), Valor
-
                         End If
-
                     End If
-
 338             Next clave
 
 340             Set clavesNorm = clavesPorSeccion(sec)
-
 342             For i = 1 To 5
 344                 For Each claveNorm In clavesNorm
 346                     If langWriters(i).GetValue(sec, FormatoClave(claveNorm)) = "" Then
 348                         langWriters(i).ChangeValue sec, FormatoClave(claveNorm), ""
-
                         End If
 350                 Next claveNorm
-362             Next i
+352             Next i
 
-364             GoTo SiguienteSeccion
-
+354             GoTo SiguienteSeccion
             End If
 
-366         For i = 1 To 5
-368             If LCase(Left(sec, Len(LangPrefix(i)))) = LCase(LangPrefix(i)) Then
-370                 For Each clave In claves
-372                     Valor = origen.GetValue(sec, clave)
-374                     langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
-376                 Next clave
+        ' Secciones SUGERENCIAS por idioma (solo a su archivo)
+' Secciones SUGERENCIAS por idioma (solo a su archivo)
+If Right$(sec, 12) = "_SUGERENCIAS" Then
+    For i = 1 To 5
+        Dim nombreSec As String
+        If i = 1 Then
+            nombreSec = "SP_SUGERENCIAS"
+        Else
+            nombreSec = LangPrefix(i) & "SUGERENCIAS"
+        End If
 
-378                 GoTo SiguienteSeccion
+        If UCase(sec) = UCase(nombreSec) Then
+            For Each clave In claves
+                Valor = origen.GetValue(sec, clave)
+                langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
+            Next clave
+            Exit For
+        End If
+    Next i
+    GoTo SiguienteSeccion
+End If
 
+
+        ' Secciones traducidas directamente como EN_MSG, FR_MSG...
+376         For i = 1 To 5
+378             If UCase(sec) = UCase(langMsgSection(i)) Then
+380                 For Each clave In claves
+382                     Valor = origen.GetValue(sec, clave)
+384                     langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
+386                 Next clave
+388                 GoTo SiguienteSeccion
                 End If
+390         Next i
 
-380             If UCase(sec) = UCase(langMsgSection(i)) Then
-382                 For Each clave In claves
-384                     Valor = origen.GetValue(sec, clave)
-386                     langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
-388                 Next clave
-
-390                 GoTo SiguienteSeccion
-
+        ' Secciones con prefijo de idioma como EN_*, FR_*
+392         For i = 1 To 5
+394             If LCase(Left(sec, Len(LangPrefix(i)))) = LCase(LangPrefix(i)) Then
+396                 For Each clave In claves
+398                     Valor = origen.GetValue(sec, clave)
+400                     langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
+402                 Next clave
+404                 GoTo SiguienteSeccion
                 End If
+406         Next i
 
-392         Next i
-
-394         For Each clave In claves
-396             Valor = origen.GetValue(sec, clave)
-398             asignado = False
-
-400             For i = 1 To 5
-402                 If LCase(Left$(clave, Len(LangPrefix(i)))) = LCase(LangPrefix(i)) Then
-404                     normalClave = mid$(clave, Len(LangPrefix(i)) + 1)
-406                     If LCase(normalClave) = "nombre" Then normalClave = "Nombre"
-408                     langWriters(i).ChangeValue sec, FormatoClave(normalClave), Valor
-410                     asignado = True
-                        Exit For
-
-                    End If
-
-412             Next i
-
-414             If Not asignado Then
-416                 If clavesGlobales.Exists(UCase(clave)) Or Left$(UCase(clave), 4) = "MAPA" Then
-
-418                     For i = 1 To 5
-420                         If langWriters(i).GetValue(sec, FormatoClave(clave)) = "" Then
-422                             langWriters(i).ChangeValue sec, FormatoClave(clave), Valor
-
-                            End If
-
-424                     Next i
-
-                    Else
-426                     langWriters(1).ChangeValue sec, FormatoClave(clave), Valor
-
-                    End If
-
-                End If
-
-428         Next clave
+        ' Sección sin prefijo, ni traducible, ni global: va a ES solamente
+408         For Each clave In claves
+410             Valor = origen.GetValue(sec, clave)
+412             langWriters(1).ChangeValue sec, FormatoClave(clave), Valor
+414         Next clave
 
 SiguienteSeccion:
-430     Next sec
+416     Next sec
+
 
 432     For i = 1 To 5
 434         langWriters(i).DumpFile App.Path & "\..\Recursos\init\" & LangSuffix(i) & "_localindex.dat"

@@ -1135,35 +1135,45 @@ Private Sub Command1_Click()
 
          End If
 
-1318     If FileExist(App.Path & "\..\Recursos\init\sugerencias.ini", vbNormal) Then
-1320         MapFile = App.Path & "\..\Recursos\init\sugerencias.ini"
-1322         Call Mapa.Initialize(MapFile)
-             Dim NumSug As Integer
-1324         NumSug = Val(Mapa.GetValue("Sugerencias", "NumSugerencias"))
-1326         Label3.Caption = "0/" & CStr(NumSug)
-1328         ReDim Sugerencia(1 To NumSug) As String
 
-1330         For Npc = 1 To NumSug
-1332             DoEvents
-1334             Sugerencia(Npc) = Mapa.GetValue("Sugerencias", "Sugerencia" & Npc)
-1336             Label3.ForeColor = vbRed
-1338             Label3.Caption = "Leyendo: " & Npc & "/" & nunquest
-1340         Next Npc
+Dim idiomas() As String
+Dim prefijos() As String
+Dim secciones() As String
+Dim iIdioma As Integer
 
-1342         Npc = 1
-1344         Call Manager.ChangeValue("INIT", "NumSugerencias", NumSug)
+idiomas = Split("SP,EN,PT,FR,IT", ",")
+prefijos = Split("sp,en,pt,fr,it", ",")
+secciones = Split("SP_SUGERENCIAS,EN_SUGERENCIAS,PT_SUGERENCIAS,FR_SUGERENCIAS,IT_SUGERENCIAS", ",")
 
-1346         For Npc = 1 To NumSug
-1348             DoEvents
-1350             Call Manager.ChangeValue("Sugerencias", "Sugerencia" & Npc, Sugerencia(Npc))
-1352             Label3.Caption = "Grabando: " & Npc & "/" & NumSug
-1354             Label3.ForeColor = &HC0C0&
-1356         Next Npc
+For iIdioma = 0 To UBound(idiomas)
+    Dim SugFile As String
+    Dim SugerenciasReader As New clsIniReader
+    Dim NumSugs As Integer
+    Dim j As Integer
 
-         Else
-1358         MsgBox "Falta el archivo Sugerencias.ini dentro de la carpeta init."
+    SugFile = App.Path & "\..\Recursos\init\" & prefijos(iIdioma) & "_sugerencias.ini"
+    
+    If FileExist(SugFile, vbNormal) Then
+        Call SugerenciasReader.Initialize(SugFile)
+        NumSugs = Val(SugerenciasReader.GetValue(secciones(iIdioma), "NumSugerencias"))
+        
+        ' Solo actualizamos NumSugerencias en INIT si es español
+        If idiomas(iIdioma) = "SP" Then
+            Call Manager.ChangeValue("INIT", "NumSugerencias", NumSugs)
+        End If
+        
+        For j = 1 To NumSugs
+            DoEvents
+            Call Manager.ChangeValue(secciones(iIdioma), "Sugerencia" & j, SugerenciasReader.GetValue(secciones(iIdioma), "Sugerencia" & j))
+            Label3.Caption = "Grabando " & idiomas(iIdioma) & ": " & j & "/" & NumSugs
+            Label3.ForeColor = &HC0C0&
+        Next j
+    Else
+        MsgBox "Falta el archivo " & prefijos(iIdioma) & "_sugerencias.ini dentro de la carpeta init."
+    End If
+Next iIdioma
 
-         End If
+
 
          Dim ListaRazas(1 To NUMRAZAS) As String
 1360     ListaRazas(1) = "Humano"
