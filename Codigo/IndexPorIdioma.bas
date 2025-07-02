@@ -143,10 +143,12 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 260     clavesGlobales.Add "SUGERENCIA4", 1
 262     clavesGlobales.Add "SUGERENCIA5", 1
 264     clavesGlobales.Add "SUGERENCIA6", 1
+
         Dim secciones As Collection
 266     Set secciones = origen.GetAllSectionNames()
         Dim clavesPorSeccion As Object
 268     Set clavesPorSeccion = CreateObject("Scripting.Dictionary")
+
         Dim sec As Variant, clave As Variant, claves As Collection
 270     For Each sec In secciones
 272         Set claves = origen.GetAllKeys(sec)
@@ -170,8 +172,17 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
 
 292         clavesPorSeccion.Add sec, clavesNorm
 294     Next sec
-
+            ' === Progreso visual ===
+        Dim iSec As Long
+        Dim totalSecciones As Long
+        totalSecciones = secciones.count
+        
 296     For Each sec In secciones
+            iSec = iSec + 1
+            Form1.Label3.Caption = "Procesando sección: " & sec & " (" & iSec & "/" & totalSecciones & ")"
+            Form1.Label3.ForeColor = vbRed
+            DoEvents
+            
 298         Set claves = origen.GetAllKeys(sec)
 300         procesado = False
             ' Secciones traducibles normales o globales
@@ -299,6 +310,9 @@ SiguienteSeccion:
 436         Set langWriters(i) = Nothing
 438     Next i
 
+        Form1.Label3.Caption = "Archivos por idioma generados"
+        Form1.Label3.ForeColor = vbGreen
+        
 440     MsgBox "Archivos localindex por idioma creados con éxito.", vbInformation
 
 End Sub
