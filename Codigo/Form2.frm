@@ -94,13 +94,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
 Private NumMsg  As Integer
-
 Private MsgFile As String
 
 Private Sub Command1_Click()
-
 100     If List1.ListIndex < 0 Then
 102         MsgBox "Debes seleccionar un elemento de la lista."
             Exit Sub
@@ -113,11 +110,8 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Command2_Click()
-
         Dim arch As String
-
         Dim msg  As Integer
-
 100     arch = App.Path & "\..\Recursos\init\" & "LocalMsg.dat"
 102     Call WriteVar(arch, "INIT", "NumLocaleMsg", NumMsg)
 
@@ -130,9 +124,7 @@ End Sub
 
 Private Sub Command3_Click()
 100     List1.Clear
-
         Dim i As Integer
-
 102     If Filtro.Text = vbNullString Then
 
 104         For i = 1 To NumMsg
@@ -142,7 +134,6 @@ Private Sub Command3_Click()
         Else
 
 110         For i = 1 To NumMsg
-
 112             If InStr(1, UCase$(arrLocale_SMG(i)), UCase$(Filtro.Text)) Then
 114                 List1.AddItem i & "-" & arrLocale_SMG(i)
 
@@ -156,9 +147,7 @@ End Sub
 
 Private Sub Command4_Click()
 100     List1.Clear
-
         Dim i As Integer
-
 102     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
 104         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
 106         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))
@@ -180,9 +169,7 @@ Private Sub Filtro_Change()
 End Sub
 
 Private Sub Form_Load()
-
         Dim i As Integer
-
 100     If FileExist(App.Path & "\..\Recursos\init\LocalMsg.dat", vbNormal) Then
 102         MsgFile = App.Path & "\..\Recursos\init\LocalMsg.dat"
 104         NumMsg = Val(GetVar(MsgFile, "INIT", "NumLocaleMsg"))

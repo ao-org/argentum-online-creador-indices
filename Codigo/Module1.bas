@@ -34,7 +34,6 @@ Public Declare Function getprivateprofilestring _
                                                  ByVal lpFileName As String) As Long
 
 Public Type ModRaza
-
     Fuerza As Integer
     Agilidad As Integer
     Inteligencia As Integer
@@ -64,14 +63,28 @@ Public QuestRepetible()       As Byte
 Public RequiredLevel()        As Integer
 
 Public Type ObjDatas
-
     grhindex As Long ' Indice del grafico que representa el obj
+    ' Español
     Name As String
     texto As String
     Info As String
-    en_Name As String
+    ' Inglés
+    en_name As String
     en_texto As String
     en_Info As String
+    ' Portugués
+    pt_name As String
+    pt_texto As String
+    pt_Info As String
+    ' Francés
+    fr_name As String
+    fr_texto As String
+    fr_Info As String
+    ' Italiano
+    it_name As String
+    it_texto As String
+    it_Info As String
+    ' Atributos
     MINDEF As Integer
     MaxDEF As Integer
     MinHit As Long
@@ -79,7 +92,7 @@ Public Type ObjDatas
     ObjType As Byte
     CreaLuz As String
     CreaParticulaPiso As Integer
-    CreaGRH  As String
+    CreaGRH As String
     Hechizo As Integer
     Raices As Integer
     Cuchara As Integer
@@ -130,11 +143,16 @@ Public Type ObjDatas
 End Type
 
 Public Type NpcDatas
-
     Name As String
     desc As String
-    en_Name As String
-    en_desc As String
+    en_name As String
+    en_Desc As String
+    pt_name As String
+    fr_name As String
+    it_name As String
+    pt_Desc As String
+    fr_Desc As String
+    it_Desc As String
     Body As Integer
     Head As Integer
     Hp As Long
@@ -152,18 +170,35 @@ Public Type NpcDatas
 End Type
 
 Public Type HechizoDatas
-
-    Nombre As String ' Indice del grafico que representa el obj
+    ' Nombre y descripción
+    Nombre As String
     en_name As String
+    pt_name As String
+    fr_name As String
+    it_name As String
     desc As String
     en_Desc As String
+    pt_Desc As String
+    fr_Desc As String
+    it_Desc As String
+    ' Mensajes mágicos
     PalabrasMagicas As String
-    en_HechizeroMsg As String
     HechizeroMsg As String
+    en_HechizeroMsg As String
+    pt_HechizeroMsg As String
+    fr_HechizeroMsg As String
+    it_HechizeroMsg As String
     TargetMsg As String
-    PropioMsg As String
     en_TargetMsg As String
+    pt_TargetMsg As String
+    fr_TargetMsg As String
+    it_TargetMsg As String
+    PropioMsg As String
     en_PropioMsg As String
+    pt_PropioMsg As String
+    fr_PropioMsg As String
+    it_PropioMsg As String
+    ' Requisitos y stats
     StaRequerido As Integer
     ManaRequerido As Integer
     MinSkill As Byte
@@ -175,20 +210,15 @@ End Type
 Function ReadField(ByVal Pos As Integer, _
                    ByRef Text As String, _
                    ByVal SepASCII As Byte) As String
-
         '*****************************************************************
         'Gets a field from a delimited string
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 11/15/2004
         '*****************************************************************
         Dim i          As Long
-
         Dim LastPos    As Long
-
         Dim CurrentPos As Long
-
         Dim delimiter  As String * 1
-
 100     delimiter = Chr$(SepASCII)
 
 102     For i = 1 To Pos
@@ -206,18 +236,14 @@ Function ReadField(ByVal Pos As Integer, _
 End Function
 
 Function FieldCount(ByRef Text As String, ByVal SepASCII As Byte) As Long
-
         '*****************************************************************
         'Gets the number of fields in a delimited string
         'Author: Juan Martín Sotuyo Dodero (Maraxus)
         'Last Modify Date: 07/29/2007
         '*****************************************************************
         Dim count     As Long
-
         Dim curPos    As Long
-
         Dim delimiter As String * 1
-
 100     If LenB(Text) = 0 Then Exit Function
 102     delimiter = Chr$(SepASCII)
 104     curPos = 0
@@ -233,20 +259,15 @@ End Function
 Public Function GetVar(ByVal File As String, _
                        ByVal Main As String, _
                        ByVal Var As String) As String
-
         '*****************************************************************
         'Author: Aaron Perkins
         'Last Modify Date: 10/07/2002
         'Get a var to from a text file
         '*****************************************************************
         Dim L        As Long
-
         Dim Char     As String
-
         Dim sSpaces  As String 'Input that the program will retrieve
-
         Dim szReturn As String 'Default value if the string is not found
-
 100     sSpaces = Space$(5000)
 102     getprivateprofilestring Main, Var, vbNullString, sSpaces, Len(sSpaces), File
 104     GetVar = RTrim$(sSpaces)
@@ -271,16 +292,13 @@ Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As B
 End Function
 
 Public Sub Clean_File(ByVal file_path As String)
-
         '*****************************************************************
         'Author: Juan Martín Dotuyo Dodero
         'Last Modify Date: 10/12/2020 (Jopi)
         'Wipe out the contents of the file
         '*****************************************************************
         On Error GoTo Error_Handler
-
         Dim handle As Integer
-
         'We open the file to delete
 100     handle = FreeFile
 102     Open OutputFile For Output As handle
