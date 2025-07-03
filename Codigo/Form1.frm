@@ -5,37 +5,46 @@ Begin VB.Form Form1
    ClientHeight    =   2850
    ClientLeft      =   165
    ClientTop       =   855
-   ClientWidth     =   4215
+   ClientWidth     =   6150
+   BeginProperty Font 
+      Name            =   "MS Sans Serif"
+      Size            =   9.75
+      Charset         =   0
+      Weight          =   700
+      Underline       =   0   'False
+      Italic          =   0   'False
+      Strikethrough   =   0   'False
+   EndProperty
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   2850
-   ScaleWidth      =   4215
+   ScaleWidth      =   6150
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command2 
       Caption         =   "Mensajes"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       Height          =   615
-      Left            =   2400
+      Left            =   3600
       TabIndex        =   4
       Top             =   960
-      Width           =   1695
+      Width           =   2415
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Crear archivo"
       BeginProperty Font 
          Name            =   "Verdana"
-         Size            =   8.25
+         Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -44,7 +53,7 @@ Begin VB.Form Form1
       Left            =   120
       TabIndex        =   0
       Top             =   960
-      Width           =   1935
+      Width           =   2775
    End
    Begin VB.Label Label3 
       Alignment       =   2  'Center
@@ -62,8 +71,8 @@ Begin VB.Form Form1
       Height          =   255
       Left            =   120
       TabIndex        =   3
-      Top             =   1800
-      Width           =   3975
+      Top             =   1680
+      Width           =   5895
    End
    Begin VB.Label Label2 
       Alignment       =   2  'Center
@@ -78,9 +87,9 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   240
+      Left            =   1080
       TabIndex        =   2
-      Top             =   2280
+      Top             =   2160
       Width           =   3735
    End
    Begin VB.Label Label1 
@@ -95,11 +104,11 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   855
+      Height          =   615
       Left            =   0
       TabIndex        =   1
-      Top             =   0
-      Width           =   4095
+      Top             =   120
+      Width           =   6015
    End
 End
 Attribute VB_Name = "Form1"
@@ -575,7 +584,7 @@ Private Sub Command1_Click()
                 End If
 
 560             Label3.Caption = "Grabando: " & Obj & "/" & numobjs
-562             Label3.ForeColor = &HC0C0&
+562             Label3.ForeColor = vbGreen
 564         Next Obj
 
 566         Label3.ForeColor = vbGreen
@@ -761,7 +770,7 @@ Private Sub Command1_Click()
                 End If
 
 754             Label3.Caption = "Grabando NPCs: " & Npc & "/" & numnpcs
-756             Label3.ForeColor = &HC0C0&
+756             Label3.ForeColor = vbGreen
 758         Next Npc
 
         Else
@@ -858,7 +867,7 @@ Private Sub Command1_Click()
 912             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
 914             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
 916             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
-918             Label3.ForeColor = &HC0C0&
+918             Label3.ForeColor = vbGreen
 920         Next Hechizo
 
         End If
@@ -892,7 +901,7 @@ Private Sub Command1_Click()
 950             DoEvents
 952             Call Manager.ChangeValue("SP_Msg", "Msg" & SP_MSG, arrLocale_SP_SMG(SP_MSG))
 954             Label3.Caption = "Grabando MSG SP: " & SP_MSG & "/" & NumLocaleSP_Msg
-956             Label3.ForeColor = &HC0C0&
+956             Label3.ForeColor = vbGreen
 958         Next SP_MSG
 
         Else
@@ -921,7 +930,7 @@ Private Sub Command1_Click()
 990             DoEvents
 992             Call Manager.ChangeValue("EN_Msg", "Msg" & EN_MSG, arrLocale_EN_SMG(EN_MSG))
 994             Label3.Caption = "Grabando MSG EN: " & EN_MSG & "/" & NumLocaleEN_Msg
-996             Label3.ForeColor = &HC0C0&
+996             Label3.ForeColor = vbGreen
 998         Next EN_MSG
 
          Else
@@ -950,7 +959,7 @@ Private Sub Command1_Click()
 1030             DoEvents
 1032             Call Manager.ChangeValue("PT_Msg", "Msg" & PT_MSG, arrLocale_PT_SMG(PT_MSG))
 1034             Label3.Caption = "Grabando MSG PT: " & PT_MSG & "/" & NumLocalePT_Msg
-1036             Label3.ForeColor = &HC0C0&
+1036             Label3.ForeColor = vbGreen
 1038         Next PT_MSG
 
          Else
@@ -979,7 +988,7 @@ Private Sub Command1_Click()
 1070             DoEvents
 1072             Call Manager.ChangeValue("FR_Msg", "Msg" & FR_MSG, arrLocale_FR_SMG(FR_MSG))
 1074             Label3.Caption = "Grabando MSG FR: " & FR_MSG & "/" & NumLocaleFR_Msg
-1076             Label3.ForeColor = &HC0C0&
+1076             Label3.ForeColor = vbGreen
 1078         Next FR_MSG
 
          Else
@@ -1008,7 +1017,7 @@ Private Sub Command1_Click()
 1110             DoEvents
 1112             Call Manager.ChangeValue("IT_Msg", "Msg" & IT_MSG, arrLocale_IT_SMG(IT_MSG))
 1114             Label3.Caption = "Grabando MSG IT: " & IT_MSG & "/" & NumLocaleIT_Msg
-1116             Label3.ForeColor = &HC0C0&
+1116             Label3.ForeColor = vbGreen
 1118         Next IT_MSG
 
          Else
@@ -1041,7 +1050,7 @@ Private Sub Command1_Click()
 1156             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc, MapName(Npc))
 1158             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc & "Desc", MapDesc(Npc))
 1160             Label3.Caption = "Grabando Mapas: " & Npc & "/" & 750
-1162             Label3.ForeColor = &HC0C0&
+1162             Label3.ForeColor = vbGreen
 1164         Next Npc
 
          Else
@@ -1127,7 +1136,7 @@ Private Sub Command1_Click()
 1306             Call Manager.ChangeValue("QUEST" & QUESTNUM, "RequiredLevel", RequiredLevel(QUESTNUM))
 1308             Call Manager.ChangeValue("QUEST" & QUESTNUM, "PosMap", QuestPos(QUESTNUM))
 1310             Label3.Caption = "Grabando Quest: " & QUESTNUM & "/" & nunquest
-1312             Label3.ForeColor = &HC0C0&
+1312             Label3.ForeColor = vbGreen
 1314         Next QUESTNUM
 
          Else
@@ -1166,7 +1175,7 @@ For iIdioma = 0 To UBound(idiomas)
             DoEvents
             Call Manager.ChangeValue(secciones(iIdioma), "Sugerencia" & j, SugerenciasReader.GetValue(secciones(iIdioma), "Sugerencia" & j))
             Label3.Caption = "Grabando " & idiomas(iIdioma) & ": " & j & "/" & NumSugs
-            Label3.ForeColor = &HC0C0&
+            Label3.ForeColor = vbGreen
         Next j
     Else
         MsgBox "Falta el archivo " & prefijos(iIdioma) & "_sugerencias.ini dentro de la carpeta init."
