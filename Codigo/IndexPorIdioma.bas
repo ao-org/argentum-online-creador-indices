@@ -313,7 +313,7 @@ SiguienteSeccion:
         Form1.Label3.Caption = "Archivos por idioma generados"
         Form1.Label3.ForeColor = vbGreen
         
-440     'MsgBox "Archivos localindex por idioma creados con éxito.", vbInformation
+        End
 
 End Sub
 
