@@ -72,10 +72,6 @@ Public Sub DumpLocalIndexPorIdioma(ByVal origen As clsIniReader)
         clavesGlobales.Add "PROYECTIL", 1
         clavesGlobales.Add "MUNICIONES", 1
         clavesGlobales.Add "INFO", 1
-118     clavesGlobales.Add "NOMBRE", 1
-120     clavesGlobales.Add "NAME", 1
-122     clavesGlobales.Add "TEXTO", 1
-124     clavesGlobales.Add "DESC", 1
 126     clavesGlobales.Add "COOLDOWN", 1
 128     clavesGlobales.Add "STAREQUERIDO", 1
 130     clavesGlobales.Add "MANAREQUERIDO", 1
@@ -331,7 +327,7 @@ Private Function FormatoClave(ByVal clave As String) As String
 
 100     Select Case LCase(clave)
 
-            Case "name": FormatoClave = "Name"
+            Case "name": FormatoClave = "Nombre"
 102         Case "texto": FormatoClave = "Texto"
 104         Case "desc": FormatoClave = "Desc"
 106         Case "grhindex": FormatoClave = "GrhIndex"
