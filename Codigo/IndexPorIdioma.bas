@@ -322,20 +322,18 @@ Private Function EsSeccionTraducible(ByVal sec As String) As Boolean
            Left(s, 3) = "obj")
 
 End Function
+Private Function FormatoClave(ByVal clave As String, Optional ByVal seccion As String = "") As String
 
-Private Function FormatoClave(ByVal clave As String) As String
-
-100     Select Case LCase(clave)
-
-            Case "name": FormatoClave = "Nombre"
-102         Case "texto": FormatoClave = "Texto"
-104         Case "desc": FormatoClave = "Desc"
-106         Case "grhindex": FormatoClave = "GrhIndex"
-108         Case "objtype": FormatoClave = "ObjType"
-110         Case Else: FormatoClave = clave
-
-        End Select
+    Select Case LCase(clave)
+        Case "name": FormatoClave = "Name"
+        Case "texto": FormatoClave = "Texto"
+        Case "desc": FormatoClave = "Desc"
+        Case "grhindex": FormatoClave = "GrhIndex"
+        Case "objtype": FormatoClave = "ObjType"
+        Case Else: FormatoClave = clave
+    End Select
 
 End Function
+
 
 
