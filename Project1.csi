@@ -1,9 +1,9 @@
 [History]
-1=#P0#=mb	#P1#=Command1_Click	#P2#=CreadorIndices/Form1/Command1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20250701202639	#P7#=0	#P8#=1043	.
-2=#P0#=mb	#P1#=DumpLocalIndexPorIdioma	#P2#=CreadorIndices/IndexPorIdioma/DumpLocalIndexPorIdioma	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250701215518	#P7#=0	#P8#=236	.
-3=#P0#=mb	#P1#=FormatoClave	#P2#=CreadorIndices/IndexPorIdioma/FormatoClave	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250628154624	#P7#=0	#P8#=8	.
+1=#P0#=mb	#P1#=Command1_Click	#P2#=CreadorIndices/Form1/Command1_Click	#P3#=	#P4#=	#P5#=MembEventProcPrivate	#P6#=20250703235946	#P7#=0	#P8#=656	.
+2=#P0#=mb	#P1#=DumpLocalIndexPorIdioma	#P2#=CreadorIndices/IndexPorIdioma/DumpLocalIndexPorIdioma	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250703231916	#P7#=0	#P8#=190	.
+3=#P0#=mb	#P1#=FormatoClave	#P2#=CreadorIndices/IndexPorIdioma/FormatoClave	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250703234926	#P7#=0	#P8#=4	.
 4=#P0#=mb	#P1#=GetAllSectionNames	#P2#=CreadorIndices/clsIniReader/GetAllSectionNames	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250627220050	#P7#=0	#P8#=7	.
-5=#P0#=mb	#P1#=EsSeccionTraducible	#P2#=CreadorIndices/IndexPorIdioma/EsSeccionTraducible	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250627211149	#P7#=0	#P8#=10	.
+5=#P0#=mb	#P1#=EsSeccionTraducible	#P2#=CreadorIndices/IndexPorIdioma/EsSeccionTraducible	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250703235927	#P7#=0	#P8#=4	.
 6=#P0#=mb	#P1#=DumpFile	#P2#=CreadorIndices/clsIniReader/DumpFile	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250627164952	#P7#=0	#P8#=15	.
 7=#P0#=mb	#P1#=GetAllKeys	#P2#=CreadorIndices/clsIniReader/GetAllKeys	#P3#=	#P4#=	#P5#=MembMethodPublic	#P6#=20250627164501	#P7#=0	#P8#=7	.
 8=#P0#=tp	#P1#=NpcDatas	#P2#=CreadorIndices/Module1/NpcDatas	#P3#=	#P4#=	#P5#=Type	#P6#=20231103121210	#P7#=-2147483640	#P8#=0	.

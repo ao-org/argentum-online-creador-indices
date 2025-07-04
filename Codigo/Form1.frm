@@ -575,7 +575,7 @@ Private Sub Command1_Click()
                 End If
 
 560             Label3.Caption = "Grabando: " & Obj & "/" & numobjs
-562             Label3.ForeColor = &HC0C0&
+562             Label3.ForeColor = vbGreen
 564         Next Obj
 
 566         Label3.ForeColor = vbGreen
@@ -761,12 +761,11 @@ Private Sub Command1_Click()
                 End If
 
 754             Label3.Caption = "Grabando NPCs: " & Npc & "/" & numnpcs
-756             Label3.ForeColor = &HC0C0&
+756             Label3.ForeColor = vbGreen
 758         Next Npc
 
         Else
 760         MsgBox "Falta el archivo npcs.dat dentro de la carpeta dats."
-
         End If
 
 762     If FileExist(App.Path & "\..\Recursos\Dat\hechizos.dat", vbNormal) Then
@@ -781,10 +780,10 @@ Private Sub Command1_Click()
 774         For Hechizo = 1 To numhechizos
 776             DoEvents
 778             HechizoData(Hechizo).Nombre = hechic.GetValue("Hechizo" & Hechizo, "Nombre")
-780             HechizoData(Hechizo).en_name = hechic.GetValue("Hechizo" & Hechizo, "en_name")
-782             HechizoData(Hechizo).pt_name = hechic.GetValue("Hechizo" & Hechizo, "pt_name")
-784             HechizoData(Hechizo).fr_name = hechic.GetValue("Hechizo" & Hechizo, "fr_name")
-786             HechizoData(Hechizo).it_name = hechic.GetValue("Hechizo" & Hechizo, "it_name")
+780             HechizoData(Hechizo).en_Nombre = hechic.GetValue("Hechizo" & Hechizo, "en_Nombre")
+782             HechizoData(Hechizo).pt_Nombre = hechic.GetValue("Hechizo" & Hechizo, "pt_Nombre")
+784             HechizoData(Hechizo).fr_Nombre = hechic.GetValue("Hechizo" & Hechizo, "fr_Nombre")
+786             HechizoData(Hechizo).it_Nombre = hechic.GetValue("Hechizo" & Hechizo, "it_Nombre")
 788             HechizoData(Hechizo).desc = hechic.GetValue("Hechizo" & Hechizo, "desc")
 790             HechizoData(Hechizo).en_Desc = hechic.GetValue("Hechizo" & Hechizo, "en_Desc")
 792             HechizoData(Hechizo).pt_Desc = hechic.GetValue("Hechizo" & Hechizo, "pt_Desc")
@@ -828,25 +827,25 @@ Private Sub Command1_Click()
 862             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
 864             Call Manager.ChangeValue("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
                 ' Inglés
-866             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_name)
+866             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_Nombre)
 868             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Desc", HechizoData(Hechizo).en_Desc)
 870             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
 872             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
 874             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_PropioMsg", HechizoData(Hechizo).en_PropioMsg)
                 ' Portugués
-876             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Name", HechizoData(Hechizo).pt_name)
+876             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Nombre", HechizoData(Hechizo).pt_Nombre)
 878             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_Desc", HechizoData(Hechizo).pt_Desc)
 880             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_HechizeroMsg", HechizoData(Hechizo).pt_HechizeroMsg)
 882             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_TargetMsg", HechizoData(Hechizo).pt_TargetMsg)
 884             Call Manager.ChangeValue("Hechizo" & Hechizo, "pt_PropioMsg", HechizoData(Hechizo).pt_PropioMsg)
                 ' Francés
-886             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Name", HechizoData(Hechizo).fr_name)
+886             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Nombre", HechizoData(Hechizo).fr_Nombre)
 888             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_Desc", HechizoData(Hechizo).fr_Desc)
 890             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_HechizeroMsg", HechizoData(Hechizo).fr_HechizeroMsg)
 892             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_TargetMsg", HechizoData(Hechizo).fr_TargetMsg)
 894             Call Manager.ChangeValue("Hechizo" & Hechizo, "fr_PropioMsg", HechizoData(Hechizo).fr_PropioMsg)
                 ' Italiano
-896             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Name", HechizoData(Hechizo).it_name)
+896             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Nombre", HechizoData(Hechizo).it_Nombre)
 898             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_Desc", HechizoData(Hechizo).it_Desc)
 900             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_HechizeroMsg", HechizoData(Hechizo).it_HechizeroMsg)
 902             Call Manager.ChangeValue("Hechizo" & Hechizo, "it_TargetMsg", HechizoData(Hechizo).it_TargetMsg)
@@ -858,7 +857,7 @@ Private Sub Command1_Click()
 912             Call Manager.ChangeValue("Hechizo" & Hechizo, "IconoIndex", HechizoData(Hechizo).IconoIndex)
 914             Call Manager.ChangeValue("Hechizo" & Hechizo, "Cooldown", HechizoData(Hechizo).Cooldown)
 916             Label3.Caption = "Grabando Hechizos: " & Hechizo & "/" & numhechizos
-918             Label3.ForeColor = &HC0C0&
+918             Label3.ForeColor = vbGreen
 920         Next Hechizo
 
         End If
@@ -892,7 +891,7 @@ Private Sub Command1_Click()
 950             DoEvents
 952             Call Manager.ChangeValue("SP_Msg", "Msg" & SP_MSG, arrLocale_SP_SMG(SP_MSG))
 954             Label3.Caption = "Grabando MSG SP: " & SP_MSG & "/" & NumLocaleSP_Msg
-956             Label3.ForeColor = &HC0C0&
+956             Label3.ForeColor = vbGreen
 958         Next SP_MSG
 
         Else
@@ -921,7 +920,7 @@ Private Sub Command1_Click()
 990             DoEvents
 992             Call Manager.ChangeValue("EN_Msg", "Msg" & EN_MSG, arrLocale_EN_SMG(EN_MSG))
 994             Label3.Caption = "Grabando MSG EN: " & EN_MSG & "/" & NumLocaleEN_Msg
-996             Label3.ForeColor = &HC0C0&
+996             Label3.ForeColor = vbGreen
 998         Next EN_MSG
 
          Else
@@ -950,7 +949,7 @@ Private Sub Command1_Click()
 1030             DoEvents
 1032             Call Manager.ChangeValue("PT_Msg", "Msg" & PT_MSG, arrLocale_PT_SMG(PT_MSG))
 1034             Label3.Caption = "Grabando MSG PT: " & PT_MSG & "/" & NumLocalePT_Msg
-1036             Label3.ForeColor = &HC0C0&
+1036             Label3.ForeColor = vbGreen
 1038         Next PT_MSG
 
          Else
@@ -979,7 +978,7 @@ Private Sub Command1_Click()
 1070             DoEvents
 1072             Call Manager.ChangeValue("FR_Msg", "Msg" & FR_MSG, arrLocale_FR_SMG(FR_MSG))
 1074             Label3.Caption = "Grabando MSG FR: " & FR_MSG & "/" & NumLocaleFR_Msg
-1076             Label3.ForeColor = &HC0C0&
+1076             Label3.ForeColor = vbGreen
 1078         Next FR_MSG
 
          Else
@@ -1008,7 +1007,7 @@ Private Sub Command1_Click()
 1110             DoEvents
 1112             Call Manager.ChangeValue("IT_Msg", "Msg" & IT_MSG, arrLocale_IT_SMG(IT_MSG))
 1114             Label3.Caption = "Grabando MSG IT: " & IT_MSG & "/" & NumLocaleIT_Msg
-1116             Label3.ForeColor = &HC0C0&
+1116             Label3.ForeColor = vbGreen
 1118         Next IT_MSG
 
          Else
@@ -1041,7 +1040,7 @@ Private Sub Command1_Click()
 1156             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc, MapName(Npc))
 1158             Call Manager.ChangeValue("NAMEMAPA", "Mapa" & Npc & "Desc", MapDesc(Npc))
 1160             Label3.Caption = "Grabando Mapas: " & Npc & "/" & 750
-1162             Label3.ForeColor = &HC0C0&
+1162             Label3.ForeColor = vbGreen
 1164         Next Npc
 
          Else
@@ -1127,7 +1126,7 @@ Private Sub Command1_Click()
 1306             Call Manager.ChangeValue("QUEST" & QUESTNUM, "RequiredLevel", RequiredLevel(QUESTNUM))
 1308             Call Manager.ChangeValue("QUEST" & QUESTNUM, "PosMap", QuestPos(QUESTNUM))
 1310             Label3.Caption = "Grabando Quest: " & QUESTNUM & "/" & nunquest
-1312             Label3.ForeColor = &HC0C0&
+1312             Label3.ForeColor = vbGreen
 1314         Next QUESTNUM
 
          Else
@@ -1166,7 +1165,7 @@ For iIdioma = 0 To UBound(idiomas)
             DoEvents
             Call Manager.ChangeValue(secciones(iIdioma), "Sugerencia" & j, SugerenciasReader.GetValue(secciones(iIdioma), "Sugerencia" & j))
             Label3.Caption = "Grabando " & idiomas(iIdioma) & ": " & j & "/" & NumSugs
-            Label3.ForeColor = &HC0C0&
+            Label3.ForeColor = vbGreen
         Next j
     Else
         MsgBox "Falta el archivo " & prefijos(iIdioma) & "_sugerencias.ini dentro de la carpeta init."
