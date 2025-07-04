@@ -172,10 +172,10 @@ End Type
 Public Type HechizoDatas
     ' Nombre y descripción
     Nombre As String
-    en_name As String
-    pt_name As String
-    fr_name As String
-    it_name As String
+    en_Nombre As String
+    pt_Nombre As String
+    fr_Nombre As String
+    it_Nombre As String
     desc As String
     en_Desc As String
     pt_Desc As String
