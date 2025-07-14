@@ -837,7 +837,7 @@ Private Sub Command1_Click()
 862             Call Manager.ChangeValue("Hechizo" & Hechizo, "TargetMsg", HechizoData(Hechizo).TargetMsg)
 864             Call Manager.ChangeValue("Hechizo" & Hechizo, "PropioMsg", HechizoData(Hechizo).PropioMsg)
                 ' Inglés
-866             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Name", HechizoData(Hechizo).en_Nombre)
+866             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Nombre", HechizoData(Hechizo).en_Nombre)
 868             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_Desc", HechizoData(Hechizo).en_Desc)
 870             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_HechizeroMsg", HechizoData(Hechizo).en_HechizeroMsg)
 872             Call Manager.ChangeValue("Hechizo" & Hechizo, "en_TargetMsg", HechizoData(Hechizo).en_TargetMsg)
