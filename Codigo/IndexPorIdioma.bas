@@ -308,7 +308,7 @@ SiguienteSeccion:
 
         Form1.Label3.Caption = "Archivos por idioma generados"
         Form1.Label3.ForeColor = vbGreen
-        
+        Kill App.Path & "\..\Recursos\Init\localindex.dat"
         End
 
 End Sub
