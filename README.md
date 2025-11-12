@@ -1,4 +1,4 @@
-# Argentum Online Localindex.dat Creator
+# Argentum Online Localindex.dat Creator (Deprecated)
 
 "This program generates the file localindex.dat containing client-side texts to minimize server bandwidth usage."
 
