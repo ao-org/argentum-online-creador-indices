@@ -4,25 +4,96 @@ import re
 
 def main():
     # === CONFIGURACIÓN ===
-    # Get the script's directory and navigate to find the correct base folder
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    
-    # If running from tools folder, go up to Recursos folder (where Dat and init are located)
-    if os.path.basename(script_dir) == "tools":
-        CARPETA_BASE = os.path.dirname(script_dir)  # This is the Recursos folder
-    else:
-        # Fallback to original logic
-        CARPETA_BASE = os.path.abspath(os.path.join(os.getcwd(), ".."))
-    
+
+    def tiene_dat_init(base: str) -> bool:
+        return (
+            os.path.isdir(os.path.join(base, "Dat")) and
+            os.path.isdir(os.path.join(base, "init"))
+        )
+
+    def intentar_base(path: str):
+        if not path:
+            return None
+        path = os.path.abspath(path)
+        return path if tiene_dat_init(path) else None
+
+    def find_base():
+        # 1) Variable de entorno opcional
+        env_base = os.environ.get("RECURSOS_BASE", "").strip()
+        if intentar_base(env_base):
+            return os.path.abspath(env_base)
+
+        # 2) Ruta conocida en tu entorno
+        ruta_conocida = r"C:\Users\Gabriel\Documents\GitHub\Recursos"
+        if intentar_base(ruta_conocida):
+            return os.path.abspath(ruta_conocida)
+
+        # 3) Probar candidatos cercanos al script
+        candidatos = set()
+
+        # a) El propio directorio del script y sus padres hasta 6 niveles
+        current = script_dir
+        for _ in range(6):
+            candidatos.add(current)
+            parent = os.path.dirname(current)
+            if parent == current:
+                break
+            current = parent
+
+        # b) Sibling "Recursos" en cada nivel padre y el propio script_dir
+        current = script_dir
+        for _ in range(6):
+            recursos_sibling = os.path.join(current, "Recursos")
+            candidatos.add(recursos_sibling)
+            parent = os.path.dirname(current)
+            if parent == current:
+                break
+            current = parent
+
+        # c) Padres directos típicos
+        candidatos.update({
+            os.path.dirname(script_dir),
+            os.path.abspath(os.path.join(script_dir, "..")),
+            os.path.abspath(os.path.join(script_dir, "..", "..")),
+        })
+
+        # d) Si el script está en "tools", probar su padre y un posible hermano "Recursos"
+        if os.path.basename(script_dir).lower() == "tools":
+            padre = os.path.dirname(script_dir)
+            candidatos.add(padre)
+            candidatos.add(os.path.join(padre, "Recursos"))
+
+        # e) Candidatos únicos y existentes
+        candidatos = [c for c in sorted(set(candidatos)) if os.path.isdir(c)]
+
+        probadas = []
+        for base in candidatos:
+            probadas.append(base)
+            if tiene_dat_init(base):
+                return base
+            # Buscar subcarpeta "Recursos" dentro del candidato
+            rec = os.path.join(base, "Recursos")
+            if tiene_dat_init(rec):
+                return rec
+
+        # 4) No encontrada: mostrar diagnóstico
+        print("No se encontró carpeta base con Dat e init.")
+        print("Rutas probadas:")
+        for p in probadas:
+            print(f" - {p}")
+        raise RuntimeError("No se encontró carpeta base con Dat e init")
+
+    CARPETA_BASE = find_base()
     CARPETA_DAT = os.path.join(CARPETA_BASE, "Dat")
     CARPETA_INIT = os.path.join(CARPETA_BASE, "init")
-    
+
     # Debug: Print paths to verify they're correct
     print(f"Script directory: {script_dir}")
     print(f"Base directory: {CARPETA_BASE}")
     print(f"Dat directory: {CARPETA_DAT}")
     print(f"Init directory: {CARPETA_INIT}")
-    
+
     # Check if directories exist
     if not os.path.exists(CARPETA_DAT):
         print(f"ERROR: Dat directory not found at {CARPETA_DAT}")
@@ -30,6 +101,7 @@ def main():
     if not os.path.exists(CARPETA_INIT):
         print(f"ERROR: Init directory not found at {CARPETA_INIT}")
         return
+
     IDIOMAS = ["sp", "en", "pt", "fr", "it"]
     ARCHIVOS_IDIOMA = {
         "msg": "LocalMsg.dat",
@@ -69,7 +141,7 @@ def main():
             "PielTigreBengala", "Proyectil", "Raices", "SemillasPros", "SKHerreria",
             "SKPociones", "SKSastreria", "Tuna", "Blodium","ElementalTags","FireEssence","WaterEssence",
             "EarthEssence", "WindEssence","Cala","RequiereObjeto", "RopajeElfa", "RopajeElfaOscura", "RopajeElfo",
-            "RopajeElfoOscuro", "RopajeEnana", "RopajeEnano", "RopajeGnoma", "RopajeGnomo", "RopajeHumana", "RopajeHumano",        "RopajeOrca",
+            "RopajeElfoOscuro", "RopajeEnana", "RopajeEnano", "RopajeGnoma", "RopajeGnomo", "RopajeHumana", "RopajeHumano", "RopajeOrca",
             "RopajeOrco"
         ],
         "QUE": [
