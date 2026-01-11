@@ -1,3 +1,10 @@
+This project has been deprecated in favour of a Python-based solution.  
+Index creation is now handled by the script available here:
+
+https://github.com/ao-org/Recursos/tree/master/tools
+
+----
+
 # Argentum Online Localindex.dat Creator
 
 "This program generates the file localindex.dat containing client-side texts to minimize server bandwidth usage."
